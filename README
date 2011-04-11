@@ -1,0 +1,13 @@
+Grab the repository:
+
+	git clone git://github.com/cloudartisan/dotfiles.git
+
+Switch to the dotfiles directory and fetch submodules:
+
+	cd dotfiles
+	git submodule init
+	git submodule update
+
+Run the rake task to install everything
+
+	rake install
