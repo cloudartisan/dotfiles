@@ -1,0 +1,45 @@
+#!/bin/sh
+
+export WORKING_DIR=${HOME}/Git/assistly/assistly
+cd $WORKING_DIR
+
+tmux start-server
+tmux new-session -d -s DESKPRODWEB -n work
+
+tmux new-window -tDESKPRODWEB:1 -n web1
+tmux new-window -tDESKPRODWEB:2 -n web2
+tmux new-window -tDESKPRODWEB:3 -n web3
+tmux new-window -tDESKPRODWEB:4 -n web4
+tmux new-window -tDESKPRODWEB:5 -n web5
+tmux new-window -tDESKPRODWEB:6 -n api1
+tmux new-window -tDESKPRODWEB:7 -n api2
+tmux new-window -tDESKPRODWEB:8 -n poll1
+tmux new-window -tDESKPRODWEB:9 -n poll2
+tmux new-window -tDESKPRODWEB:10 -n poll3
+tmux new-window -tDESKPRODWEB:11 -n poll4
+tmux new-window -tDESKPRODWEB:12 -n portalweb1
+tmux new-window -tDESKPRODWEB:13 -n portalweb2
+tmux new-window -tDESKPRODWEB:14 -n portalweb3
+tmux new-window -tDESKPRODWEB:15 -n backupweb1
+tmux new-window -tDESKPRODWEB:16 -n backupweb2
+
+tmux send-keys -tDESKPRODWEB:0 "cd $WORKING_DIR && git checkout master" C-m
+tmux send-keys -tDESKPRODWEB:1 "cd $WORKING_DIR && production_ssh_me_web1" C-m
+tmux send-keys -tDESKPRODWEB:2 "cd $WORKING_DIR && production_ssh_me_web2" C-m
+tmux send-keys -tDESKPRODWEB:3 "cd $WORKING_DIR && production_ssh_me_web3" C-m
+tmux send-keys -tDESKPRODWEB:4 "cd $WORKING_DIR && production_ssh_me_web4" C-m
+tmux send-keys -tDESKPRODWEB:5 "cd $WORKING_DIR && production_ssh_me_web5" C-m
+tmux send-keys -tDESKPRODWEB:6 "cd $WORKING_DIR && production_ssh_me_api1" C-m
+tmux send-keys -tDESKPRODWEB:7 "cd $WORKING_DIR && production_ssh_me_api2" C-m
+tmux send-keys -tDESKPRODWEB:8 "cd $WORKING_DIR && production_ssh_me_poll1" C-m
+tmux send-keys -tDESKPRODWEB:9 "cd $WORKING_DIR && production_ssh_me_poll2" C-m
+tmux send-keys -tDESKPRODWEB:10 "cd $WORKING_DIR && production_ssh_me_poll3" C-m
+tmux send-keys -tDESKPRODWEB:11 "cd $WORKING_DIR && production_ssh_me_poll4" C-m
+tmux send-keys -tDESKPRODWEB:12 "cd $WORKING_DIR && production_ssh_me_portalweb1" C-m
+tmux send-keys -tDESKPRODWEB:13 "cd $WORKING_DIR && production_ssh_me_portalweb2" C-m
+tmux send-keys -tDESKPRODWEB:14 "cd $WORKING_DIR && production_ssh_me_portalweb3" C-m
+tmux send-keys -tDESKPRODWEB:15 "cd $WORKING_DIR && production_ssh_me_backupweb1" C-m
+tmux send-keys -tDESKPRODWEB:16 "cd $WORKING_DIR && production_ssh_me_backupweb2" C-m
+
+tmux select-window -tDESKPRODWEB:0
+tmux attach-session -d -tDESKPRODWEB
