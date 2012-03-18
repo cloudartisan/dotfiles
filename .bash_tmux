@@ -1,0 +1,5 @@
+# Make sure we use 256 colours
+[ -n "$TMUX" ] && export TERM=screen-256color
+
+# Enable tmuxinator if it's installed
+[[ -s $HOME/.tmuxinator/scripts/tmuxinator ]] && source $HOME/.tmuxinator/scripts/tmuxinator
