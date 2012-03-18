@@ -1,0 +1,7 @@
+#ssh-add ~/.ssh/assistly/qa.pem
+#ssh-add ~/.ssh/assistly/staging.pem
+#ssh-add ~/.ssh/assistly/profiling.pem
+#ssh-add ~/.ssh/assistly/production.pem
+
+# Enable auto-completion for hosts I've previously SSH'd to
+complete -W "$(sed -e 's/^  *//' -e '/^#/d' -e 's/[, ].*//' -e '/\[/d' ~/.ssh/known_hosts | sort -u)" ssh
