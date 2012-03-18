@@ -1,0 +1,47 @@
+#!/usr/bin/env ruby
+# encoding: utf-8
+
+require 'redis/namespace'
+require 'base64'
+
+connection = Redis.new(:port => 6379)
+redis = Redis::Namespace.new(:redis_indexer, :redis => connection)
+
+sites = Hash.new
+redis.smembers("queues").each do |queue|
+	redis.llen(queue).to_i.times do |i|
+		s = redis.lindex(queue, i)
+		item = Marshal.load(Base64.decode64(s))
+		site_id = item[:json][:site_id]
+		sites[site_id] = {} unless sites.has_key? site_id
+		sites[site_id][queue] = 0 unless sites[site_id].has_key? queue
+		sites[site_id][queue] += 1
+	end
+end
+
+sites.each_pair do |site_id, queues|
+	queues.each_pair do |queue, count|
+		puts "site:#{site_id} #{queue}:#{count}"
+	end
+end
+
+
+#queue_count = 0
+#redis.llen("queue:ticket_customers").to_i.times do |i|
+  #s = redis.lindex("queue:ticket_customers", i)
+  #item = Marshal.load(Base64.decode64(s))
+  #queue_count += 1 if item[:json][:site_id] == ARGV[0].to_i
+  #puts "#{queue_count} queue:ticket_customers" if count % 100 == 0
+#end
+
+#backup_count = 0
+#redis.llen("backup:ticket_customers").to_i.times do |i|
+  #s = redis.lindex("backup:ticket_customers", i)
+  #item = Marshal.load(Base64.decode64(s))
+  #backup_count += 1 if item[:json][:site_id] == ARGV[0].to_i
+  #puts "#{backup_count} backup:ticket_customers" if count % 100 == 0
+#end
+
+#puts "#{queue_count} queue:ticket_customers"
+#puts "#{backup_count} backup:ticket_customers"
+#puts "#{queue_count + backup_count} total"
