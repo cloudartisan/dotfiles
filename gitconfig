@@ -1,5 +1,0 @@
-[user]
-	name = David Taylor
-	email = david@cloudartisan.com
-[core]
-	excludesfile = /home/david/.gitignore

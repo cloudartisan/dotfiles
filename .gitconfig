@@ -1,0 +1,17 @@
+[user]
+	name = David Taylor
+	email = david@cloudartisan.com
+[core]
+	excludesfile = /home/david/.gitignore
+[alias]
+	st = status -s
+[difftool "sourcetree"]
+	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+	path = 
+[mergetool "sourcetree"]
+	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+	trustExitCode = true
+[push]
+	default = tracking
+[merge]
+	summary = true
