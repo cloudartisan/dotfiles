@@ -1,0 +1,1 @@
+export RUBYLIB=$HOME/.puppet/modules/cloud_provisioner/lib:$RUBYLIB
