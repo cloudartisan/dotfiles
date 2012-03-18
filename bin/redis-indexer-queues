@@ -13,8 +13,8 @@ redis.smembers("queues").each do |queue|
 		s = redis.lindex(queue, i)
 		item = Marshal.load(Base64.decode64(s))
 		site_id = item[:json][:site_id]
-		sites[site_id] = {} unless sites.has_key? site_id
-		sites[site_id][queue] = 0 unless sites[site_id].has_key? queue
+		sites[site_id] ||= {}
+		sites[site_id][queue] ||= 0
 		sites[site_id][queue] += 1
 	end
 end
