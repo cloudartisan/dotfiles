@@ -1,0 +1,8 @@
+#!/bin/bash -x
+
+if [ -z "$1" ]; then
+    echo "Usage: subvertarz.sh <path>" 1>&2
+    exit 1
+fi
+
+tar -cz --exclude=.svn -f `basename $1`.tgz -C `dirname $1` $1
