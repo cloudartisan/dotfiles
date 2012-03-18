@@ -1,8 +1,11 @@
 [user]
 	name = David Taylor
 	email = david@cloudartisan.com
+[heroku]
+	account = d.l.taylor@salesforce.com
+	email = d.l.taylor@salesforce.com
 [core]
-	excludesfile = /home/david/.gitignore
+	excludesfile = ~/.gitignore
 [alias]
 	st = status -s
 [difftool "sourcetree"]
