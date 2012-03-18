@@ -1,0 +1,13 @@
+# Enable bash auto-completion magic
+if [ -x "`which brew`" ]; then
+	if [ -f `brew --prefix`/etc/bash_completion ]; then
+		. `brew --prefix`/etc/bash_completion
+	fi
+else
+	if [ -f /usr/local/etc/bash_completion.d ]; then
+		. /usr/local/etc/bash_completion.d
+	fi
+fi
+
+# Tab through completion matches
+#bind '"\t":menu-complete'
