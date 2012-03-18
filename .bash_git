@@ -1,0 +1,7 @@
+#
+# Git helpers
+#
+source ~/bin/git-branch.bash
+source ~/bin/git-completion.bash
+source ~/bin/git-repull-ship.bash
+
