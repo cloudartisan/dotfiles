@@ -9,7 +9,7 @@ redis = Redis::Namespace.new(:redis_indexer, :redis => connection)
 
 sites = Hash.new
 redis.smembers("queues").each do |queue|
-	redis.llen(queue).to_i.times do |i|
+	redis.llen("queue:#{queue}").to_i.times do |i|
 		s = redis.lindex(queue, i)
 		item = Marshal.load(Base64.decode64(s))
 		site_id = item[:json][:site_id]
@@ -24,24 +24,3 @@ sites.each_pair do |site_id, queues|
 		puts "site:#{site_id} #{queue}:#{count}"
 	end
 end
-
-
-#queue_count = 0
-#redis.llen("queue:ticket_customers").to_i.times do |i|
-  #s = redis.lindex("queue:ticket_customers", i)
-  #item = Marshal.load(Base64.decode64(s))
-  #queue_count += 1 if item[:json][:site_id] == ARGV[0].to_i
-  #puts "#{queue_count} queue:ticket_customers" if count % 100 == 0
-#end
-
-#backup_count = 0
-#redis.llen("backup:ticket_customers").to_i.times do |i|
-  #s = redis.lindex("backup:ticket_customers", i)
-  #item = Marshal.load(Base64.decode64(s))
-  #backup_count += 1 if item[:json][:site_id] == ARGV[0].to_i
-  #puts "#{backup_count} backup:ticket_customers" if count % 100 == 0
-#end
-
-#puts "#{queue_count} queue:ticket_customers"
-#puts "#{backup_count} backup:ticket_customers"
-#puts "#{queue_count + backup_count} total"
