@@ -1,0 +1,50 @@
+#!/bin/bash
+#
+# Pulls out PID + RSS + command information from 'ps' and uses it
+# to pull private dirty RSS values from /proc.  Sorts the output by
+# size, tacking on totals in different units at the end.
+#
+# NB: only works on Linux, not BSD variants.
+
+ps axo pid=,rss=,args= |
+  while read pid rss args; do
+    # No point looking if RSS is 0
+    [ $rss -eq 0 ] && continue
+    # Check for /proc/$pid/smaps
+    smapsfile=/proc/$pid/smaps
+    if [ ! -f "$smapsfile" ]; then
+      echo "No such file or directory: $smapsfile" >&2
+      continue
+    fi
+    # Grab the Private_Dirty values from /proc/$pid/smaps
+    priv_dirty_rss=$(
+      grep Private_Dirty "$smapsfile" |
+        awk '{ print $2 }' |
+        xargs ruby -e 'puts ARGV.inject { |i, j| i.to_i + j.to_i }'
+      )
+    echo "${priv_dirty_rss} ${rss} ${pid} ${args}";
+  done |
+    sort -n |
+      awk '
+
+BEGIN {
+  total = 0
+}
+
+{
+  if ($1 > 0) {
+    printf("%s ", $1)
+    for (i=2; i<=NF;i++) {
+      printf("%s ", $i)
+    }
+    total = total + $1 
+    printf("\n")
+  } 
+}
+
+END {
+  printf("\n")
+  printf("Total (KB): %s\n", total)
+  printf("Total (MB): %s\n", total / 1024)
+  printf("Total (GB): %s\n", total / 1024 / 1024) 
+}'

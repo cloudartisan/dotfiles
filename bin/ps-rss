@@ -1,0 +1,30 @@
+#!/bin/bash
+#
+# Pulls out RSS + PID + command information from 'ps' and sorts it
+# by size, tacking on totals in different units at the end.
+
+ps axo rss=,pid=,args= |
+  sort -n |
+  awk '
+
+BEGIN {
+  total = 0
+}
+
+{
+  if ($1 > 0) {
+    printf("%s ", $1)
+    for (i=2; i<=NF;i++) {
+      printf("%s ", $i)
+    }
+    total = total + $1 
+    printf("\n")
+  } 
+}
+
+END {
+  printf("\n")
+  printf("Total (KB): %s\n", total)
+  printf("Total (MB): %s\n", total / 1024)
+  printf("Total (GB): %s\n", total / 1024 / 1024) 
+}'
