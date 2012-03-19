@@ -5,3 +5,8 @@ source ~/bin/git-branch.bash
 source ~/bin/git-completion.bash
 source ~/bin/git-repull-ship.bash
 
+# Use hub as a git wrapper to make git more github-aware
+if [ ! -z "`which hub`" ] && [ -x "`which hub`" ]
+then
+  alias git=hub
+fi
