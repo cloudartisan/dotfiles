@@ -2,7 +2,7 @@
 # you can make as many tabs as you wish...
 
 project_name: myrecipeez
-project_root: ~/Git/cloudartisan/myrecipeez
+project_root: ~/git/cloudartisan/myrecipeez
 socket_name: 
 rvm: 1.9.2-p290@myrecipeez
 pre: 
