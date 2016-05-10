@@ -1,20 +1,56 @@
-[user]
-	name = David Taylor
-	email = david@cloudartisan.com
-[heroku]
-	account = d.l.taylor@salesforce.com
-	email = d.l.taylor@salesforce.com
-[core]
-	excludesfile = ~/.gitignore
+[gist]
+	browse = true
+	private = true
+[color]
+	branch = auto
+	diff = auto
+	status = auto
+[color "branch"]
+	current = yellow reverse
+	local = yellow
+	remote = green
+[color "diff"]
+	frag = magenta bold
+	meta = yellow bold
+	new = green bold
+	old = red bold
+[color "status"]
+	added = yellow
+	changed = green
+	untracked = cyan
 [alias]
-	st = status -s
-[difftool "sourcetree"]
-	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
-	path = 
-[mergetool "sourcetree"]
-	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
-	trustExitCode = true
+	bl = blame -C
+	co = checkout
+	cob = checkout -b
+	df = diff --word-diff
+	l1 = log --oneline --decorate
+	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+	st = status
+	stat = status
+	search = "log --all --pretty=oneline -S"
+	lol = "log --no-merges --graph --decorate --pretty=oneline --abbrev-commit"
+	up = !git fetch origin && rebase origin/master
+	ir = @git rebase -i origin/master
+	context = log -U0 -S
+	amend = commit --amend --no-edit
+[core]
+	excludesfile = /Users/d.l.taylor/.gitignore
+	quotepath = false
+	editor = vim
+	# Comma separated list of common whitespace problems to notice
+	whitespace = space-before-tab,tabwidth=2,trailing-space
+[diff]
+	# Whether to detect renames. If set to "copies" or "copy", it will detect copies as well.
+	renames = copy
+[branch]
+	autosetuprebase = always
+[help]
+	autocorrect = 0
 [push]
-	default = tracking
-[merge]
-	summary = true
+	default = simple
+[rerere]
+	# Activate recording of resolved conflicts, so that identical conflict hunks can be resolved automatically
+	enabled = 1
+[rebase]
+	# Whether to show a diffstat of what changed upstream since the last rebase
+	stat = true
