@@ -1,5 +1,0 @@
-# Add local Python install-scripts to the PATH, making sure they're
-# used before any system-wide executables
-export PATH=/usr/local/share/python:${PATH}
-
-[[ -s $HOME/.pythonbrew/etc/bashrc ]] && source $HOME/.pythonbrew/etc/bashrc
