@@ -1,1 +1,5 @@
-source `which activate.sh`
+# Uses autoenv, if not installed use "pip install autoenv"
+if [ ! -z "$(which activate.sh) ]
+then
+  source `which activate.sh`
+fi
