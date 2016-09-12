@@ -1,9 +1,13 @@
-#
 # Git helpers
-#
 source ~/bin/git-branch.bash
 source ~/bin/git-completion.bash
 source ~/bin/git-repull-ship.bash
+
+# Load the global .gitignore file
+if [ -f ~/.gitignore ]
+then
+  git config --global core.excludesfile $HOME/.gitignore
+fi
 
 # Use hub as a git wrapper to make git more github-aware
 if [ ! -z "`which hub`" ] && [ -x "`which hub`" ]
