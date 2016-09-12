@@ -1,5 +1,13 @@
-# Uses autoenv, if not installed use "pip install autoenv"
+# Uses virtualenvwrapper, install with "pip install virtualenvwrapper"
+if [ -f /usr/local/bin/virtualenvwrapper.sh ]
+then
+  export WORKON_HOME=$HOME/.virtualenvs
+  mkdir $WORKON_HOME
+  . /usr/local/bin/virtualenvwrapper.sh
+fi
+
+# Uses autoenv, install with "pip install autoenv"
 if [ ! -z "$(which activate.sh)" ]
 then
-  source `which activate.sh`
+  . `which activate.sh`
 fi
