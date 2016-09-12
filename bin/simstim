@@ -1,0 +1,5 @@
+#!/bin/sh
+
+wget -r -c -A.mp4,.avi,.wmv \              # recursively download all videos
+  --directory-prefix=$HOME/Downloads/ \    # to ~/Downloads from The Sprawl's
+  http://www.thesprawl.org/media/simstim/  # media/simstim folder
