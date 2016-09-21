@@ -11,6 +11,7 @@ export LSCOLORS=ExFxCxDxBxegedabagacad
 . ${HOME}/.bash_tmux
 . ${HOME}/.bash_python
 . ${HOME}/.bash_rvm
+. ${HOME}/.bash_vim
 
 # Add local binaries to the PATH
 export PATH=${HOME}/bin:${PATH}
