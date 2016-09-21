@@ -1,6 +1,6 @@
 # Colour in the CLI and when listing files/directories
 export CLICOLOR=1
-export LSCOLORS=ExFxCxDxBxegedabagacad
+export LSCOLORS=gxfxbEaEBxxEhEhBaDaCaD
 
 . ${HOME}/.bash_functions
 . ${HOME}/.bash_autocomplete
