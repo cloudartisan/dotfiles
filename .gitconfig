@@ -55,6 +55,3 @@
 [rebase]
 	# Whether to show a diffstat of what changed upstream since the last rebase
 	stat = true
-[user]
-  name = cloudartisan
-  email = david@cloudartisan.com
