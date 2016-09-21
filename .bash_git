@@ -14,3 +14,7 @@ if [ ! -z "`which hub`" ] && [ -x "`which hub`" ]
 then
   alias git=hub
 fi
+
+# Alias git to g and autocomplete for g as well
+alias g=git
+complete -o default -o nospace -F _git g

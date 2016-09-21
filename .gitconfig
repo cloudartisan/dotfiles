@@ -44,6 +44,7 @@
 	renames = copy
 [branch]
 	autosetuprebase = always
+	autosetupmerge = true
 [help]
 	autocorrect = 0
 [push]
