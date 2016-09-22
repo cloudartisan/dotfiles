@@ -4,4 +4,5 @@ if [[ -f '/usr/local/bin/vim' ]]
 then
   alias vim='/usr/local/bin/vim'
   alias vi='/usr/local/bin/vim'
+  alias v='/usr/local/bin/vim'
 fi
