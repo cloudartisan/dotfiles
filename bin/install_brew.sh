@@ -20,6 +20,7 @@ brew install awscli
 brew install terraform
 
 brew cask
+brew cask install iterm2
 brew cask install google-chrome
 
 # Remove outdated versions from the cellar.
