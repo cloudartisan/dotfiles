@@ -1,10 +1,14 @@
 #!/bin/sh
 
+# Latest Python and some other build tools
+brew install python
+brew install automake
 brew install cmake
 
+# Install vim from source to make sure it compiles against brewed Python
 brew install vim
 brew install tmux
 
-# Can't be a cloudartisan without my cloud hammers
+# Can't be a cloudartisan without my cloud hammers :-)
 brew install awscli
 brew install terraform
