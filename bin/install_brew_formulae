@@ -1,5 +1,7 @@
 #!/bin/sh
 
+brew install cmake
+
 brew install vim
 brew install tmux
 
