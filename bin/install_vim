@@ -1,0 +1,4 @@
+#!/bin/sh
+
+vim "+PluginInstall" "+qall"
+vim "+PromptlineSnapshot! ${HOME}/.bash_promptline_airline airline" "+qall"
