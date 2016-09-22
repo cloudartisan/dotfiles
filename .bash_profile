@@ -1,3 +1,6 @@
+# Add local binaries to the PATH
+export PATH=${HOME}/bin:${PATH}
+
 # Colour in the CLI and when listing files/directories
 export CLICOLOR=1
 export LSCOLORS=gxfxbEaEBxxEhEhBaDaCaD
@@ -13,5 +16,7 @@ export LSCOLORS=gxfxbEaEBxxEhEhBaDaCaD
 . ${HOME}/.bash_rvm
 . ${HOME}/.bash_vim
 
-# Add local binaries to the PATH
-export PATH=${HOME}/bin:${PATH}
+if [[ "${TERM_PROGRAM}" = "iTerm.app" ]] && [[ "${HOME}/.iterm2_shell_integration.bash" ]]
+then
+  . ${HOME}/.iterm2_shell_integration.bash
+fi
