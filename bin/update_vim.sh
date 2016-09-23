@@ -1,5 +1,7 @@
 #!/bin/sh
 
+# Remove unused plugins and install latest
+vim "+PluginClean!" "+qall"
 vim "+PluginInstall!" "+qall"
 
 # Snapshot bash prompt settings for reuse
