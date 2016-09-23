@@ -18,3 +18,7 @@ fi
 # Alias git to g and autocomplete for g as well
 alias g=git
 complete -o default -o nospace -F _git g
+
+# Aliases for configuring work/personal repos
+alias gitwork="git config user.email david.taylor@desk.com"
+alias gitme="git config user.email david@cloudartisan.com"
