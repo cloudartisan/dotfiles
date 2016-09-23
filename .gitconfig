@@ -1,44 +1,48 @@
 [gist]
-	browse = true
-	private = true
+  browse = true
+  private = true
 [color]
-	branch = auto
-	diff = auto
-	status = auto
+  branch = auto
+  diff = auto
+  status = auto
 [alias]
-	bl = blame -C
-	co = checkout
-	cob = checkout -b
-	df = diff --word-diff
-	l1 = log --oneline --decorate
-	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
-	st = status
-	stat = status
-	search = "log --all --pretty=oneline -S"
-	lol = "log --no-merges --graph --decorate --pretty=oneline --abbrev-commit"
-	up = !git fetch origin && rebase origin/master
-	ir = @git rebase -i origin/master
-	context = log -U0 -S
-	amend = commit --amend --no-edit
+  bl = blame -C
+  co = checkout
+  cob = checkout -b
+  df = diff --word-diff
+  l1 = log --oneline --decorate
+  lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+  st = status
+  stat = status
+  search = "log --all --pretty=oneline -S"
+  lol = "log --no-merges --graph --decorate --pretty=oneline --abbrev-commit"
+  up = !git fetch origin && rebase origin/master
+  ir = @git rebase -i origin/master
+  context = log -U0 -S
+  amend = commit --amend --no-edit
 [core]
-	excludesfile = /Users/d.l.taylor/.gitignore
-	quotepath = false
-	editor = vim
-	# Comma separated list of common whitespace problems to notice
-	whitespace = space-before-tab,tabwidth=2,trailing-space
+  excludesfile = /Users/d.l.taylor/.gitignore
+  quotepath = false
+  editor = vim
+  # Comma separated list of common whitespace problems to notice
+  whitespace = space-before-tab,tabwidth=2,trailing-space
 [diff]
-	# Whether to detect renames. If set to "copies" or "copy", it will detect copies as well.
-	renames = copy
+  # Whether to detect renames. If set to "copies" or "copy", it will detect copies as well.
+  renames = copy
 [branch]
-	autosetuprebase = always
-	autosetupmerge = true
+  autosetuprebase = always
+  autosetupmerge = true
 [help]
-	autocorrect = 0
+  autocorrect = 0
 [push]
-	default = simple
+  default = simple
 [rerere]
-	# Activate recording of resolved conflicts, so that identical conflict hunks can be resolved automatically
-	enabled = 1
+  # Activate recording of resolved conflicts, so that identical conflict hunks can be resolved automatically
+  enabled = 1
 [rebase]
-	# Whether to show a diffstat of what changed upstream since the last rebase
-	stat = true
+  # Whether to show a diffstat of what changed upstream since the last rebase
+  stat = true
+[user]
+  name = David Taylor
+  # Set for each project to deal with multiple github accounts
+  email =
