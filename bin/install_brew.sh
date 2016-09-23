@@ -1,9 +1,13 @@
 #!/bin/sh
 
-# Make sure we’re using the latest Homebrew.
+# Add casks and fonts
+brew tap caskroom/cask
+brew tap caskroom/fonts
+
+# Make sure we’re using the latest Homebrew
 brew update
 
-# Upgrade any already-installed formulae.
+# Upgrade any already-installed formulae
 brew upgrade --all
 
 # Latest Python and some other build tools
@@ -20,13 +24,12 @@ brew install awscli
 brew install terraform
 
 # Frequently used applications
-brew tap caskroom/cask
-brew cask
 brew cask install iterm2
 brew cask install google-chrome
 brew cask install google-drive
 brew cask install amazon-drive
 brew cask install synology-cloud-station-drive
+brew cask install keybase
 brew cask install lastpass
 brew cask install screenhero
 brew cask install slack
@@ -34,5 +37,20 @@ brew cask install kindle
 brew cask install send-to-kindle
 brew cask install minecraft
 
-# Remove outdated versions from the cellar.
+# Nice clean font for development
+brew cask install font-inconsolata-dz
+brew cask install font-inconsolata-dz-for-powerline
+
+# Command line efficiencies
+brew install bash-completion
+brew install homebrew/completions/brew-cask-completion
+brew install homebrew/completions/bundler-completion
+brew install homebrew/completions/cap-completion
+brew install homebrew/completions/django-completion
+brew install homebrew/completions/docker-completion
+brew install homebrew/completions/fabric-completion
+brew install homebrew/completions/pip-completion
+brew install homebrew/completions/vagrant-completion
+
+# Remove cached downloads and outdated versions
 brew cleanup
