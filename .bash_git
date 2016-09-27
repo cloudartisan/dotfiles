@@ -20,5 +20,5 @@ alias g=git
 complete -o default -o nospace -F _git g
 
 # Aliases for configuring work/personal repos
-alias gitwork="git config user.email david.taylor@desk.com"
-alias gitme="git config user.email david@cloudartisan.com"
+alias gitwork="git config user.email david.taylor@desk.com; git config user.name dtaylor-desk"
+alias gitme="git config user.email david@cloudartisan.com; git config user.name cloudartisan"
