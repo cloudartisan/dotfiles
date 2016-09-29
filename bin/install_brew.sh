@@ -17,6 +17,7 @@ brew install cmake
 
 # Some essential command-line tools
 brew install unrar
+brew install tree
 
 # Install vim from source to make sure it compiles against brewed Python
 brew install vim --with-override-system-vi
