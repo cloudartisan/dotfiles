@@ -16,6 +16,9 @@ export LSCOLORS=gxfxbEaEBxxEhEhBaDaCaD
 . ${HOME}/.bash_rvm
 . ${HOME}/.bash_vim
 
+# Load any local stuff (i.e., not checked-in to the dotfiles repo)
+[[ -f ${HOME}/.bash_local ]] && . ${HOME}/.bash_local
+
 if [[ "${TERM_PROGRAM}" = "iTerm.app" ]] && [[ "${HOME}/.iterm2_shell_integration.bash" ]]
 then
   . ${HOME}/.iterm2_shell_integration.bash
