@@ -12,8 +12,9 @@ brew upgrade --all
 
 # Latest Python and some other build tools
 brew install python
-brew install automake
 brew install cmake
+brew install automake
+brew install autoenv
 
 # Some essential command-line tools
 brew install unrar
