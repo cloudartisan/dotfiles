@@ -6,7 +6,7 @@ then
   . /usr/local/bin/virtualenvwrapper.sh
 fi
 
-# Uses autoenv, install with "pip install autoenv"
+# Uses autoenv, install with "pip install autoenv" or "brew install autoenv"
 if [ ! -z "$(which activate.sh)" ]
 then
   . `which activate.sh`
