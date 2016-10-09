@@ -10,4 +10,7 @@ fi
 if [ ! -z "$(which activate.sh)" ]
 then
   . `which activate.sh`
+elif [ -f '/usr/local/opt/autoenv/activate.sh' ]
+then
+  . /usr/local/opt/autoenv/activate.sh
 fi
