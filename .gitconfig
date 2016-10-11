@@ -21,7 +21,7 @@
   context = log -U0 -S
   amend = commit --amend --no-edit
 [core]
-  excludesfile = /Users/d.l.taylor/.gitignore
+  excludesfile = ~/.gitignore
   quotepath = false
   editor = vim
   # Comma separated list of common whitespace problems to notice
