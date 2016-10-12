@@ -16,6 +16,9 @@ brew install cmake
 brew install automake
 brew install autoenv
 
+# Common libraries
+brew install jpeg
+
 # Some essential command-line tools
 brew install unrar
 brew install tree
