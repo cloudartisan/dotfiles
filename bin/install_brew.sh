@@ -10,8 +10,14 @@ brew update
 # Upgrade any already-installed formulae
 brew upgrade --all
 
-# Latest Python and some other build tools
+# Python
 brew install python
+
+# Java (ugh)
+brew tap pivotal/tap
+brew install springboot
+
+# Build tools
 brew install cmake
 brew install automake
 brew install autoenv
