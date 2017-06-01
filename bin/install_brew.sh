@@ -13,9 +13,11 @@ brew upgrade --all
 # Python
 brew install python
 
-# Java (ugh)
+# Maven/Java/Groovy (ugh)
 brew tap pivotal/tap
 brew install springboot
+brew install maven
+brew install groovy
 
 # Build tools
 brew install cmake
