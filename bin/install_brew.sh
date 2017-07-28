@@ -28,8 +28,9 @@ brew install autoenv
 brew install jpeg
 
 # Some essential command-line tools
-brew install unrar
+brew install jq
 brew install tree
+brew install unrar
 
 # Install vim from source to make sure it compiles against brewed Python
 brew install vim --with-override-system-vi
