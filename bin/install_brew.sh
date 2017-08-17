@@ -24,6 +24,10 @@ brew install cmake
 brew install automake
 brew install autoenv
 
+# Configuration tools
+brew install ansible
+brew install ansible-lint
+
 # Common libraries
 brew install jpeg
 
