@@ -33,6 +33,7 @@ brew install ansible-lint
 
 # Common libraries
 brew install jpeg
+brew install ffmpeg
 
 # Some essential command-line tools
 brew install jq
