@@ -1,0 +1,5 @@
+if [ -d /usr/local/CrossPack-AVR/ ]; then
+    export PATH=/usr/local/CrossPack-AVR/bin:$PATH
+    export MANPATH=/usr/local/CrossPack-AVR/man:$MANPATH
+    export C_INCLUDE_PATH=/usr/local/CrossPack-AVR/include:$C_INCLUDE_PATH
+fi
