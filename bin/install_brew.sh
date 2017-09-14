@@ -1,5 +1,7 @@
 #!/bin/sh
 
+/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+
 # Add casks and fonts
 brew tap caskroom/cask
 brew tap caskroom/fonts
@@ -23,6 +25,7 @@ brew install groovy
 brew install cmake
 brew install automake
 brew install autoenv
+brew install direnv
 
 # Configuration tools
 brew install ansible
@@ -43,6 +46,7 @@ brew install tmux
 # Can't be a cloudartisan without my cloud hammers :-)
 brew install awscli
 brew install terraform
+brew install kubectl
 
 # Frequently used applications
 brew cask install iterm2
