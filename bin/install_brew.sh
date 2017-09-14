@@ -48,25 +48,38 @@ brew install awscli
 brew install terraform
 brew install kubectl
 
-# Frequently used applications
-brew cask install iterm2
-brew cask install google-chrome
-brew cask install google-drive
-brew cask install amazon-drive
-brew cask install synology-cloud-station-drive
-brew cask install keybase
-brew cask install lastpass
-brew cask install screenhero
-brew cask install slack
-brew cask install vagrant
-brew cask install virtualbox
-brew cask install kindle
-brew cask install send-to-kindle
-brew cask install minecraft
-
 # Nice clean font for development
 brew cask install font-inconsolata-dz
 brew cask install font-inconsolata-dz-for-powerline
+
+# Frequently used applications
+brew cask install iterm2
+brew cask install google-chrome
+
+# Share ALL the files
+brew cask install google-drive
+brew cask install amazon-drive
+brew cask install odrive
+brew cask install synology-cloud-station-drive
+
+# Password/security
+brew cask install keybase
+brew cask install lastpass
+
+# Collaboration
+brew cask install screenhero
+brew cask install slack
+
+# Virtualisation
+brew cask install docker
+brew cask install vagrant
+brew cask install virtualbox
+
+# Some fun
+brew cask install kindle
+brew cask install send-to-kindle
+brew cask install minecraft
+brew cask install vlc
 
 # Command line efficiencies
 brew install bash-completion
