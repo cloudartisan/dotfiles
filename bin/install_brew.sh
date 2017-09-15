@@ -38,6 +38,7 @@ brew install jpeg
 brew install jq
 brew install tree
 brew install unrar
+brew install wget
 
 # Install vim from source to make sure it compiles against brewed Python
 brew install vim --with-override-system-vi
