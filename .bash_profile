@@ -9,13 +9,14 @@ export LSCOLORS=gxfxbEaEBxxEhEhBaDaCaD
 . ${HOME}/.bash_autocomplete
 . ${HOME}/.bash_ssh
 . ${HOME}/.bash_git
-. ${HOME}/.bash_homebrew
-. ${HOME}/.bash_aws
+. ${HOME}/.bash_vim
 . ${HOME}/.bash_tmux
 . ${HOME}/.bash_python
+. ${HOME}/.bash_homebrew
 . ${HOME}/.bash_rvm
-. ${HOME}/.bash_vim
 . ${HOME}/.bash_direnv
+. ${HOME}/.bash_aws
+. ${HOME}/.bash_gcloud
 
 # Load any local stuff (i.e., not checked-in to the dotfiles repo)
 [[ -f ${HOME}/.bash_local ]] && . ${HOME}/.bash_local

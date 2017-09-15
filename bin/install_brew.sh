@@ -45,6 +45,7 @@ brew install tmux
 
 # Can't be a cloudartisan without my cloud hammers :-)
 brew install awscli
+brew cask install google-cloud-sdk
 brew install terraform
 brew install kubectl
 
