@@ -1,5 +1,22 @@
 #!/bin/sh
 
+
+mkdir -p ${HOME}/.vim
+curl -Lso - https://github.com/cloudartisan/dotvim/tarball/master \
+    | tar --strip-components 1 -C $HOME/.vim -zvxf -
+
+ln -sf ${HOME}/.vim/vimrc ${HOME}/.vimrc
+ln -sf ${HOME}/.vim/vimrc ${HOME}/.gvimrc
+
+cd ${HOME}/.vim
+git init
+git submodule init
+git submodule add https://github.com/VundleVim/Vundle.vim.git bundle/Vundle.vim/
+git submodule update
+
+alias vim=/usr/local/bin/vim
+alias vi=/usr/local/bin/vim
+
 # Remove unused plugins and install any missing plugins
 vim "+PluginClean!" "+qall"
 vim "+PluginInstall" "+qall"
@@ -17,10 +34,10 @@ then
 fi
 
 # Compile YouCompleteMe if it's installed but not yet compiled
-if [[ -d $HOME/.vim/bundle/YouCompleteMe ]]
+if [[ -d ${HOME}/.vim/bundle/YouCompleteMe ]]
 then
-  if [[ ! -e $HOME/.vim/bundle/YouCompleteMe/third_party/ycmd/ycm_core.so ]]
+  if [[ ! -e ${HOME}/.vim/bundle/YouCompleteMe/third_party/ycmd/ycm_core.so ]]
   then
-    $HOME/.vim/bundle/YouCompleteMe/install.py --clang-completer
+    ${HOME}/.vim/bundle/YouCompleteMe/install.py --clang-completer
   fi
 fi
