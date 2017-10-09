@@ -42,6 +42,7 @@ brew install tmux
 
 # Can't be a cloudartisan without my cloud hammers :-)
 brew install awscli
+brew install heroku
 brew install terraform
 
 # Frequently used applications
