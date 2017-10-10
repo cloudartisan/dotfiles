@@ -72,6 +72,7 @@ brew cask install lastpass
 # Collaboration
 brew cask install screenhero
 brew cask install slack
+brew cask install telegram
 
 # Virtualisation
 brew cask install docker
