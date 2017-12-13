@@ -13,6 +13,7 @@ export LSCOLORS=gxfxbEaEBxxEhEhBaDaCaD
 . ${HOME}/.bash_tmux
 . ${HOME}/.bash_python
 . ${HOME}/.bash_homebrew
+. ${HOME}/.bash_rbenv
 . ${HOME}/.bash_rvm
 . ${HOME}/.bash_direnv
 . ${HOME}/.bash_aws
