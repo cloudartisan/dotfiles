@@ -38,6 +38,7 @@ brew install ffmpeg
 # Some essential command-line tools
 brew install jq
 brew install tree
+brew install watch
 brew install unrar
 brew install wget
 
