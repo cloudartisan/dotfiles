@@ -23,6 +23,7 @@ export LSCOLORS=gxfxbEaEBxxEhEhBaDaCaD
 
 . ${HOME}/.bash_aws
 . ${HOME}/.bash_gcloud
+. ${HOME}/.bash_linode
 
 # Load any local stuff (i.e., not checked-in to the dotfiles repo)
 [[ -f ${HOME}/.bash_local ]] && . ${HOME}/.bash_local
