@@ -12,6 +12,10 @@ brew update
 # Upgrade any already-installed formulae
 brew upgrade --all
 
+# Development tools
+brew install gist
+brew install hub
+
 # Python
 brew install python
 
