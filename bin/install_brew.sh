@@ -57,6 +57,9 @@ brew install heroku
 brew install terraform
 brew install kubectl
 
+# Networking
+brew install speedtest-cli
+
 # Nice clean font for development
 brew cask install font-inconsolata-dz
 brew cask install font-inconsolata-dz-for-powerline
