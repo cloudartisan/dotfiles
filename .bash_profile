@@ -11,10 +11,10 @@ export LSCOLORS=gxfxbEaEBxxEhEhBaDaCaD
 . ${HOME}/.bash_direnv
 . ${HOME}/.bash_homebrew
 
-. ${HOME}/.bash_ssh
-. ${HOME}/.bash_git
 . ${HOME}/.bash_tmux
+. ${HOME}/.bash_git
 . ${HOME}/.bash_vim
+. ${HOME}/.bash_ssh
 
 . ${HOME}/.bash_go
 . ${HOME}/.bash_python
