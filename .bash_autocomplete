@@ -10,4 +10,4 @@ else
 fi
 
 # Tab through completion matches
-#bind '"\t":menu-complete'
+bind '"\t":menu-complete'
