@@ -5,17 +5,22 @@ export PATH=${HOME}/bin:${PATH}
 export CLICOLOR=1
 export LSCOLORS=gxfxbEaEBxxEhEhBaDaCaD
 
+. ${HOME}/.bash_aliases
 . ${HOME}/.bash_functions
 . ${HOME}/.bash_autocomplete
+. ${HOME}/.bash_direnv
+. ${HOME}/.bash_homebrew
+
 . ${HOME}/.bash_ssh
 . ${HOME}/.bash_git
-. ${HOME}/.bash_vim
 . ${HOME}/.bash_tmux
+. ${HOME}/.bash_vim
+
+. ${HOME}/.bash_go
 . ${HOME}/.bash_python
-. ${HOME}/.bash_homebrew
 . ${HOME}/.bash_rbenv
 . ${HOME}/.bash_rvm
-. ${HOME}/.bash_direnv
+
 . ${HOME}/.bash_aws
 . ${HOME}/.bash_gcloud
 
