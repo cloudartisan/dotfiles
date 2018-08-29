@@ -58,6 +58,7 @@ brew install terraform
 brew install kubectl
 
 # Networking
+brew cask install ngrok
 brew install speedtest-cli
 
 # Nice clean font for development
