@@ -1,110 +1,121 @@
 #!/bin/sh
 
-/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+# Install a formula only if it is not already installed
+brew_install() {
+  FORMULA=$1
+  brew list $FORMULA >/dev/null || brew install $FORMULA
+}
+
+# Install a cask formula only if it is not already installed
+brew_cask_install() {
+  FORMULA=$1
+  brew cask list $FORMULA >/dev/null || brew cask install $FORMULA
+}
+
+# Install brew if it is not already installed
+command -v brew >/dev/null 2>&1 || \
+  /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+
+# Make sure we’re using the latest Homebrew
+brew update
 
 # Add casks and fonts
 brew tap caskroom/cask
 brew tap caskroom/fonts
 
-# Make sure we’re using the latest Homebrew
-brew update
-
-# Upgrade any already-installed formulae
-brew upgrade --all
-
 # Development tools
-brew install gist
-brew install hub
+brew_install gist
+brew_install hub
 
 # Python
-brew install python
+brew_install python
 
 # Maven/Java/Groovy (ugh)
 brew tap pivotal/tap
-brew install springboot
-brew install maven
-brew install groovy
+brew_install springboot
+brew_install maven
+brew_install groovy
 
 # Build tools
-brew install cmake
-brew install automake
-brew install autoenv
-brew install direnv
+brew_install cmake
+brew_install automake
+brew_install autoenv
+brew_install direnv
 
 # Configuration tools
-brew install ansible
-brew install ansible-lint
+brew_install ansible
+brew_install ansible-lint
 
 # Common libraries
-brew install jpeg
-brew install ffmpeg
+brew_install jpeg
+brew_install ffmpeg
 
 # Some essential command-line tools
-brew install jq
-brew install tree
-brew install watch
-brew install unrar
-brew install wget
+brew_install jq
+brew_install tree
+brew_install watch
+brew_install unrar
+brew_install wget
 
 # Install vim from source to make sure it compiles against brewed Python
-brew install vim --with-override-system-vi
-brew install tmux
+brew_install vim --with-override-system-vi
+brew_install tmux
 
 # Can't be a cloudartisan without my cloud hammers :-)
-brew install awscli
-brew cask install google-cloud-sdk
-brew install heroku
-brew install terraform
-brew install kubectl
+brew_install awscli
+brew_cask_install google-cloud-sdk
+brew_install heroku
+brew_install terraform
+brew_install kubectl
 
 # Networking
-brew cask install ngrok
-brew install speedtest-cli
+brew_cask_install ngrok
+brew_install speedtest-cli
 
 # Nice clean font for development
-brew cask install font-inconsolata-dz
-brew cask install font-inconsolata-dz-for-powerline
+brew_cask_install font-inconsolata-dz
+brew_cask_install font-inconsolata-dz-for-powerline
 
 # Frequently used applications
-brew cask install iterm2
-brew cask install google-chrome
+brew_cask_install iterm2
+brew_cask_install google-chrome
 
 # Share ALL the files
-brew cask install google-drive
-brew cask install amazon-drive
-brew cask install odrive
-brew cask install synology-cloud-station-drive
+brew_cask_install google-drive
+brew_cask_install amazon-drive
+brew_cask_install odrive
+brew_cask_install synology-cloud-station-drive
 
 # Password/security
-brew cask install keybase
-brew cask install lastpass
+brew_cask_install keybase
+brew_cask_install lastpass
 
 # Collaboration
-brew cask install screenhero
-brew cask install slack
-brew cask install telegram
+brew_cask_install screenhero
+brew_cask_install slack
+brew_cask_install telegram
 
 # Virtualisation
-brew cask install docker
-brew cask install vagrant
-brew cask install virtualbox
+brew_cask_install docker
+brew_cask_install vagrant
+brew_cask_install virtualbox
 
 # Some fun
-brew cask install kindle
-brew cask install send-to-kindle
-brew cask install minecraft
-brew cask install vlc
+brew_cask_install kindle
+brew_cask_install send-to-kindle
+brew_cask_install minecraft
+brew_cask_install vlc
 
 # Command line efficiencies
-brew install bash-completion
-brew install homebrew/completions/brew-cask-completion
-brew install homebrew/completions/bundler-completion
-brew install homebrew/completions/cap-completion
-brew install homebrew/completions/django-completion
-brew install homebrew/completions/docker-completion
-brew install homebrew/completions/fabric-completion
-brew install homebrew/completions/pip-completion
-brew install homebrew/completions/vagrant-completion
+brew_install bash-completion
+brew_install homebrew/completions/brew-cask-completion
+brew_install homebrew/completions/bundler-completion
+brew_install homebrew/completions/cap-completion
+brew_install homebrew/completions/django-completion
+brew_install homebrew/completions/docker-completion
+brew_install homebrew/completions/fabric-completion
+brew_install homebrew/completions/pip-completion
+brew_install homebrew/completions/vagrant-completion
 
 # Remove cached downloads and outdated versions
 brew cleanup
