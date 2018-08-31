@@ -27,6 +27,11 @@ ssh() {
   __tm_command ssh "$@"
 }
 
+# Handy tmux aliases
+alias tma="tmux attach-session -t"
+alias tmk="tmux kill-session -t"
+alias tmls="tmux list-sessions"
+
 # Make sure we use 256 colours
 [ -n "$TMUX" ] && export TERM=screen-256color
 
