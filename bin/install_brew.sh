@@ -26,6 +26,7 @@ brew tap caskroom/fonts
 # Development tools
 brew_install gist
 brew_install hub
+brew_install pre-commit
 
 # Python
 brew_install python
@@ -66,6 +67,7 @@ brew_install awscli
 brew_cask_install google-cloud-sdk
 brew_install heroku
 brew_install terraform
+brew_install terraform-docs
 brew_install kubectl
 
 # Networking
