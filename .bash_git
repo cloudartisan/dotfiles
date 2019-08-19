@@ -22,4 +22,4 @@ complete -o default -o nospace -F _git g
 # Aliases for configuring work/personal repos
 alias gitme="git config user.email david@cloudartisan.com; git config user.name cloudartisan"
 alias gitdesk="git config user.email david.taylor@desk.com; git config user.name dtaylor-desk"
-alias gitsfdc="git config user.email d.l.taylor@salesforce.com; git config user.name d-l-taylor"
+alias gitsfdc="git config user.email d.l.taylor@salesforce.com; git config user.name d-l-taylor; git config --global user.signingkey 449F9A0AFAC505592FEFB7EA8F53FA22DC77696C; git config --global commit.gpgsign true; git config --global push.gpgsign if-asked; git config --global gpg.program $(which gpg)"
