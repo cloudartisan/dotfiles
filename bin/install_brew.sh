@@ -66,9 +66,11 @@ brew_install tmux
 brew_install awscli
 brew_cask_install google-cloud-sdk
 brew_install heroku
-brew_install terraform
-brew_install terraform-docs
 brew_install kubectl
+
+# Use tfswitch to manage multiple versions of terraform
+brew unlink terraform
+brew_install warrensbox/tap/tfswitch
 
 # Networking
 brew_cask_install ngrok
