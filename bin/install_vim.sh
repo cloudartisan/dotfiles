@@ -41,3 +41,5 @@ then
     ${HOME}/.vim/bundle/YouCompleteMe/install.py --clang-completer
   fi
 fi
+
+vim "+GoInstallBinaries" "+qall"
