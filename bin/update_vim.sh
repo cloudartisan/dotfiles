@@ -14,3 +14,5 @@ vim "+TmuxlineSnapshot! ${HOME}/.tmux_tmuxline.conf" "+qall"
 if [[ -d $HOME/.vim/bundle/YouCompleteMe ]]; then
   $HOME/.vim/bundle/YouCompleteMe/install.py --clang-completer
 fi
+
+vim "+GoInstallBinaries" "+qall"
