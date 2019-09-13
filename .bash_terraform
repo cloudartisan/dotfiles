@@ -1,4 +1,4 @@
-func cd_tfswitch() {
+function cd_tfswitch() {
   builtin cd "$@"
   cdir=$PWD
   if [ -f "$cdir/.tfswitchrc" ]; then
