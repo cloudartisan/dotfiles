@@ -95,7 +95,6 @@ brew_cask_install keybase
 brew_cask_install lastpass
 
 # Collaboration
-brew_cask_install screenhero
 brew_cask_install slack
 brew_cask_install telegram
 
