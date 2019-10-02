@@ -85,7 +85,7 @@ brew_cask_install iterm2
 brew_cask_install google-chrome
 
 # Share ALL the files
-brew_cask_install google-drive
+brew_cask_install google-drive-file-stream
 brew_cask_install amazon-drive
 brew_cask_install odrive
 brew_cask_install synology-cloud-station-drive
