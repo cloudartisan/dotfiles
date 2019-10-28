@@ -20,8 +20,8 @@ command -v brew >/dev/null 2>&1 || \
 brew update
 
 # Add casks and fonts
-brew tap caskroom/cask
-brew tap caskroom/fonts
+brew tap homebrew/cask-cask
+brew tap homebrew/cask-fonts
 
 # Development tools
 brew_install gist
