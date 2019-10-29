@@ -66,6 +66,7 @@ brew_install tmux
 # Can't be a cloudartisan without my cloud hammers :-)
 brew_install awscli
 brew_cask_install google-cloud-sdk
+brew tap heroku/brew
 brew_install heroku
 brew_install kubectl
 
