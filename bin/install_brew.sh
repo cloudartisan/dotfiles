@@ -27,6 +27,7 @@ brew tap homebrew/cask-fonts
 brew_install gist
 brew_install hub
 brew_cask_install intellij-idea
+brew_cask_install postman
 brew_install pre-commit
 
 # Python
