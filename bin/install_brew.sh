@@ -31,7 +31,7 @@ brew_cask_install postman
 brew_install pre-commit
 
 # Python
-brew_install pyenv && pyenv install 3.8.1
+brew_install pyenv && pyenv install 3.8.1 && pyenv global 3.8.1
 
 # Maven/Java/Groovy (ugh)
 brew tap pivotal/tap
