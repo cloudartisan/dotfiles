@@ -20,7 +20,6 @@ export LSCOLORS=gxfxbEaEBxxEhEhBaDaCaD
 . ${HOME}/.bash_go
 . ${HOME}/.bash_python
 . ${HOME}/.bash_rbenv
-. ${HOME}/.bash_rvm
 
 . ${HOME}/.bash_aws
 . ${HOME}/.bash_gcloud
