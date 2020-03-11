@@ -2,21 +2,3 @@ if command -v pyenv 1>/dev/null 2>&1
 then
   eval "$(pyenv init -)"
 fi
-
-# Uses virtualenvwrapper, install with "pip install virtualenvwrapper"
-if [ -f /usr/local/bin/virtualenvwrapper.sh ]
-then
-  export WORKON_HOME=$HOME/.virtualenvs
-  mkdir -p $WORKON_HOME
-  . /usr/local/bin/virtualenvwrapper.sh
-fi
-
-# Uses autoenv, install with "pip install autoenv" or "brew install autoenv"
-# FIXME currently broken, see https://github.com/inishchith/autoenv/issues/188
-#if [ ! -z "$(which activate.sh)" ]
-#then
-  #. `which activate.sh`
-#elif [ -f '/usr/local/opt/autoenv/activate.sh' ]
-#then
-  #. /usr/local/opt/autoenv/activate.sh
-#fi
