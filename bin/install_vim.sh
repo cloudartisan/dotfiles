@@ -12,7 +12,7 @@ cd ${HOME}/.vim
 git init
 git submodule init
 git submodule add https://github.com/VundleVim/Vundle.vim.git bundle/Vundle.vim/
-git submodule update
+git submodule update --init --recursive
 
 alias vim=/usr/local/bin/vim
 alias vi=/usr/local/bin/vim

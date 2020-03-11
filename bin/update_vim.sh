@@ -1,5 +1,8 @@
 #!/bin/sh
 
+cd ${HOME}/.vim/
+git submodule update --init --recursive
+
 # Remove unused plugins and install latest
 vim "+PluginClean!" "+qall"
 vim "+PluginInstall!" "+qall"
