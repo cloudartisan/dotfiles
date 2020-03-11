@@ -38,7 +38,7 @@ if [[ -d ${HOME}/.vim/bundle/YouCompleteMe ]]
 then
   if [[ ! -e ${HOME}/.vim/bundle/YouCompleteMe/third_party/ycmd/ycm_core.so ]]
   then
-    ${HOME}/.vim/bundle/YouCompleteMe/install.py --clang-completer
+    ${HOME}/.vim/bundle/YouCompleteMe/install.py --clang-completer --java-completer
   fi
 fi
 
