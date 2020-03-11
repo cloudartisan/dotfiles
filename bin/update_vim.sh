@@ -12,7 +12,7 @@ vim "+TmuxlineSnapshot! ${HOME}/.tmux_tmuxline.conf" "+qall"
 
 # Compile YouCompleteMe if it's installed
 if [[ -d $HOME/.vim/bundle/YouCompleteMe ]]; then
-  $HOME/.vim/bundle/YouCompleteMe/install.py --clang-completer
+  $HOME/.vim/bundle/YouCompleteMe/install.py --clang-completer --java-completer
 fi
 
 vim "+GoInstallBinaries" "+qall"
