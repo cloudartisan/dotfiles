@@ -34,3 +34,6 @@ if [[ "${TERM_PROGRAM}" = "iTerm.app" ]] && [[ "${HOME}/.iterm2_shell_integratio
 then
   . ${HOME}/.iterm2_shell_integration.bash
 fi
+
+# Tell Apple to shut up once and for all about zsh
+export BASH_SILENCE_DEPRECATION_WARNING=1
