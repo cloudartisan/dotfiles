@@ -7,10 +7,11 @@ then
 fi
 
 # Uses autoenv, install with "pip install autoenv" or "brew install autoenv"
-if [ ! -z "$(which activate.sh)" ]
-then
-  . `which activate.sh`
-elif [ -f '/usr/local/opt/autoenv/activate.sh' ]
-then
-  . /usr/local/opt/autoenv/activate.sh
-fi
+# FIXME currently broken, see https://github.com/inishchith/autoenv/issues/188
+#if [ ! -z "$(which activate.sh)" ]
+#then
+  #. `which activate.sh`
+#elif [ -f '/usr/local/opt/autoenv/activate.sh' ]
+#then
+  #. /usr/local/opt/autoenv/activate.sh
+#fi
