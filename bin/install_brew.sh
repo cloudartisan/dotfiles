@@ -57,10 +57,11 @@ brew_install jpeg
 brew_install ffmpeg
 
 # Some essential command-line tools
+brew_install ctags
 brew_install jq
 brew_install tree
-brew_install watch
 brew_install unrar
+brew_install watch
 brew_install wget
 
 # Install vim from source to make sure it compiles against brewed Python
