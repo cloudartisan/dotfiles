@@ -1,3 +1,6 @@
+# Vim/ctags
+tags
+
 *.pyc
 *.swp
 *.swo
