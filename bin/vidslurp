@@ -1,0 +1,6 @@
+#!/bin/sh
+
+# recursively download all video to ~/Downloads from $1
+wget -r -c -A.mp4,.avi,.wmv \              
+  --directory-prefix=$HOME/Downloads/ \    
+  $1
