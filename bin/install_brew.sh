@@ -34,8 +34,8 @@ brew_install pre-commit
 # Python
 PYTHON_CONFIGURE_OPTS="--enable-framework" \
   brew_install pyenv && \
-  pyenv install 3.8.1 && \
-  pyenv global 3.8.1
+  pyenv install 3.8.6 && \
+  pyenv global 3.8.6
 
 # Maven/Java/Groovy (ugh)
 brew tap pivotal/tap
