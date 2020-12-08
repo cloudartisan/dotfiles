@@ -53,9 +53,12 @@ brew_install direnv
 brew_install ansible
 brew_install ansible-lint
 
-# Common libraries
-brew_install jpeg
+# Common media libraries and tools
 brew_install ffmpeg
+brew_install imagemagick
+brew_install jpeg
+brew_install tesseract
+brew_install tesseract-lang
 
 # Some essential command-line tools
 brew_install ctags
