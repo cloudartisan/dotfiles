@@ -73,7 +73,7 @@ brew_install vim --with-override-system-vi
 brew_install tmux
 
 # Install the oni editor
-brew cask install oni
+brew_cask_install oni
 
 # Can't be a cloudartisan without my cloud hammers :-)
 brew_install awscli
