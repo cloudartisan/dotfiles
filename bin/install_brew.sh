@@ -128,14 +128,14 @@ brew_cask_install vlc
 
 # Command line efficiencies
 brew_install bash-completion
-brew_install homebrew/completions/brew-cask-completion
-brew_install homebrew/completions/bundler-completion
-brew_install homebrew/completions/cap-completion
-brew_install homebrew/completions/django-completion
-brew_install homebrew/completions/docker-completion
-brew_install homebrew/completions/fabric-completion
-brew_install homebrew/completions/pip-completion
-brew_install homebrew/completions/vagrant-completion
+brew_install brew-cask-completion
+brew_install django-completion
+brew_install docker-completion
+brew_install docker-compose-completion
+brew_install maven-completion
+brew_install pip-completion
+brew_install tmuxinator-completion
+brew_install vagrant-completion
 
 # Remove cached downloads and outdated versions
 brew cleanup
