@@ -84,9 +84,9 @@ brew tap heroku/brew
 brew_install heroku
 brew_install kubectl
 
-# Use tfswitch to manage multiple versions of terraform
+# Use tfenv to manage multiple versions of terraform
 brew unlink terraform
-brew_install warrensbox/tap/tfswitch
+brew_install tfenv
 
 # Networking
 brew_cask_install ngrok
