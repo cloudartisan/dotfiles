@@ -92,7 +92,8 @@ brew_install tfenv
 brew_cask_install ngrok
 brew_install speedtest-cli
 
-# Nice clean font for development
+# Nice clean fonts for development
+brew_install font-meslo-for-powerline
 brew_cask_install font-inconsolata-dz
 brew_cask_install font-inconsolata-dz-for-powerline
 
