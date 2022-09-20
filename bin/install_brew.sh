@@ -41,8 +41,9 @@ PYTHON_CONFIGURE_OPTS="--enable-framework" \
 brew tap pivotal/tap
 brew_install springboot
 brew_install maven
-brew install java # openjdk
-brew install jenv
+brew_install java # openjdk
+brew_install java11 # openjdk
+brew_install jenv
 brew_install groovy
 
 # Build tools
