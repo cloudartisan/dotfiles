@@ -37,6 +37,11 @@ PYTHON_CONFIGURE_OPTS="--enable-framework" \
   pyenv install 3.8.6 && \
   pyenv global 3.8.6
 
+# Ruby
+brew_install chruby
+brew_install rbenv
+brew_install ruby-install
+
 # Maven/Java/Groovy (ugh)
 brew tap pivotal/tap
 brew_install springboot
