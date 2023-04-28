@@ -57,6 +57,8 @@ brew_install automake
 brew_install autoenv
 brew_install direnv
 
+brew_install jmeter
+
 # Configuration tools
 brew_install ansible
 brew_install ansible-lint
