@@ -125,6 +125,7 @@ brew_cask_install slack
 brew_cask_install telegram
 
 # Virtualisation
+brew_install colima
 brew_cask_install docker
 brew_cask_install vagrant
 brew_cask_install virtualbox
