@@ -17,7 +17,7 @@ export LSCOLORS=gxfxbEaEBxxEhEhBaDaCaD
 . ${HOME}/.bash_ssh
 . ${HOME}/.bash_gpg
 
-. ${HOME}/.bash_java
+#. ${HOME}/.bash_java
 . ${HOME}/.bash_go
 . ${HOME}/.bash_python
 . ${HOME}/.bash_rbenv
