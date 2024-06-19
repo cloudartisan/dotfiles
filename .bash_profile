@@ -12,6 +12,7 @@ export LSCOLORS=gxfxbEaEBxxEhEhBaDaCaD
 . ${HOME}/.bash_homebrew
 
 . ${HOME}/.bash_tmux
+. ${HOME}/.bash_gh
 . ${HOME}/.bash_git
 . ${HOME}/.bash_vim
 . ${HOME}/.bash_ssh
