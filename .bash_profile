@@ -17,6 +17,7 @@ export LSCOLORS=gxfxbEaEBxxEhEhBaDaCaD
 . ${HOME}/.bash_ssh
 . ${HOME}/.bash_gpg
 
+. ${HOME}/.bash_conda
 #. ${HOME}/.bash_java
 . ${HOME}/.bash_go
 . ${HOME}/.bash_python
@@ -30,10 +31,14 @@ export LSCOLORS=gxfxbEaEBxxEhEhBaDaCaD
 # Load any local stuff (i.e., not checked-in to the dotfiles repo)
 [[ -f ${HOME}/.bash_local ]] && . ${HOME}/.bash_local
 
-if [[ "${TERM_PROGRAM}" = "iTerm.app" ]] && [[ "${HOME}/.iterm2_shell_integration.bash" ]]
+if [[ "${LC_TERMINAL}" = "iTerm.app" ]] && [[ "${HOME}/.iterm2_shell_integration.bash" ]]
 then
   . ${HOME}/.iterm2_shell_integration.bash
 fi
 
 # Tell Apple to shut up once and for all about zsh
 export BASH_SILENCE_DEPRECATION_WARNING=1
+
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="$HOME/.sdkman"
+[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
