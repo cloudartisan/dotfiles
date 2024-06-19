@@ -31,7 +31,7 @@ export LSCOLORS=gxfxbEaEBxxEhEhBaDaCaD
 # Load any local stuff (i.e., not checked-in to the dotfiles repo)
 [[ -f ${HOME}/.bash_local ]] && . ${HOME}/.bash_local
 
-if [[ "${LC_TERMINAL}" = "iTerm.app" ]] && [[ "${HOME}/.iterm2_shell_integration.bash" ]]
+if [[ "${LC_TERMINAL}" = "iTerm2" ]] && [[ "${HOME}/.iterm2_shell_integration.bash" ]]
 then
   . ${HOME}/.iterm2_shell_integration.bash
 fi
