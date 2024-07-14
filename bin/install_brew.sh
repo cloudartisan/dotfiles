@@ -19,10 +19,6 @@ command -v brew >/dev/null 2>&1 || \
 # Make sure we’re using the latest Homebrew
 brew update
 
-# Add casks and fonts
-brew tap homebrew/cask-cask
-brew tap homebrew/cask-fonts
-
 # Development tools
 brew_install autoenv
 brew_install automake
