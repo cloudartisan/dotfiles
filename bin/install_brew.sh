@@ -14,7 +14,7 @@ brew_cask_install() {
 
 # Install brew if it is not already installed
 command -v brew >/dev/null 2>&1 || \
-  /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
 # Make sure we’re using the latest Homebrew
 brew update
@@ -24,44 +24,16 @@ brew tap homebrew/cask-cask
 brew tap homebrew/cask-fonts
 
 # Development tools
+brew_install autoenv
+brew_install automake
+brew_install cmake
+brew_install direnv
 brew_install gh
 brew_install gist
 brew_install hub
 brew_cask_install intellij-idea
 brew_cask_install postman
 brew_install pre-commit
-
-# Python
-PYTHON_CONFIGURE_OPTS="--enable-framework" \
-  brew_install pyenv && \
-  pyenv install 3.8.6 && \
-  pyenv global 3.8.6
-
-# Ruby
-brew_install chruby
-brew_install rbenv
-brew_install ruby-install
-
-# Maven/Java/Groovy (ugh)
-brew tap pivotal/tap
-brew_install springboot
-brew_install maven
-brew_install java # openjdk
-brew_install java11 # openjdk
-brew_install jenv
-brew_install groovy
-
-# Build tools
-brew_install cmake
-brew_install automake
-brew_install autoenv
-brew_install direnv
-
-brew_install jmeter
-
-# Configuration tools
-brew_install ansible
-brew_install ansible-lint
 
 # Common media libraries and tools
 brew_install ffmpeg
@@ -71,8 +43,10 @@ brew_install tesseract
 brew_install tesseract-lang
 
 # Some essential command-line tools
+brew_install autossh
 brew_install ctags
 brew_install jq
+brew_install rsync
 brew_install tree
 brew_install unrar
 brew_install watch
@@ -81,9 +55,6 @@ brew_install wget
 # Install vim from source to make sure it compiles against brewed Python
 brew_install vim --with-override-system-vi
 brew_install tmux
-
-# Install the oni editor
-brew_cask_install oni
 
 # Can't be a cloudartisan without my cloud hammers :-)
 brew_install awscli
@@ -111,24 +82,20 @@ brew_cask_install google-chrome
 
 # Share ALL the files
 brew_cask_install google-drive-file-stream
-brew_cask_install amazon-drive
-brew_cask_install odrive
 brew_cask_install synology-cloud-station-drive
 
 # Password/security
-brew_cask_install keybase
-brew_cask_install lastpass
+brew_cask_install 1password
 
 # Collaboration
-brew_cask_install skype
 brew_cask_install slack
+brew_cask_install signal
 brew_cask_install telegram
 
 # Virtualisation
 brew_install colima
 brew_cask_install docker
 brew_cask_install vagrant
-brew_cask_install virtualbox
 
 # Some fun
 brew_cask_install kindle
