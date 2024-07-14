@@ -9,7 +9,7 @@ brew_install() {
 # Install a cask formula only if it is not already installed
 brew_cask_install() {
   FORMULA=$1
-  brew cask list $FORMULA >/dev/null || brew cask install $FORMULA
+  brew list --cask $FORMULA >/dev/null || brew install --cask $FORMULA
 }
 
 # Install brew if it is not already installed
@@ -88,9 +88,10 @@ brew_cask_install synology-cloud-station-drive
 brew_cask_install 1password
 
 # Collaboration
-brew_cask_install slack
-brew_cask_install signal
-brew_cask_install telegram
+brew_install discord
+brew_install slack
+brew_install signal
+brew_install telegram
 
 # Virtualisation
 brew_install colima
