@@ -22,7 +22,7 @@ brew update
 # Development tools
 brew_install autoenv
 brew_install automake
-brew_install cmake
+brew_cask_install cmake
 brew_install direnv
 brew_install gh
 brew_install gist
