@@ -6,4 +6,10 @@ if type brew &>/dev/null; then
   for COMPLETION in "${HOMEBREW_REPOSITORY}/completions/bash/"*; do
     [[ -r "$COMPLETION" ]] && source "$COMPLETION"
   done
+
+  HOMEBREW_PREFIX=$(brew --prefix)
+  for COMPLETION in "${HOMEBREW_REPOSITORY}/etc/bash_completion.d/"*; do
+    [[ -r "$COMPLETION" ]] && source "$COMPLETION"
+  done
+
 fi
