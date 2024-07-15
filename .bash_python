@@ -1,15 +1,9 @@
 export PYTHON_CONFIGURE_OPTS="--enable-framework"
 
-if command -v pyenv 1>/dev/null 2>&1
-then
+if type pyenv &>/dev/null; then
   eval "$(pyenv init -)"
-else
-  echo "ERROR: pyenv not installed" >/dev/stderr
 fi
 
-if command -v pyenv-virtualenv-init 1>/dev/null 2>&1
-then
+if type pyenv-virtualenv-init &>/dev/null; then
   eval "$(pyenv virtualenv-init -)"
-else
-  echo "ERROR: pyenv-virtualenv-init not installed" >/dev/stderr
 fi
