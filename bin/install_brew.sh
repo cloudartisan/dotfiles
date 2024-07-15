@@ -105,7 +105,6 @@ brew_install bash-completion
 brew_install brew-cask-completion
 brew_install django-completion
 brew_install docker-completion
-brew_install docker-compose-completion
 brew_install maven-completion
 brew_install pip-completion
 brew_install tmuxinator-completion
