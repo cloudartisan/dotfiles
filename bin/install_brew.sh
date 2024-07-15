@@ -88,6 +88,7 @@ brew_install discord
 brew_install slack
 brew_install signal
 brew_install telegram
+brew_install whatsapp
 
 # Virtualisation
 brew_install colima
