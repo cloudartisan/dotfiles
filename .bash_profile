@@ -18,14 +18,14 @@ export LSCOLORS=gxfxbEaEBxxEhEhBaDaCaD
 . ${HOME}/.bash_ssh
 . ${HOME}/.bash_gpg
 
-. ${HOME}/.bash_conda
+# Currently using sdkman to manage
 #. ${HOME}/.bash_java
+
 . ${HOME}/.bash_go
 . ${HOME}/.bash_python
 . ${HOME}/.bash_rbenv
 
 . ${HOME}/.bash_aws
-. ${HOME}/.bash_gcloud
 . ${HOME}/.bash_linode
 . ${HOME}/.bash_terraform
 
