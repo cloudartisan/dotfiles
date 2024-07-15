@@ -3,17 +3,5 @@ if [ -f /usr/local/etc/bash_completion.d ]; then
 	. /usr/local/etc/bash_completion.d
 fi
 
-# Enable homebrew bash auto-completion magic
-HOMEBREW_PREFIX=$(brew --prefix)
-if type brew &>/dev/null; then
-  if [[ -r "${HOMEBREW_PREFIX}/etc/profile.d/bash_completion.sh" ]]; then
-    source "${HOMEBREW_PREFIX}/etc/profile.d/bash_completion.sh"
-  else
-    for COMPLETION in "${HOMEBREW_PREFIX}/etc/bash_completion.d/"*; do
-      [[ -r "$COMPLETION" ]] && source "$COMPLETION"
-    done
-  fi
-fi
-
 # Tab through completion matches
 bind '"\t":menu-complete'
