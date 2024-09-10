@@ -1,5 +1,6 @@
 # Add local binaries to the PATH
 export PATH=${HOME}/bin:${PATH}
+export PATH=/usr/local/bin:/usr/local/sbin:$PATH
 
 # Colour in the CLI and when listing files/directories
 export CLICOLOR=1
