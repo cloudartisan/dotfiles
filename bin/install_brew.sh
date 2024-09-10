@@ -102,7 +102,7 @@ brew_cask_install minecraft
 brew_cask_install vlc
 
 # Command line efficiencies
-brew_install bash-completion
+brew_install bash-completion@2
 brew_install brew-cask-completion
 brew_install django-completion
 brew_install docker-completion
