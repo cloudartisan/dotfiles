@@ -1,5 +1,12 @@
 #!/bin/sh
 
+if type brew &>/dev/null; then
+  HOMEBREW_PREFIX=$(brew --prefix)
+  brew reinstall vim
+  alias vi=${HOMEBREW_PREFIX}/bin/vi
+  alias vim=${HOMEBREW_PREFIX}/bin/vim
+fi
+
 mkdir -p ${HOME}/.vim
 
 curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
@@ -10,6 +17,11 @@ curl -Lso - https://github.com/cloudartisan/dotvim/tarball/master \
 
 ln -sf ${HOME}/.vim/vimrc ${HOME}/.vimrc
 ln -sf ${HOME}/.vim/vimrc ${HOME}/.gvimrc
+
+cd ${HOME}/.vim
+git init
+git submodule init
+git submodule update
 
 # Remove unused plugins and install any missing plugins
 vim "+PlugInstall" "+qall"
@@ -27,11 +39,11 @@ then
 fi
 
 # Compile YouCompleteMe if it's installed but not yet compiled
-if [[ -d ${HOME}/.vim/bundle/YouCompleteMe ]]
+if [[ -d ${HOME}/.vim/plugged/YouCompleteMe ]]
 then
-  if [[ ! -e ${HOME}/.vim/bundle/YouCompleteMe/third_party/ycmd/ycm_core.so ]]
+  if [[ ! -e ${HOME}/.vim/plugged/YouCompleteMe/third_party/ycmd/ycm_core.so ]]
   then
-    ${HOME}/.vim/bundle/YouCompleteMe/install.py --clang-completer --java-completer
+    ${HOME}/.vim/plugged/YouCompleteMe/install.py --clang-completer --java-completer
   fi
 fi
 
