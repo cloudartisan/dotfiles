@@ -1,25 +1,18 @@
 #!/bin/sh
 
-
 mkdir -p ${HOME}/.vim
+
+curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+
 curl -Lso - https://github.com/cloudartisan/dotvim/tarball/master \
     | tar --strip-components 1 -C $HOME/.vim -zvxf -
 
 ln -sf ${HOME}/.vim/vimrc ${HOME}/.vimrc
 ln -sf ${HOME}/.vim/vimrc ${HOME}/.gvimrc
 
-cd ${HOME}/.vim
-git init
-git submodule init
-git submodule add https://github.com/VundleVim/Vundle.vim.git bundle/Vundle.vim/
-git submodule update --init --recursive
-
-alias vim=/usr/local/bin/vim
-alias vi=/usr/local/bin/vim
-
 # Remove unused plugins and install any missing plugins
-vim "+PluginClean!" "+qall"
-vim "+PluginInstall" "+qall"
+vim "+PlugInstall" "+qall"
 
 # Snapshot bash prompt settings for reuse if we haven't already
 if [[ ! -f ${HOME}/.bash_promptline_airline ]]
