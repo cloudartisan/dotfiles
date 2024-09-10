@@ -30,6 +30,8 @@ brew_install hub
 brew_cask_install intellij-idea
 brew_cask_install postman
 brew_install pre-commit
+brew_install python3
+brew_install python-setuptools
 
 # Common media libraries and tools
 brew_install ffmpeg
@@ -49,7 +51,7 @@ brew_install watch
 brew_install wget
 
 # Install vim from source to make sure it compiles against brewed Python
-brew_install vim --with-override-system-vi
+brew_install vim
 brew_install tmux
 
 # Can't be a cloudartisan without my cloud hammers :-)
