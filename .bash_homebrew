@@ -1,15 +1,2 @@
-eval "$(/opt/homebrew/bin/brew shellenv)"
-
-# Enable homebrew bash auto-completion magic
-if type brew &>/dev/null; then
-  HOMEBREW_REPOSITORY=$(brew --repository)
-  for COMPLETION in "${HOMEBREW_REPOSITORY}/completions/bash/"*; do
-    [[ -r "$COMPLETION" ]] && source "$COMPLETION"
-  done
-
-  HOMEBREW_PREFIX=$(brew --prefix)
-  for COMPLETION in "${HOMEBREW_REPOSITORY}/etc/bash_completion.d/"*; do
-    [[ -r "$COMPLETION" ]] && source "$COMPLETION"
-  done
-
-fi
+export PATH=/usr/local/bin:/usr/local/sbin:$PATH
+export HOMEBREW_CASK_OPTS="--appdir=/Applications"
