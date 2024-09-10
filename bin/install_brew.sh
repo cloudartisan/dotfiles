@@ -26,6 +26,7 @@ brew_cask_install cmake
 brew_install direnv
 brew_install gh
 brew_install gist
+brew_install git-filter-repo
 brew_install hub
 brew_cask_install intellij-idea
 brew_cask_install postman
