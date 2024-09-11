@@ -26,14 +26,17 @@ alias gitsoma="git config user.email d.l.taylor@salesforce.com; git config user.
 
 # Set git identity for any directory under git/{cloudartisan,salesforce}
 function set_git_identity_based_on_directory() {
+  # Only if we're in a git working directory
+  if git rev-parse --is-inside-work-tree > /dev/null 2>&1; then
     case "$PWD" in
-        *git/cloudartisan/*)
-            gitme
-            ;;
-        *git/salesforce/*)
-            gitsoma
-            ;;
+      *git/cloudartisan/*)
+        gitme
+        ;;
+      *git/salesforce/*)
+        gitsoma
+        ;;
     esac
+  fi
 }
 
 # Add the function to be called every time the prompt is shown (which happens after every command)
