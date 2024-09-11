@@ -21,5 +21,20 @@ complete -o default -o nospace -F _git g
 
 # Aliases for configuring work/personal repos
 alias gitme="git config user.email david@cloudartisan.com; git config user.name cloudartisan"
-alias gitdesk="git config user.email david.taylor@desk.com; git config user.name dtaylor-desk"
 alias gitsfdc="git config user.email d.l.taylor@salesforce.com; git config user.name d-l-taylor; git config user.signingkey 449F9A0AFAC505592FEFB7EA8F53FA22DC77696C; git config commit.gpgsign true; git config push.gpgsign if-asked; git config gpg.program $(which gpg)"
+alias gitsoma="git config user.email d.l.taylor@salesforce.com; git config user.name d-l-taylor; git config user.signingkey 449F9A0AFAC505592FEFB7EA8F53FA22DC77696C; git config commit.gpgsign true; git config push.gpgsign if-asked; git config gpg.program $(which gpg)"
+
+# Set git identity for any directory under git/{cloudartisan,salesforce}
+function set_git_identity_based_on_directory() {
+    case "$PWD" in
+        *git/cloudartisan/*)
+            gitme
+            ;;
+        *git/salesforce/*)
+            gitsoma
+            ;;
+    esac
+}
+
+# Add the function to be called every time the prompt is shown (which happens after every command)
+PROMPT_COMMAND="set_git_identity_based_on_directory;${PROMPT_COMMAND}"
