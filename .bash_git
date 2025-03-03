@@ -3,8 +3,8 @@ source ~/bin/git-branch.bash
 source ~/bin/git-completion.bash
 source ~/bin/git-repull-ship.bash
 
-# Load the global .gitignore file
-if [ -f ~/.gitignore ]
+# Load the global .gitignore file - only if not already set
+if [ -f ~/.gitignore ] && ! git config --global --get core.excludesfile >/dev/null 2>&1
 then
   git config --global core.excludesfile $HOME/.gitignore
 fi
