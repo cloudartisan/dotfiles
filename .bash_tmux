@@ -35,9 +35,6 @@ alias tmls="tmux list-sessions"
 # Make sure we use 256 colours
 [ -n "$TMUX" ] && export TERM=screen-256color
 
-# Enable tmuxinator if it's installed
-[[ -s $HOME/.tmuxinator/scripts/tmuxinator ]] && source $HOME/.tmuxinator/scripts/tmuxinator
-
 # Prevent running tmux command directly if already in a tmux session
 # This prevents the "sessions should be nested with care" error
 tmux() {
