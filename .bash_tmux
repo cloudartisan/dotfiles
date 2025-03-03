@@ -14,7 +14,7 @@ __tm_get_current_window(){
 
 # Rename window according to __tm_get_hostname and then restore it after the command
 __tm_command() {
-  if [ "$(ps -p $(ps -p $$ -o ppid=) -o comm=| cut -d : -f 1)" = "tmux" ]; then
+  if [ -n "$TMUX" ] && [ "$(ps -p $(ps -p $$ -o ppid=) -o comm=| cut -d : -f 1)" = "tmux" ]; then
       __tm_window=$(__tm_get_current_window)
       # Use current window to change back the setting. If not it will be applied to the active window
       trap "tmux set-window-option -t $__tm_window automatic-rename on 1>/dev/null" RETURN
@@ -37,3 +37,13 @@ alias tmls="tmux list-sessions"
 
 # Enable tmuxinator if it's installed
 [[ -s $HOME/.tmuxinator/scripts/tmuxinator ]] && source $HOME/.tmuxinator/scripts/tmuxinator
+
+# Prevent running tmux command directly if already in a tmux session
+# This prevents the "sessions should be nested with care" error
+tmux() {
+  if [ -z "$TMUX" ]; then
+    command tmux "$@"
+  else
+    echo "Already in a tmux session. Use 'command tmux' to force."
+  fi
+}
