@@ -31,16 +31,16 @@ You can also selectively install components:
 
 ```bash
 # Just install dotfiles
-./bin/install_dotfiles.sh
+./bin/install_dotfiles
 
 # Just install Homebrew packages
-./bin/install_brew.sh
+./bin/install_brew
 
 # Just install Vim configuration
-./bin/install_vim.sh
+./bin/install_vim
 
 # Just install Tmux configuration
-./bin/install_tmux.sh
+./bin/install_tmux
 ```
 
 ### Upgrading Homebrew Packages
@@ -48,12 +48,12 @@ You can also selectively install components:
 To upgrade all Homebrew packages defined in the Brewfile:
 
 ```bash
-./bin/upgrade_brew.sh
+./bin/upgrade_brew
 ```
 
 ## Customization
 
-The Brewfile contains all package definitions and can be customized to add or remove packages. After editing, run `install_brew.sh` to apply changes.
+The Brewfile contains all package definitions and can be customized to add or remove packages. After editing, run `install_brew` to apply changes.
 
 ## Structure
 
