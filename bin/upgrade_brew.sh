@@ -1,14 +1,13 @@
 #!/bin/sh
 
-# Add casks and fonts
-brew tap caskroom/cask
-brew tap caskroom/fonts
-
-# Make sure we’re using the latest Homebrew
+# Make sure we're using the latest Homebrew
 brew update
 
 # Upgrade any already-installed formulae
-brew upgrade --all
+brew upgrade
+
+# Update all Brewfile packages
+brew bundle --file="$HOME/git/cloudartisan/dotfiles/Brewfile"
 
 # Remove cached downloads and outdated versions
 brew cleanup
