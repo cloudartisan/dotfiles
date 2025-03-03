@@ -1,0 +1,5 @@
+#!/bin/sh
+
+install_dotfiles
+install_brew
+install_vim
