@@ -1,64 +1,53 @@
-# Cloudartisan Dotfiles
+# Dotfiles
 
-A collection of configuration files and utility scripts for setting up a developer environment.
+Personal dotfiles and configuration files managed with [chezmoi](https://www.chezmoi.io/).
+
+## Quick Start
+
+To set up a new machine:
+
+```bash
+# One-step bootstrap (review first)
+curl -fsLS https://raw.githubusercontent.com/cloudartisan/dotfiles/master/bootstrap-chezmoi.sh | bash
+
+# Or apply immediately
+curl -fsLS https://raw.githubusercontent.com/cloudartisan/dotfiles/master/bootstrap-chezmoi.sh | bash -s -- --apply
+```
 
 ## Features
 
-- Bash configuration with modular approach
-- Tmux setup with useful key bindings and plugins
-- Vim configuration with powerful plugins
-- Git workflow configuration and utilities
-- Cloud development tools configuration
-- Homebrew package installation via Brewfile
+- Shell configuration (bash & zsh support)
+- Git configuration
+- Vim setup with plugins
+- Tmux configuration
+- Homebrew package management
+- Supports both macOS and Linux
 
-## Installation
-
-### Quick Install (everything)
+## Manual Installation
 
 ```bash
-curl -Lso - https://github.com/cloudartisan/dotfiles/tarball/master | \
-tar --strip-components 1 --exclude LICENSE --exclude README.md \
-    -C $HOME -zvxf -
+# Install chezmoi
+brew install chezmoi  # macOS
+sh -c "$(curl -fsLS get.chezmoi.io)" -- -b $HOME/bin  # Linux
 
-# Then run the bootstrap script
-cd ~/bin
-./bootstrap.sh
+# Initialize from repo and apply
+chezmoi init https://github.com/cloudartisan/dotfiles.git
+chezmoi diff  # Review changes
+chezmoi apply  # Apply changes
 ```
-
-### Selective Installation
-
-You can also selectively install components:
-
-```bash
-# Just install dotfiles
-./bin/install_dotfiles
-
-# Just install Homebrew packages
-./bin/install_brew
-
-# Just install Vim configuration
-./bin/install_vim
-
-# Just install Tmux configuration
-./bin/install_tmux
-```
-
-### Upgrading Homebrew Packages
-
-To upgrade all Homebrew packages defined in the Brewfile:
-
-```bash
-./bin/upgrade_brew
-```
-
-## Customization
-
-The Brewfile contains all package definitions and can be customized to add or remove packages. After editing, run `install_brew` to apply changes.
 
 ## Structure
 
-- `.bash_*` - Modular bash configuration files
-- `.vim*` - Vim configuration
-- `.tmux*` - Tmux configuration
-- `bin/` - Utility scripts and installers
-- `Brewfile` - Homebrew package definitions
+- `.chezmoiscripts/` - Scripts that run when applying the config
+- `bin/` - Utility scripts
+- `dot_*` - Regular dotfiles (e.g., dot_bashrc → .bashrc)
+- `executable_*` - Files with executable permissions
+- `private_*` - Files with stricter permissions (600)
+
+## Migration from Traditional Dotfiles
+
+This repository was migrated from a traditional dotfiles setup to chezmoi. For migration details, see [migrate-to-chezmoi.md](migrate-to-chezmoi.md).
+
+## License
+
+MIT
