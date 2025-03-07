@@ -43,6 +43,11 @@ Brewfile
 .zoom/
 .zsh_sessions/
 
+# Vim (managed by separate dotvim repository)
+.vim/
+.vimrc
+.gvimrc
+
 # Temporary & system files
 .Trash/
 .DS_Store
