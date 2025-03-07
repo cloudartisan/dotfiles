@@ -29,9 +29,9 @@ if [ "$1" = "--apply" ]; then
   # Ensure all dotfiles are properly managed
   echo "Adding configuration files to chezmoi..."
   
-  # Add all bash configuration files
+  # Add all bash configuration files except .bash_history
   for bash_file in ~/.bash_*; do
-    if [ -f "$bash_file" ]; then
+    if [ -f "$bash_file" ] && [ "$(basename "$bash_file")" != ".bash_history" ]; then
       chezmoi add "$bash_file"
     fi
   done
