@@ -6,10 +6,11 @@
 # -----------------------------------------------------------------------------
 tap "heroku/brew"
 tap "homebrew/bundle"
-tap "homebrew/cask"
-tap "homebrew/cask-fonts"
-tap "homebrew/core"
 tap "homebrew/services"
+# Removed obsolete taps:
+# tap "homebrew/cask" - no longer needed in newer Homebrew
+# tap "homebrew/core" - no longer needed in newer Homebrew
+# tap "homebrew/cask-fonts" - deprecated
 
 # -----------------------------------------------------------------------------
 # Programming Languages & Development Environments
@@ -66,7 +67,7 @@ brew "wget", desc: "Internet file retriever"
 # System & File Utilities
 # -----------------------------------------------------------------------------
 brew "tree", desc: "Display directories as trees (with optional color/HTML output)"
-brew "unrar", desc: "Extract, view, and test RAR archives"
+brew "unar", desc: "Command-line unarchiving tools supporting multiple formats"
 brew "watch", desc: "Executes a program periodically, showing output fullscreen"
 
 # -----------------------------------------------------------------------------
@@ -81,18 +82,18 @@ brew "tesseract-lang", desc: "Traineddata files for the tesseract OCR engine"
 # -----------------------------------------------------------------------------
 # Fonts
 # -----------------------------------------------------------------------------
-brew "font-meslo-for-powerline", desc: "Meslo font patched for Powerline"
-cask "font-inconsolata-dz", desc: "Inconsolata font variant with straight quotes"
+cask "font-meslo-for-powerline", desc: "Meslo font patched for Powerline"
+# cask "font-inconsolata-dz" - No longer available, removed
 cask "font-inconsolata-dz-for-powerline", desc: "Inconsolata-dz font patched for Powerline"
 
 # -----------------------------------------------------------------------------
 # Communication & Collaboration
 # -----------------------------------------------------------------------------
-brew "discord", desc: "Voice and text chat software"
-brew "slack", desc: "Team communication and collaboration tool"
-brew "signal", desc: "Instant messaging application focusing on security"
-brew "telegram", desc: "Messaging app focusing on speed and security"
-brew "whatsapp", desc: "Desktop client for WhatsApp"
+cask "discord", desc: "Voice and text chat software"
+cask "slack", desc: "Team communication and collaboration tool"
+cask "signal", desc: "Instant messaging application focusing on security"
+cask "telegram", desc: "Messaging app focusing on speed and security"
+cask "whatsapp", desc: "Desktop client for WhatsApp"
 
 # -----------------------------------------------------------------------------
 # Development Applications
