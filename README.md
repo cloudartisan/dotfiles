@@ -48,108 +48,113 @@ chezmoi apply  # Apply changes
 
 This repository was migrated from a traditional dotfiles setup to chezmoi. For migration details, see [migrate-to-chezmoi.md](migrate-to-chezmoi.md).
 
-## Maintaining Your Dotfiles
+## How This Repository Works
 
-### Daily Workflow
+### The Source of Truth
 
-1. **Making changes to your dotfiles:**
+**The GitHub repository is the authoritative source of truth for your dotfiles.**
 
-   When you want to update a configuration file (e.g., `.bashrc`, `.vimrc`):
+All your dotfiles are version-controlled in this repository. When you make changes through chezmoi, they are:
+1. Saved in your GitHub repository
+2. Applied to your local system
+3. Available to sync to other machines
 
-   ```bash
-   # Edit the file directly with the chezmoi edit command
-   chezmoi edit ~/.bashrc
-   
-   # Apply the changes immediately
-   chezmoi apply
-   ```
+### Simple Workflow
 
-   Alternatively, you can:
+```bash
+# 1. Edit a dotfile
+chezmoi edit ~/.bash_profile
 
-   ```bash
-   # Edit the file directly in your home directory
-   vim ~/.bashrc
-   
-   # Add the changes to chezmoi's source state
-   chezmoi add ~/.bashrc
-   ```
+# 2. Apply the changes to your home directory
+chezmoi apply
 
-2. **Viewing changes before applying:**
+# 3. Commit and push to GitHub
+chezmoi cd -- git commit -m "Update bash profile" && git push
+```
 
-   ```bash
-   # See what changes would be made
-   chezmoi diff
-   ```
+That's it! Your changes are now tracked and synchronized.
 
-3. **Adding new dotfiles to be managed:**
+### Where Everything Lives
 
-   ```bash
-   # Add any new file to be managed by chezmoi
-   chezmoi add ~/.my_new_config
-   ```
+- **GitHub repository**: The master copy of your dotfiles
+- **~/.local/share/chezmoi**: Local copy of the repository 
+- **Your home directory (~)**: Where the actual dotfiles are used by your system
 
-4. **Keeping your systems in sync:**
+### Step-by-Step Guide
 
-   ```bash
-   # On other machines, pull the latest changes and apply them
-   chezmoi update
-   ```
+#### Editing Existing Dotfiles
 
-### Repository Management
+Method 1 (Recommended):
+```bash
+# Edit through chezmoi (this is the best way)
+chezmoi edit ~/.bashrc
 
-To maintain this repository:
+# Apply changes to your home directory
+chezmoi apply
 
-1. **Commit your changes regularly:**
+# Commit and push
+chezmoi cd -- git commit -m "Update bashrc" && git push
+```
 
-   ```bash
-   # Go to the chezmoi source directory
-   cd ~/.local/share/chezmoi
-   
-   # Add and commit changes
-   git add .
-   git commit -m "Update bash aliases"
-   git push
-   ```
+Method 2:
+```bash
+# Edit directly
+vim ~/.bashrc
 
-   Or use the built-in chezmoi commands:
+# Add changes to chezmoi
+chezmoi add ~/.bashrc
 
-   ```bash
-   # Add and commit changes from anywhere
-   chezmoi cd -- git add .
-   chezmoi cd -- git commit -m "Update bash aliases"
-   chezmoi cd -- git push
-   ```
+# Apply changes
+chezmoi apply
 
-2. **Adding new Homebrew packages:**
+# Commit and push
+chezmoi cd -- git commit -m "Update bashrc" && git push
+```
 
-   Update the Brewfile and commit it:
+#### Adding New Dotfiles
 
-   ```bash
-   # Add a new package to Brewfile
-   chezmoi edit ~/Brewfile
-   
-   # Test the changes
-   brew bundle --file=~/Brewfile
-   
-   # Add the changes to chezmoi
-   chezmoi add ~/Brewfile
-   ```
+```bash
+# Add a new config file
+chezmoi add ~/.my_new_config
 
-3. **Ignore sensitive files:**
+# Commit and push
+chezmoi cd -- git commit -m "Add new config" && git push
+```
 
-   Edit .chezmoiignore to exclude sensitive files:
+#### Setting Up a New Machine
 
-   ```bash
-   chezmoi edit ~/.local/share/chezmoi/.chezmoiignore
-   ```
+```bash
+# One command to install chezmoi and apply your dotfiles
+sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply cloudartisan
+```
+
+#### Keeping Multiple Machines in Sync
+
+After you've pushed changes from one machine:
+
+```bash
+# On your other machines:
+chezmoi update
+```
+
+This pulls the latest changes from GitHub and applies them.
+
+### Essential Commands
+
+- `chezmoi edit ~/.file` - Edit a dotfile
+- `chezmoi add ~/.file` - Track a new file
+- `chezmoi diff` - Preview changes before applying
+- `chezmoi apply` - Apply changes to your home directory
+- `chezmoi update` - Pull and apply latest changes from GitHub
+- `chezmoi cd -- git command` - Run git commands in the repository
 
 ### Best Practices
 
-- Keep sensitive information out of your dotfiles repository (use templates or external secrets managers)
-- Always review changes with `chezmoi diff` before applying
-- Regularly update your repository with `chezmoi update`
+- Always use `chezmoi edit` instead of editing files directly
+- Review changes with `chezmoi diff` before applying
+- Commit and push regularly
+- Use .chezmoiignore to exclude sensitive files (like .bash_history)
 - Use templates for machine-specific configurations
-- Be careful with SSH keys and credentials - use `private_` prefix for sensitive files
 
 ## License
 
