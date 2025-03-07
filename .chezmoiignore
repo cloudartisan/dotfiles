@@ -1,0 +1,12 @@
+# Files to ignore when applying chezmoi configuration
+.bash_history
+*.swp
+.DS_Store
+.Trash
+*~
+.git/
+LICENSE
+README.md
+CLAUDE.md
+bootstrap-chezmoi.sh
+migrate-to-chezmoi.md
