@@ -1,13 +1,51 @@
 # Files to ignore when applying chezmoi configuration
-.bash_history
-*.swp
-.DS_Store
-.Trash
-*~
-.git/
+
+# Repository files
 LICENSE
 README.md
 CLAUDE.md
 bootstrap-chezmoi.sh
 migrate-to-chezmoi.md
 Brewfile
+.git/
+
+# Shell history files
+.bash_history
+.zsh_history
+.python_history
+.lesshst
+
+# Sensitive credentials
+.aws/
+.sshcreds
+.DBcreds
+.keys/
+.tanium-user-key-encryption.key
+.vpn/
+.cisco/
+
+# Application directories
+.cache/
+.claude/
+.claude.json
+.lemminx/
+.npm/
+.redhat/
+.m2/
+.bundle/
+.cursor/
+.docker/
+.vscode/
+.config/
+.local/
+.gradle/
+.jenkins/
+.zoom/
+.zsh_sessions/
+
+# Temporary & system files
+.Trash/
+.DS_Store
+.CFUserTextEncoding
+*.swp
+*~
