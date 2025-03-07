@@ -6,11 +6,10 @@
 # -----------------------------------------------------------------------------
 tap "heroku/brew"
 tap "homebrew/bundle"
+tap "homebrew/cask"
+tap "homebrew/cask-fonts"
+tap "homebrew/core"
 tap "homebrew/services"
-# Removed obsolete taps:
-# tap "homebrew/cask" - no longer needed in newer Homebrew
-# tap "homebrew/core" - no longer needed in newer Homebrew
-# tap "homebrew/cask-fonts" - deprecated
 
 # -----------------------------------------------------------------------------
 # Programming Languages & Development Environments
@@ -68,6 +67,7 @@ brew "wget", desc: "Internet file retriever"
 # -----------------------------------------------------------------------------
 brew "tree", desc: "Display directories as trees (with optional color/HTML output)"
 brew "unar", desc: "Command-line unarchiving tools supporting multiple formats"
+brew "unrar", desc: "Extract, view, and test RAR archives"
 brew "watch", desc: "Executes a program periodically, showing output fullscreen"
 
 # -----------------------------------------------------------------------------
@@ -83,7 +83,7 @@ brew "tesseract-lang", desc: "Traineddata files for the tesseract OCR engine"
 # Fonts
 # -----------------------------------------------------------------------------
 cask "font-meslo-for-powerline", desc: "Meslo font patched for Powerline"
-# cask "font-inconsolata-dz" - No longer available, removed
+cask "font-inconsolata-dz", desc: "Inconsolata font variant with straight quotes"
 cask "font-inconsolata-dz-for-powerline", desc: "Inconsolata-dz font patched for Powerline"
 
 # -----------------------------------------------------------------------------
