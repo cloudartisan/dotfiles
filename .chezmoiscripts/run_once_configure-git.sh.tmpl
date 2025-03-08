@@ -1,0 +1,35 @@
+#\!/bin/bash
+
+# Exit on error
+set -e
+
+echo "==> Configuring Git"
+
+# Set up Git user info if not already configured
+if [ -z "$(git config --global user.name)" ]; then
+  echo "Configuring Git user name..."
+  git config --global user.name "David Taylor"
+fi
+
+if [ -z "$(git config --global user.email)" ]; then
+  echo "Configuring Git user email..."
+  {{- if (eq .chezmoi.hostname "work-laptop") }}
+  # Work email for work computer
+  git config --global user.email "david.taylor@work.com"
+  {{- else }}
+  # Personal email for personal computer
+  git config --global user.email "david@cloudartisan.com"
+  {{- end }}
+fi
+
+# Set up some useful Git aliases
+git config --global alias.co checkout
+git config --global alias.br branch
+git config --global alias.ci commit
+git config --global alias.st status
+git config --global alias.lg "log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
+
+# Configure Git pull behavior
+git config --global pull.rebase true
+
+echo "✓ Git configuration complete"

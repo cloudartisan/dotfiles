@@ -1,0 +1,37 @@
+#\!/bin/bash
+
+# Exit on error
+set -e
+
+echo "==> Configuring shell environment"
+
+# Set up bash as the default shell if it isn't already
+if [[ "$SHELL" \!= *"/bash" ]]; then
+  echo "Setting Bash as default shell..."
+  chsh -s $(which bash)
+fi
+
+# Create .bash_profile if it doesn't exist
+if [ \! -f "$HOME/.bash_profile" ]; then
+  echo "Creating .bash_profile..."
+  touch "$HOME/.bash_profile"
+fi
+
+# Make sure bash_profile is executable
+chmod +x "$HOME/.bash_profile"
+
+# Set up common shell aliases
+if \! grep -q "# Chezmoi aliases" "$HOME/.bash_aliases" 2>/dev/null; then
+  echo "Adding Chezmoi aliases..."
+  cat >> "$HOME/.bash_aliases" << ALIASES
+
+# Chezmoi aliases
+alias cz="chezmoi"
+alias cza="chezmoi apply"
+alias czd="chezmoi diff"
+alias cze="chezmoi edit"
+alias czu="chezmoi update"
+ALIASES
+fi
+
+echo "✓ Shell configuration complete"

@@ -1,0 +1,42 @@
+#\!/bin/bash
+
+# Exit on error
+set -e
+
+echo "==> Setting up Vim configuration"
+
+# Install Vim if needed
+if type brew &>/dev/null; then
+  echo "Installing Vim via Homebrew..."
+  brew reinstall vim
+fi
+
+# Create .vim directory if it doesn't exist
+mkdir -p ${HOME}/.vim
+
+# Install vim-plug plugin manager
+echo "Installing vim-plug..."
+curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+
+# Clone dotvim repository
+echo "Fetching dotvim configuration..."
+curl -Lso - https://github.com/cloudartisan/dotvim/tarball/master \
+    | tar --strip-components 1 -C $HOME/.vim -zvxf -
+
+# Create symlinks
+ln -sf ${HOME}/.vim/vimrc ${HOME}/.vimrc
+ln -sf ${HOME}/.vim/vimrc ${HOME}/.gvimrc
+
+# Setup Git repository
+echo "Setting up Git repository in .vim directory..."
+cd ${HOME}/.vim
+git init
+git submodule init
+git submodule update
+
+# Install plugins
+echo "Installing Vim plugins..."
+vim "+PlugInstall" "+qall"
+
+echo "✓ Vim configuration complete"
