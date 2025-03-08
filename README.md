@@ -44,6 +44,38 @@ chezmoi apply  # Apply changes
 - `executable_*` - Files with executable permissions
 - `private_*` - Files with stricter permissions (600)
 
+## Automated Setup Scripts
+
+This repository includes automated setup scripts that run when applying the configuration:
+
+### What the Scripts Do
+
+- **Package Installation**: Installs Homebrew and all packages from Brewfile
+- **Vim Setup**: Configures Vim with plugins from the dotvim repository
+- **Shell Configuration**: Sets up bash shell with helpful aliases
+- **Git Setup**: Configures Git with user information and useful aliases
+- **macOS Settings**: Configures macOS preferences (only on macOS)
+
+### How the Scripts Work
+
+- Scripts are located in the `.chezmoiscripts/` directory
+- They run automatically when you execute `chezmoi apply`
+- The `run_once_` prefix ensures they only run once per machine
+- Scripts use templating to customize configurations for different machines
+
+### Using Templates for Different Machines
+
+Some scripts use templating to provide different settings for work vs. personal machines:
+
+```bash
+# The script will prompt you when setting up a new machine
+{{- if (eq .chezmoi.hostname "work-laptop") }}
+# Work-specific settings
+{{- else }}
+# Personal settings
+{{- end }}
+```
+
 ## Migration from Traditional Dotfiles
 
 This repository was migrated from a traditional dotfiles setup to chezmoi. For migration details, see [migrate-to-chezmoi.md](migrate-to-chezmoi.md).
@@ -127,6 +159,13 @@ chezmoi cd -- git commit -m "Add new config" && git push
 # One command to install chezmoi and apply your dotfiles
 sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply cloudartisan
 ```
+
+This will:
+1. Install chezmoi
+2. Clone your dotfiles repository
+3. Run all the automated setup scripts
+4. Configure your shell, Vim, Git, and other tools
+5. Install packages from Brewfile (via the run_once scripts)
 
 #### Keeping Multiple Machines in Sync
 
