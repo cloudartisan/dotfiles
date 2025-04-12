@@ -5,10 +5,6 @@
 # Taps
 # -----------------------------------------------------------------------------
 tap "heroku/brew"
-tap "homebrew/bundle"
-tap "homebrew/cask"
-tap "homebrew/cask-fonts"
-tap "homebrew/core"
 tap "homebrew/services"
 
 # -----------------------------------------------------------------------------
@@ -25,6 +21,7 @@ brew "direnv", desc: "Load/unload environment variables based on $PWD"
 brew "bash-completion@2", desc: "Programmable completion for Bash 4.2+"
 brew "brew-cask-completion", desc: "Fish completion for brew-cask"
 brew "docker-completion", desc: "Bash, Zsh and Fish completion for Docker"
+brew "hugo", desc: "Configurable static site generator"
 brew "maven-completion", desc: "Bash completion for Maven"
 brew "pip-completion", desc: "Bash completion for Pip"
 brew "tmuxinator-completion", desc: "Shell completion for Tmuxinator"
@@ -41,6 +38,7 @@ brew "git-filter-repo", desc: "Quickly rewrite git repository history"
 brew "hub", desc: "Add GitHub support to git on the command-line"
 brew "jq", desc: "Lightweight and flexible command-line JSON processor"
 brew "pre-commit", desc: "Framework for managing multi-language pre-commit hooks"
+brew "uv", desc: "Extremely fast Python package installer and resolver"
 brew "vim", desc: "Vi 'workalike' with many additional features"
 brew "tmux", desc: "Terminal multiplexer"
 
@@ -66,7 +64,6 @@ brew "wget", desc: "Internet file retriever"
 # -----------------------------------------------------------------------------
 brew "tree", desc: "Display directories as trees (with optional color/HTML output)"
 brew "unar", desc: "Command-line unarchiving tools supporting multiple formats"
-brew "unrar", desc: "Extract, view, and test RAR archives"
 brew "watch", desc: "Executes a program periodically, showing output fullscreen"
 
 # -----------------------------------------------------------------------------
@@ -82,7 +79,7 @@ brew "tesseract-lang", desc: "Traineddata files for the tesseract OCR engine"
 # Fonts
 # -----------------------------------------------------------------------------
 cask "font-meslo-for-powerline", desc: "Meslo font patched for Powerline"
-cask "font-inconsolata-dz", desc: "Inconsolata font variant with straight quotes"
+cask "font-inconsolata", desc: "Monospace font designed for code listings"
 cask "font-inconsolata-dz-for-powerline", desc: "Inconsolata-dz font patched for Powerline"
 
 # -----------------------------------------------------------------------------
@@ -109,8 +106,7 @@ cask "vagrant", desc: "Development environment"
 # Cloud Services & Storage
 # -----------------------------------------------------------------------------
 cask "google-cloud-sdk", desc: "Tools for the Google Cloud Platform"
-cask "google-drive-file-stream", desc: "Client for the Google Drive storage service"
-cask "synology-cloud-station-drive", desc: "Cloud file syncing by Synology"
+cask "google-drive", desc: "Client for the Google Drive storage service"
 
 # -----------------------------------------------------------------------------
 # Utilities & Applications

@@ -7,9 +7,8 @@ command -v brew >/dev/null 2>&1 || \
 # Make sure we're using the latest Homebrew
 brew update
 
-# Install required taps
-brew tap homebrew/bundle
-brew tap homebrew/cask-fonts
+# Homebrew no longer requires explicit tapping of the main repositories
+# as they've been integrated into the core Homebrew experience
 
 # Install all dependencies using Brewfile
 brew bundle --file="$HOME/git/cloudartisan/dotfiles/Brewfile"

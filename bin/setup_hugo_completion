@@ -1,0 +1,22 @@
+#!/bin/bash
+
+# Check if Hugo is installed
+if ! command -v hugo >/dev/null 2>&1; then
+  echo "Hugo is not installed. Please install it first using Homebrew."
+  exit 1
+fi
+
+# Create bash completion directory if it doesn't exist
+mkdir -p "$HOME/.bash_completion.d"
+
+# Generate Hugo bash completion
+hugo completion bash > "$HOME/.bash_completion.d/hugo"
+
+echo "Hugo bash completion has been installed to $HOME/.bash_completion.d/hugo"
+echo "Make sure your .bashrc or .bash_profile loads completions from this directory."
+echo "You may need to add the following to your shell configuration file:"
+echo "if [ -d \$HOME/.bash_completion.d ]; then"
+echo "  for file in \$HOME/.bash_completion.d/*; do"
+echo "    . \$file"
+echo "  done"
+echo "fi"
