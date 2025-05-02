@@ -1,6 +1,12 @@
 # Vim/ctags
 tags
 
+# API keys and secrets
+.keys/
+*_api_key*
+*_token*
+*_secret*
+
 *.pyc
 *.swp
 *.swo
