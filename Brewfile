@@ -10,6 +10,7 @@ tap "homebrew/services"
 # -----------------------------------------------------------------------------
 # Programming Languages & Development Environments
 # -----------------------------------------------------------------------------
+brew "node", desc: "Platform built on V8 to build network applications"
 brew "python3", desc: "Interpreted, interactive, object-oriented programming language"
 brew "python-setuptools", desc: "Easily download, build, install, upgrade, and uninstall Python packages"
 
@@ -31,6 +32,7 @@ brew "vagrant-completion", desc: "Bash completion for Vagrant"
 # Development Tools & Utilities
 # -----------------------------------------------------------------------------
 brew "automake", desc: "Tool for generating GNU Standards-compliant Makefiles"
+cask "claude", desc: "Claude AI assistant for the command line"
 brew "ctags", desc: "Reimplementation of ctags(1)"
 brew "gh", desc: "GitHub command-line tool"
 brew "gist", desc: "Command-line utility for uploading Gists"
