@@ -1,6 +1,8 @@
 #!/bin/sh
 
 # Install cursor-agent CLI tool
+# This is a utility script for manual installation
+# Automatic installation happens via chezmoi scripts during bootstrap
 
 echo "Installing cursor-agent..."
 
