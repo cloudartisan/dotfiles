@@ -18,6 +18,7 @@ export LSCOLORS=gxfxbEaEBxxEhEhBaDaCaD
 . ${HOME}/.bash_vim
 . ${HOME}/.bash_ssh
 . ${HOME}/.bash_gpg
+. ${HOME}/.bash_cursor
 
 # Currently using sdkman to manage
 #. ${HOME}/.bash_java
