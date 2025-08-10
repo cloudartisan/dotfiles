@@ -21,6 +21,7 @@ curl -fsLS https://raw.githubusercontent.com/cloudartisan/dotfiles/master/bootst
 - Vim setup with plugins
 - Tmux configuration
 - Homebrew package management
+- Cursor Agent CLI integration
 - Supports both macOS and Linux
 
 ## Manual Installation
@@ -44,6 +45,33 @@ chezmoi apply  # Apply changes
 - `executable_*` - Files with executable permissions
 - `private_*` - Files with stricter permissions (600)
 
+## Available Commands
+
+After installation, you'll have access to these utility scripts:
+
+### Installation & Setup
+- `bootstrap` - Full system setup (dotfiles, brew, vim, cursor-agent)
+- `install_dotfiles` - Install dotfiles using legacy method
+- `install_brew` - Install Homebrew and packages from Brewfile
+- `install_vim` - Set up Vim with plugins and configuration
+- `install_cursor_agent` - Install Cursor AI agent CLI tool
+- `install_tmux` - Install and configure tmux
+
+### Maintenance
+- `upgrade_brew` - Update Homebrew and all packages
+- `update_vim` - Update Vim plugins
+- `setup_hugo_completion` - Set up Hugo bash completion
+
+### Git Utilities
+- `git-ignore` - Add files to .gitignore
+- `git-author-rewrite.sh` - Rewrite commit author history
+- `git-repull-ship.bash` - Git workflow helper
+
+### System Utilities
+- `ps-rss`, `ps-priv-dirty-rss` - Memory usage tools
+- `gettarz`, `subvertarz` - Archive utilities
+- `vidslurp` - Video processing tool
+
 ## Automated Setup Scripts
 
 This repository includes automated setup scripts that run when applying the configuration:
@@ -53,6 +81,7 @@ This repository includes automated setup scripts that run when applying the conf
 - **Package Installation**: Installs Homebrew and all packages from Brewfile
 - **Vim Setup**: Configures Vim with plugins from the dotvim repository
 - **Shell Configuration**: Sets up bash shell with helpful aliases
+- **Cursor Agent**: Installs and configures Cursor AI agent CLI tool
 - **Git Setup**: Configures Git with user information and useful aliases
 - **macOS Settings**: Configures macOS preferences (only on macOS)
 
