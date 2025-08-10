@@ -22,6 +22,12 @@ for file in $(find . -type f -not -path "./.git/*" -not -path "*/\.*"); do
   echo "  ${file#./}"
 done
 
+# Make bin scripts executable
+if [ -d "$HOME/bin" ]; then
+  chmod +x "$HOME/bin/"*
+  echo "Made bin scripts executable"
+fi
+
 # Clean up
 rm -rf "$TEMP_DIR"
 echo "Dotfiles installation complete."
