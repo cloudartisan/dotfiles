@@ -103,23 +103,21 @@ chezmoi update
 
 ## Architecture
 
-### File Management Systems
-This repository supports two file management approaches:
+### File Management Architecture
 
-1. **chezmoi (Current/Recommended)**
-   - Files managed in `~/.local/share/chezmoi/`
-   - Deployed to `~` via `chezmoi apply`
-   - Uses GitHub as source of truth
-   - Supports templates and scripts
-
-2. **Legacy install_dotfiles**
-   - Direct deployment from GitHub to `~`
-   - Used for bootstrapping before chezmoi is available
-   - Simpler but less flexible
+**chezmoi-based system:**
+- **Source**: Files managed in `~/.local/share/chezmoi/` (git repository)
+- **Deployment**: Files deployed to `~` via `chezmoi apply`
+- **Automation**: Setup scripts in `.chezmoiscripts/` directory run once when applied
+- **Templates**: `.tmpl` files support variables and conditionals for machine-specific configs
+- **Updates**: `chezmoi update` pulls latest changes and applies them
 
 ### Key Files
-- **bootstrap-chezmoi.sh** - Sets up new machine with chezmoi
-- **bootstrap** - Legacy full setup script
-- **install_dotfiles** - Legacy direct deployment
-- **.chezmoiscripts/** - Automated setup scripts
-- **Brewfile** - Homebrew packages definition
+- **bootstrap-chezmoi.sh** - Sets up new machine with chezmoi (primary method)
+- **.chezmoiscripts/run_once_install-packages.sh.tmpl** - Automated package and cursor-agent installation
+- **.chezmoiscripts/run_once_setup-vim.sh.tmpl** - Automated Vim setup
+- **.chezmoiscripts/run_once_configure-git.sh.tmpl** - Automated Git configuration
+- **.chezmoiscripts/run_once_configure-macos.sh.tmpl** - Automated macOS settings
+- **.chezmoiscripts/run_once_configure-shell.sh.tmpl** - Automated shell configuration
+- **Brewfile** - Homebrew packages definition  
+- **bin/** - Individual utility scripts for manual use
