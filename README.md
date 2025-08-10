@@ -46,13 +46,19 @@ chezmoi apply
 chezmoi cd -- git add . && git commit -m "Update config" && git push
 ```
 
-## Structure
+## Repository Structure
 
-- `.chezmoiscripts/` - Scripts that run when applying the config
-- `bin/` - Utility scripts
-- `dot_*` - Regular dotfiles (e.g., dot_bashrc → .bashrc)
-- `executable_*` - Files with executable permissions
-- `private_*` - Files with stricter permissions (600)
+- `.chezmoiscripts/` - Automated setup scripts (run_once_*.sh.tmpl)
+- `bin/` - Utility scripts for manual use
+- `.bash_*` - Shell configuration files
+- `Brewfile` - Homebrew package definitions
+- `bootstrap-chezmoi.sh` - Primary installation script
+- Various dotfiles (`.gitconfig`, `.tmux.conf`, etc.)
+
+### chezmoi File Types
+- `run_once_*.sh.tmpl` - Scripts that run once during setup
+- `*.tmpl` - Template files with variables/conditionals  
+- Regular files - Deployed as-is to home directory
 
 ## Available Commands
 
@@ -81,23 +87,23 @@ After installation, you'll have access to these utility scripts:
 
 ## Automated Setup Scripts
 
-This repository includes automated setup scripts that run when applying the configuration:
+The bootstrap process runs automated setup scripts located in `.chezmoiscripts/`:
 
 ### What the Scripts Do
 
-- **Package Installation**: Installs Homebrew and all packages from Brewfile
-- **Vim Setup**: Configures Vim with plugins from the dotvim repository
-- **Shell Configuration**: Sets up bash shell with helpful aliases
-- **Cursor Agent**: Installs and configures Cursor AI agent CLI tool
-- **Git Setup**: Configures Git with user information and useful aliases
-- **macOS Settings**: Configures macOS preferences (only on macOS)
+- **run_once_install-packages.sh.tmpl**: Installs Homebrew, all Brewfile packages, and Cursor Agent CLI
+- **run_once_setup-vim.sh.tmpl**: Configures Vim with plugins from the dotvim repository  
+- **run_once_configure-shell.sh.tmpl**: Sets up bash shell with helpful aliases and PATH
+- **run_once_configure-git.sh.tmpl**: Configures Git with user information and useful aliases
+- **run_once_configure-macos.sh.tmpl**: Configures macOS preferences (only on macOS)
 
 ### How the Scripts Work
 
 - Scripts are located in the `.chezmoiscripts/` directory
-- They run automatically when you execute `chezmoi apply`
-- The `run_once_` prefix ensures they only run once per machine
-- Scripts use templating to customize configurations for different machines
+- They run automatically during `chezmoi init --apply` or `chezmoi apply`
+- The `run_once_` prefix ensures they only run once per machine (tracked by chezmoi)
+- The `.tmpl` extension allows for templating with variables and conditionals
+- Scripts handle the complete system setup automatically
 
 ### Using Templates for Different Machines
 
@@ -193,15 +199,17 @@ chezmoi cd -- git commit -m "Add new config" && git push
 
 ```bash
 # One command to install chezmoi and apply your dotfiles
-sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply cloudartisan
+curl -fsLS https://raw.githubusercontent.com/cloudartisan/dotfiles/master/bootstrap-chezmoi.sh | bash -s -- --apply
 ```
 
 This will:
 1. Install chezmoi
-2. Clone your dotfiles repository
-3. Run all the automated setup scripts
-4. Configure your shell, Vim, Git, and other tools
-5. Install packages from Brewfile (via the run_once scripts)
+2. Clone your dotfiles repository  
+3. Run all automated setup scripts from `.chezmoiscripts/`
+4. Install Homebrew and all packages from Brewfile
+5. Install and configure Cursor Agent CLI
+6. Configure shell, Vim, Git, and other tools
+7. Set up everything automatically
 
 #### Keeping Multiple Machines in Sync
 
