@@ -4,15 +4,19 @@ Personal dotfiles and configuration files managed with [chezmoi](https://www.che
 
 ## Quick Start
 
-To set up a new machine:
+To set up a new machine (one command does everything):
 
 ```bash
-# One-step bootstrap (review first)
-curl -fsLS https://raw.githubusercontent.com/cloudartisan/dotfiles/master/bootstrap-chezmoi.sh | bash
-
-# Or apply immediately
 curl -fsLS https://raw.githubusercontent.com/cloudartisan/dotfiles/master/bootstrap-chezmoi.sh | bash -s -- --apply
 ```
+
+This will:
+- Install chezmoi
+- Clone and apply your dotfiles
+- Install Homebrew and all packages
+- Set up Vim, Git, shell configuration
+- Install Cursor Agent CLI
+- Configure everything automatically
 
 ## Features
 
@@ -24,17 +28,22 @@ curl -fsLS https://raw.githubusercontent.com/cloudartisan/dotfiles/master/bootst
 - Cursor Agent CLI integration
 - Supports both macOS and Linux
 
-## Manual Installation
+## Daily Usage
+
+After initial setup, use these commands:
 
 ```bash
-# Install chezmoi
-brew install chezmoi  # macOS
-sh -c "$(curl -fsLS get.chezmoi.io)" -- -b $HOME/bin  # Linux
+# Update all machines with latest changes
+chezmoi update
 
-# Initialize from repo and apply
-chezmoi init https://github.com/cloudartisan/dotfiles.git
-chezmoi diff  # Review changes
-chezmoi apply  # Apply changes
+# Edit a dotfile
+chezmoi edit ~/.bash_profile
+
+# Apply changes locally
+chezmoi apply
+
+# Commit and push changes
+chezmoi cd -- git add . && git commit -m "Update config" && git push
 ```
 
 ## Structure
@@ -49,12 +58,10 @@ chezmoi apply  # Apply changes
 
 After installation, you'll have access to these utility scripts:
 
-### Installation & Setup
-- `bootstrap` - Full system setup (dotfiles, brew, vim, cursor-agent)
-- `install_dotfiles` - Install dotfiles using legacy method
-- `install_brew` - Install Homebrew and packages from Brewfile
+### Manual Installation & Setup
+- `install_brew` - Install Homebrew and packages from Brewfile  
 - `install_vim` - Set up Vim with plugins and configuration
-- `install_cursor_agent` - Install Cursor AI agent CLI tool
+- `install_cursor_agent` - Install Cursor AI agent CLI tool (utility)
 - `install_tmux` - Install and configure tmux
 
 ### Maintenance

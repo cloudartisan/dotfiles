@@ -2,11 +2,12 @@
 
 ## Commands
 
-### Installation & Setup
-- `./bin/bootstrap` - Runs the full setup process (dotfiles, brew, vim, cursor-agent)
-- `./bin/install_dotfiles` - Install dotfiles configuration (legacy method)
+### Primary Installation Method
+- `bootstrap-chezmoi.sh --apply` - Complete system setup (recommended)
+
+### Manual Installation & Setup (Utilities)
 - `./bin/install_vim` - Install vim configuration
-- `./bin/install_tmux` - Install tmux configuration
+- `./bin/install_tmux` - Install tmux configuration  
 - `./bin/install_brew` - Install Homebrew packages
 - `./bin/install_cursor_agent` - Install Cursor AI agent CLI tool
 
