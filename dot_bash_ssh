@@ -1,0 +1,2 @@
+# Enable auto-completion for hosts I've previously SSH'd to
+complete -W "$(sed -e 's/^  *//' -e '/^#/d' -e 's/[, ].*//' -e '/\[/d' ~/.ssh/known_hosts | sort -u)" ssh

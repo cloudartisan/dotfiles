@@ -1,0 +1,15 @@
+# EC2 credentials
+export EC2_PRIVATE_KEY=~/.ec2/default.key
+export EC2_CERT=~/.ec2/default.crt
+
+# IAM credentials
+export AWS_CREDENTIAL_FILE=$HOME/.aws/credentials
+
+# Default EC2 URL: US East
+export EC2_URL=https://ec2.us-east-1.amazonaws.com
+
+# Mostly used by stuff I've written
+read -r AWS_ACCESS_KEY_ID < $HOME/.aws/access-key-id
+export AWS_ACCESS_KEY_ID
+read -r AWS_SECRET_ACCESS_KEY < $HOME/.aws/secret-access-key
+export AWS_SECRET_ACCESS_KEY
