@@ -43,6 +43,7 @@ Brewfile
 .zoom/
 .zsh_sessions/
 
+
 # Vim (managed by separate dotvim repository)
 .vim/
 .vimrc
