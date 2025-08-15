@@ -25,6 +25,13 @@ echo "Installing Claude Code via npm..."
 if npm install -g @anthropic-ai/claude-code; then
   echo "✅ Claude Code installed successfully"
   
+  # Create symlink for self-detection (Claude Code expects itself in ~/.local/bin)
+  mkdir -p ~/.local/bin
+  if [ -f /opt/homebrew/bin/claude ]; then
+    ln -sf /opt/homebrew/bin/claude ~/.local/bin/claude
+    echo "✅ Created symlink for Claude Code self-detection"
+  fi
+  
   # Verify installation
   if claude --version >/dev/null 2>&1; then
     echo "✅ Claude Code verified working"
