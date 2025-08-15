@@ -18,6 +18,8 @@ export LSCOLORS=gxfxbEaEBxxEhEhBaDaCaD
 . ${HOME}/.bash_vim
 . ${HOME}/.bash_ssh
 . ${HOME}/.bash_gpg
+
+# Load cursor configuration last to ensure ~/.local/bin is in PATH
 . ${HOME}/.bash_cursor
 
 # Currently using sdkman to manage

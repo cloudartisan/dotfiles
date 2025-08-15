@@ -32,7 +32,9 @@ brew "vagrant-completion", desc: "Bash completion for Vagrant"
 # Development Tools & Utilities
 # -----------------------------------------------------------------------------
 brew "automake", desc: "Tool for generating GNU Standards-compliant Makefiles"
-cask "claude", desc: "Claude AI assistant for the command line"
+cask "claude", desc: "Claude AI desktop assistant"
+# Claude Code CLI is installed via official installer (curl -fsSL https://claude.ai/install.sh | sh)
+# for auto-updates - installed to ~/.local/bin/claude
 brew "ctags", desc: "Reimplementation of ctags(1)"
 brew "gh", desc: "GitHub command-line tool"
 brew "gist", desc: "Command-line utility for uploading Gists"
