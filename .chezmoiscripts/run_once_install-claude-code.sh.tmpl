@@ -1,0 +1,37 @@
+#!/bin/bash
+
+# Install Claude Code CLI tool
+# This script runs once when chezmoi is applied
+
+echo "📦 Installing Claude Code CLI..."
+
+# Check if Claude Code is already installed and working
+if command -v claude >/dev/null 2>&1; then
+  CURRENT_VERSION=$(claude --version 2>/dev/null | grep -o '[0-9.]*' | head -1)
+  if [ -n "$CURRENT_VERSION" ]; then
+    echo "✅ Claude Code already installed (version $CURRENT_VERSION)"
+    exit 0
+  fi
+fi
+
+# Ensure npm is available
+if ! command -v npm >/dev/null 2>&1; then
+  echo "❌ npm not found. Please install Node.js/npm first"
+  exit 1
+fi
+
+# Install Claude Code via npm
+echo "Installing Claude Code via npm..."
+if npm install -g @anthropic-ai/claude-code; then
+  echo "✅ Claude Code installed successfully"
+  
+  # Verify installation
+  if claude --version >/dev/null 2>&1; then
+    echo "✅ Claude Code verified working"
+  else
+    echo "⚠️  Claude Code installed but may need PATH refresh"
+  fi
+else
+  echo "❌ Failed to install Claude Code"
+  exit 1
+fi

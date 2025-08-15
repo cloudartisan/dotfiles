@@ -33,8 +33,8 @@ brew "vagrant-completion", desc: "Bash completion for Vagrant"
 # -----------------------------------------------------------------------------
 brew "automake", desc: "Tool for generating GNU Standards-compliant Makefiles"
 cask "claude", desc: "Claude AI desktop assistant"
-# Claude Code CLI is installed via: npm install -g @anthropic-ai/claude-code
-# (installed to /opt/homebrew/bin/claude, supports auto-updates)
+# Claude Code CLI is automatically installed via .chezmoiscripts/run_once_install-claude-code.sh.tmpl
+# (uses npm install -g @anthropic-ai/claude-code, supports auto-updates)
 brew "ctags", desc: "Reimplementation of ctags(1)"
 brew "gh", desc: "GitHub command-line tool"
 brew "gist", desc: "Command-line utility for uploading Gists"
