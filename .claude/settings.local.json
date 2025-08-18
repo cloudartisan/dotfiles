@@ -38,7 +38,8 @@
       "Bash(rm:*)",
       "Bash(touch:*)",
       "Bash(uv --version)",
-      "Bash(which:*)"
+      "Bash(which:*)",
+      "Bash(brew list:*)"
     ],
     "deny": []
   }
