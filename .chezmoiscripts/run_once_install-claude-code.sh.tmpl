@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Install Claude Code CLI tool
+# Install Claude Code CLI tool using official installer
 # This script runs once when chezmoi is applied
 
 echo "📦 Installing Claude Code CLI..."
@@ -14,21 +14,13 @@ if command -v claude >/dev/null 2>&1; then
   fi
 fi
 
-# Ensure npm is available
-if ! command -v npm >/dev/null 2>&1; then
-  echo "❌ npm not found. Please install Node.js/npm first"
-  exit 1
-fi
-
-# Install Claude Code via npm
-echo "Installing Claude Code via npm..."
-if npm install -g @anthropic-ai/claude-code; then
-  echo "✅ Claude Code installed successfully"
+# Install Claude Code using official installer
+echo "Installing Claude Code via official installer..."
+if curl -fsSL https://claude.ai/install.sh | sh; then
+  echo "✅ Claude Code installed successfully to ~/.local/bin/claude"
   
-  # Note: Claude Code may show a warning about not finding itself in ~/.local/bin
-  # This is cosmetic only - the CLI works perfectly when installed via npm
-  
-  # Verify installation
+  # Verify installation (add ~/.local/bin to PATH for verification)
+  export PATH="$HOME/.local/bin:$PATH"
   if claude --version >/dev/null 2>&1; then
     echo "✅ Claude Code verified working"
   else
