@@ -1,0 +1,32 @@
+#!/bin/bash
+
+# Configure GPG after installation
+# This script runs once when chezmoi is applied
+
+echo "🔐 Configuring GPG..."
+
+# Check if GPG is installed
+if ! command -v gpg >/dev/null 2>&1; then
+  echo "⚠️  GPG not found - install gnupg via Homebrew first"
+  exit 0
+fi
+
+# Check if pinentry-mac is installed
+if ! command -v pinentry-mac >/dev/null 2>&1; then
+  echo "⚠️  pinentry-mac not found - install via Homebrew first"
+  exit 0
+fi
+
+# Ensure .gnupg directory has correct permissions
+if [ -d ~/.gnupg ]; then
+  chmod 700 ~/.gnupg
+  echo "✅ Set .gnupg directory permissions"
+fi
+
+# Restart gpg-agent to pick up new configuration
+if pgrep gpg-agent >/dev/null; then
+  gpgconf --kill gpg-agent
+  echo "✅ Restarted gpg-agent"
+fi
+
+echo "✅ GPG configuration complete"
