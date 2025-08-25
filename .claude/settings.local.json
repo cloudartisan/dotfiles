@@ -39,7 +39,10 @@
       "Bash(touch:*)",
       "Bash(uv --version)",
       "Bash(which:*)",
-      "Bash(brew list:*)"
+      "Bash(brew list:*)",
+      "Bash(claude --version)",
+      "Bash(echo $PATH)",
+      "WebFetch(domain:github.com)"
     ],
     "deny": []
   }
