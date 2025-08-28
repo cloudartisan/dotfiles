@@ -104,6 +104,7 @@ cask "docker", desc: "App to build and share containerized applications"
 cask "intellij-idea", desc: "Java IDE by JetBrains"
 cask "iterm2", desc: "Terminal emulator as alternative to Apple's Terminal app"
 cask "ngrok", desc: "Reverse proxy, secure tunnels to localhost"
+cask "wezterm", desc: "GPU-accelerated cross-platform terminal emulator and multiplexer"
 cask "postman", desc: "API development environment"
 cask "vagrant", desc: "Development environment"
 
