@@ -1,4 +1,4 @@
-#\!/bin/bash
+#!/bin/bash
 
 # Exit on error
 set -e
@@ -6,13 +6,13 @@ set -e
 echo "==> Configuring shell environment"
 
 # Set up bash as the default shell if it isn't already
-if [[ "$SHELL" \!= *"/bash" ]]; then
+if [[ "$SHELL" != *"/bash" ]]; then
   echo "Setting Bash as default shell..."
   chsh -s $(which bash)
 fi
 
 # Create .bash_profile if it doesn't exist
-if [ \! -f "$HOME/.bash_profile" ]; then
+if [ ! -f "$HOME/.bash_profile" ]; then
   echo "Creating .bash_profile..."
   touch "$HOME/.bash_profile"
 fi
@@ -21,7 +21,7 @@ fi
 chmod +x "$HOME/.bash_profile"
 
 # Set up common shell aliases
-if \! grep -q "# Chezmoi aliases" "$HOME/.bash_aliases" 2>/dev/null; then
+if ! grep -q "# Chezmoi aliases" "$HOME/.bash_aliases" 2>/dev/null; then
   echo "Adding Chezmoi aliases..."
   cat >> "$HOME/.bash_aliases" << ALIASES
 

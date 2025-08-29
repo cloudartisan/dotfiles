@@ -42,7 +42,8 @@
       "Bash(brew list:*)",
       "Bash(claude --version)",
       "Bash(echo $PATH)",
-      "WebFetch(domain:github.com)"
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:www.chezmoi.io)"
     ],
     "deny": []
   }
