@@ -12,7 +12,7 @@ if ! command -v brew &> /dev/null; then
 fi
 
 # Install packages from Brewfile
-brew bundle --file="$HOME/Brewfile"
+brew bundle --file="$HOME/.local/share/chezmoi/Brewfile"
 
 echo "==> Installing Cursor Agent CLI"
 

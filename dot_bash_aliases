@@ -1,1 +1,8 @@
 alias hgrep="history | grep -v grep | grep "
+
+# Chezmoi aliases
+alias cz="chezmoi"
+alias cza="chezmoi apply"
+alias czd="chezmoi diff"
+alias cze="chezmoi edit"
+alias czu="chezmoi update"
