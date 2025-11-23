@@ -1,2 +1,0 @@
-export GPGKEY=CB28C487
-export GPG_TTY=$(tty)
