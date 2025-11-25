@@ -5,7 +5,6 @@
 # Taps
 # -----------------------------------------------------------------------------
 tap "heroku/brew"
-tap "homebrew/services"
 
 # -----------------------------------------------------------------------------
 # Programming Languages & Development Environments
@@ -25,8 +24,6 @@ brew "docker-completion", desc: "Bash, Zsh and Fish completion for Docker"
 brew "hugo", desc: "Configurable static site generator"
 brew "maven-completion", desc: "Bash completion for Maven"
 brew "pip-completion", desc: "Bash completion for Pip"
-brew "tmuxinator-completion", desc: "Shell completion for Tmuxinator"
-brew "vagrant-completion", desc: "Bash completion for Vagrant"
 
 # -----------------------------------------------------------------------------
 # Development Tools & Utilities
@@ -106,7 +103,6 @@ cask "iterm2", desc: "Terminal emulator as alternative to Apple's Terminal app"
 cask "ngrok", desc: "Reverse proxy, secure tunnels to localhost"
 cask "wezterm", desc: "GPU-accelerated cross-platform terminal emulator and multiplexer"
 cask "postman", desc: "API development environment"
-cask "vagrant", desc: "Development environment"
 
 # -----------------------------------------------------------------------------
 # Cloud Services & Storage
