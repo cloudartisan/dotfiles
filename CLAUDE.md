@@ -88,8 +88,21 @@ chezmoi cd -- git add . && git commit -m "Description" && git push
 ```
 
 ### Deploying to Other Machines
+
+#### New Machine Setup
 ```bash
-# Update all machines with latest changes
+# Initial setup on a brand new machine
+chezmoi init --apply https://github.com/cloudartisan/dotfiles.git
+
+# This will:
+# - Clone the repository to ~/.local/share/chezmoi
+# - Run setup scripts in .chezmoiscripts/
+# - Deploy all dotfiles to your home directory
+```
+
+#### Updating Existing Machines
+```bash
+# Pull latest changes and apply to already configured machines
 chezmoi update
 ```
 
