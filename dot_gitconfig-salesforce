@@ -1,0 +1,10 @@
+[user]
+	email = d.l.taylor@salesforce.com
+	name = d-l-taylor
+	signingkey = 449F9A0AFAC505592FEFB7EA8F53FA22DC77696C
+[commit]
+	gpgsign = true
+[push]
+	gpgsign = if-asked
+[gpg]
+	program = /opt/homebrew/bin/gpg

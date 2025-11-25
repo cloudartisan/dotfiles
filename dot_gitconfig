@@ -50,3 +50,7 @@
 	helper = osxkeychain
 [gpg]
   program = gpg2
+
+# Include Salesforce-specific config for repos under ~/git/salesforce/
+[includeIf "gitdir:~/git/salesforce/"]
+  path = ~/.gitconfig-salesforce

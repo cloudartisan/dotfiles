@@ -119,5 +119,37 @@ chezmoi update
 - **.chezmoiscripts/run_once_configure-git.sh.tmpl** - Automated Git configuration
 - **.chezmoiscripts/run_once_configure-macos.sh.tmpl** - Automated macOS settings
 - **.chezmoiscripts/run_once_configure-shell.sh.tmpl** - Automated shell configuration
-- **Brewfile** - Homebrew packages definition  
+- **Brewfile** - Homebrew packages definition
 - **bin/** - Individual utility scripts for manual use
+
+## GPG Signing for Salesforce Repositories
+
+### Automatic Configuration
+Repositories under `~/git/salesforce/` are automatically configured for GPG signing via git conditional includes. No manual configuration is needed - when you `cd` into a Salesforce repo, git automatically uses the correct identity and enables commit signing.
+
+### Workflow for Claude Code
+Before using Claude Code on Salesforce repositories that require GPG signing:
+
+1. Run the GPG unlock helper in a terminal:
+   ```bash
+   gpg-unlock
+   ```
+
+2. Enter your GPG passphrase when prompted
+
+3. Credentials are cached for 8 hours
+
+4. Claude Code can now make signed commits and perform rebases
+
+### Technical Details
+- **Signing key**: 449F9A0AFAC505592FEFB7EA8F53FA22DC77696C
+- **Cache duration**: Default 8 hours (28800s), maximum 24 hours (86400s)
+- **Configuration**: Git conditional includes (`.gitconfig-salesforce`)
+- **Non-TTY limitation**: GPG signing requires passphrase entry, which cannot happen in non-TTY environments. The pre-unlock workflow solves this by caching credentials.
+
+### Manual Configuration (Legacy)
+The following bash aliases are maintained for backward compatibility:
+- `gitsfdc` - Manually configure current repo for Salesforce
+- `gitsoma` - Same as gitsfdc
+
+These are no longer needed for repos under `~/git/salesforce/` due to automatic git conditional includes.

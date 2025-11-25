@@ -1,0 +1,20 @@
+#!/bin/bash
+# Unlock GPG key and cache credentials for the session
+# Run this before starting work with Claude Code on Salesforce repos
+
+set -e
+
+KEY_ID="449F9A0AFAC505592FEFB7EA8F53FA22DC77696C"
+
+echo "Unlocking GPG key ${KEY_ID}..."
+echo "test" | gpg --sign --local-user "${KEY_ID}" --armor > /dev/null 2>&1
+
+if [ $? -eq 0 ]; then
+  echo "✓ GPG key unlocked and cached"
+  echo "Credentials cached for 8 hours (28800 seconds)"
+  echo ""
+  echo "You can now use Claude Code for Salesforce repos"
+else
+  echo "✗ Failed to unlock GPG key"
+  exit 1
+fi
