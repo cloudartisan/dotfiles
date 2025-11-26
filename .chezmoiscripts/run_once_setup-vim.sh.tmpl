@@ -5,10 +5,14 @@ set -e
 
 echo "==> Setting up Vim configuration"
 
-# Install Vim if needed
+# Ensure Vim is installed
 if type brew &>/dev/null; then
-  echo "Installing Vim via Homebrew..."
-  brew reinstall vim
+  if ! brew list vim &>/dev/null; then
+    echo "Installing Vim via Homebrew..."
+    brew install vim
+  else
+    echo "Vim is already installed"
+  fi
 fi
 
 # Create .vim directory if it doesn't exist
@@ -28,12 +32,14 @@ curl -Lso - https://github.com/cloudartisan/dotvim/tarball/master \
 ln -sf ${HOME}/.vim/vimrc ${HOME}/.vimrc
 ln -sf ${HOME}/.vim/vimrc ${HOME}/.gvimrc
 
-# Setup Git repository
-echo "Setting up Git repository in .vim directory..."
-cd ${HOME}/.vim
-git init
-git submodule init
-git submodule update
+# Setup Git repository (for version tracking, optional)
+if [ -d ${HOME}/.vim/.git ]; then
+  echo "Git repository already exists in .vim directory"
+else
+  echo "Initializing Git repository in .vim directory..."
+  cd ${HOME}/.vim
+  git init
+fi
 
 # Install plugins
 echo "Installing Vim plugins..."
