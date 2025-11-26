@@ -7,7 +7,7 @@ brew update
 brew upgrade
 
 # Update all Brewfile packages
-brew bundle --file="$HOME/git/cloudartisan/dotfiles/Brewfile"
+brew bundle --file="$HOME/Brewfile"
 
 # Remove cached downloads and outdated versions
 brew cleanup
