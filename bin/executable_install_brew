@@ -11,7 +11,7 @@ brew update
 # as they've been integrated into the core Homebrew experience
 
 # Install all dependencies using Brewfile
-brew bundle --file="$HOME/git/cloudartisan/dotfiles/Brewfile"
+brew bundle --file="$HOME/Brewfile"
 
 # Remove cached downloads and outdated versions
 brew cleanup
