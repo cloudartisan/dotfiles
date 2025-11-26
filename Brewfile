@@ -114,7 +114,6 @@ cask "google-drive", desc: "Client for the Google Drive storage service"
 # -----------------------------------------------------------------------------
 cask "1password", desc: "Password manager"
 cask "google-chrome", desc: "Web browser"
-cask "kindle", desc: "Ebook reader"
 cask "minecraft", desc: "Sandbox game of building blocks and adventure"
 cask "obsidian", desc: "Knowledge base that works on local Markdown files"
 cask "vlc", desc: "Multimedia player"
