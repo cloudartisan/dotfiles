@@ -1,0 +1,12 @@
+#!/bin/sh
+# Auto-detect and use the correct pinentry-mac location
+# Works on both Apple Silicon (/opt/homebrew) and Intel (/usr/local) Macs
+
+if [ -x "/opt/homebrew/bin/pinentry-mac" ]; then
+  exec /opt/homebrew/bin/pinentry-mac "$@"
+elif [ -x "/usr/local/bin/pinentry-mac" ]; then
+  exec /usr/local/bin/pinentry-mac "$@"
+else
+  echo "Error: pinentry-mac not found in expected locations" >&2
+  exit 1
+fi
