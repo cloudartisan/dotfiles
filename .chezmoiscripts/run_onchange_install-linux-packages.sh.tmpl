@@ -1,0 +1,49 @@
+{{ if eq .chezmoi.os "linux" -}}
+#!/bin/bash
+
+set -e
+
+echo "==> Installing Linux packages"
+
+# Detect package manager and install packages
+{{ if lookPath "apt-get" -}}
+echo "Using apt package manager..."
+sudo apt-get update
+{{ range .packages.linux.apt -}}
+if ! dpkg -l | grep -q "^ii  {{ . }} "; then
+  echo "Installing {{ . }}..."
+  sudo apt-get install -y {{ . }}
+else
+  echo "{{ . }} already installed"
+fi
+{{ end -}}
+
+{{ else if lookPath "dnf" -}}
+echo "Using dnf package manager..."
+{{ range .packages.linux.dnf -}}
+if ! rpm -q {{ . }} &>/dev/null; then
+  echo "Installing {{ . }}..."
+  sudo dnf install -y {{ . }}
+else
+  echo "{{ . }} already installed"
+fi
+{{ end -}}
+
+{{ else if lookPath "yum" -}}
+echo "Using yum package manager..."
+{{ range .packages.linux.yum -}}
+if ! rpm -q {{ . }} &>/dev/null; then
+  echo "Installing {{ . }}..."
+  sudo yum install -y {{ . }}
+else
+  echo "{{ . }} already installed"
+fi
+{{ end -}}
+
+{{ else -}}
+echo "Warning: No supported package manager found (apt, dnf, yum)"
+echo "Please install packages manually: {{ range .packages.linux.apt }}{{ . }} {{ end }}"
+{{ end -}}
+
+echo "✓ Linux packages installed"
+{{ end -}}

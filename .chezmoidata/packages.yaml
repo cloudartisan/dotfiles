@@ -1,0 +1,8 @@
+packages:
+  linux:
+    apt:
+      - vlc
+    dnf:
+      - vlc
+    yum:
+      - vlc
