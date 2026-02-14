@@ -1,0 +1,51 @@
+#!/bin/bash
+
+# Install AI CLI tools via npm global
+# This script runs once when chezmoi is applied
+
+set -e
+
+echo "==> Installing AI CLI tools"
+
+# Check npm availability
+if ! command -v npm >/dev/null 2>&1; then
+  echo "Error: npm not found. Please install Node.js first."
+  exit 1
+fi
+
+# Install/update OpenAI Codex CLI
+echo "Installing OpenAI Codex CLI..."
+if npm install -g @openai/codex; then
+  echo "  Codex CLI installed successfully"
+else
+  echo "  Warning: Failed to install Codex CLI"
+fi
+
+# Install/update Google Gemini CLI
+echo "Installing Google Gemini CLI..."
+if npm install -g @google/gemini-cli; then
+  echo "  Gemini CLI installed successfully"
+else
+  echo "  Warning: Failed to install Gemini CLI"
+fi
+
+# Verify installations
+echo ""
+echo "Verifying installations..."
+
+if command -v codex >/dev/null 2>&1; then
+  CODEX_VERSION=$(codex --version 2>/dev/null || echo "unknown")
+  echo "  Codex CLI: installed ($CODEX_VERSION)"
+else
+  echo "  Codex CLI: not found in PATH"
+fi
+
+if command -v gemini >/dev/null 2>&1; then
+  GEMINI_VERSION=$(gemini --version 2>/dev/null || echo "unknown")
+  echo "  Gemini CLI: installed ($GEMINI_VERSION)"
+else
+  echo "  Gemini CLI: not found in PATH"
+fi
+
+echo ""
+echo "AI CLI tools installation complete"
