@@ -128,12 +128,35 @@ chezmoi update
 ### Key Files
 - **bootstrap-chezmoi.sh** - Sets up new machine with chezmoi (primary method)
 - **.chezmoiscripts/run_once_install-packages.sh.tmpl** - Automated package and cursor-agent installation
+- **.chezmoiscripts/run_once_install-ai-cli-tools.sh.tmpl** - Automated AI CLI tools installation
+- **.chezmoiscripts/run_once_install-claude-code.sh.tmpl** - Automated Claude Code CLI installation
 - **.chezmoiscripts/run_once_setup-vim.sh.tmpl** - Automated Vim setup
 - **.chezmoiscripts/run_once_configure-git.sh.tmpl** - Automated Git configuration
 - **.chezmoiscripts/run_once_configure-macos.sh.tmpl** - Automated macOS settings
 - **.chezmoiscripts/run_once_configure-shell.sh.tmpl** - Automated shell configuration
 - **Brewfile** - Homebrew packages definition
 - **bin/** - Individual utility scripts for manual use
+
+### AI CLI Tools
+
+The following AI CLI tools are automatically installed during system setup:
+
+**Claude Code CLI** (`claude`)
+- Installed via: curl-based installer (official method)
+- Script: `.chezmoiscripts/run_once_install-claude-code.sh.tmpl`
+- Command: `claude` - Interactive AI assistant for coding tasks
+
+**OpenAI Codex CLI** (`codex`)
+- Installed via: npm global (`@openai/codex`)
+- Script: `.chezmoiscripts/run_once_install-ai-cli-tools.sh.tmpl`
+- Command: `codex` - OpenAI's Codex assistant
+
+**Google Gemini CLI** (`gemini`)
+- Installed via: npm global (`@google/gemini-cli`)
+- Script: `.chezmoiscripts/run_once_install-ai-cli-tools.sh.tmpl`
+- Command: `gemini` - Google's Gemini assistant
+
+All tools are automatically installed during initial setup via `chezmoi init --apply` and are available in new machine deployments.
 
 ## GPG Signing for Salesforce Repositories
 
