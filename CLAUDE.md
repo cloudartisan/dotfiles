@@ -158,6 +158,36 @@ The following AI CLI tools are automatically installed during system setup:
 
 All tools are automatically installed during initial setup via `chezmoi init --apply` and are available in new machine deployments.
 
+## Salesforce-Specific Configuration
+
+### Pip Package Management
+
+On Salesforce work machines (hostnames starting with `redacted-host*` or `redacted-host*`), pip is automatically configured to use Salesforce's internal Nexus repository as a PyPI mirror.
+
+**Configuration:**
+- Location: `~/.config/pip/pip.conf`
+- Index: `https://redacted.example.invalid/nexus/repository/pypi-all/simple`
+- Certificate: `~/.config/pip/cert.pem` (auto-downloaded)
+
+**How it works:**
+- `dot_config/pip/pip.conf.tmpl` - Templated config file (deploys different content per machine)
+- `.chezmoiscripts/run_once_install-salesforce-pip-cert.sh.tmpl` - Downloads CA certificate on Salesforce machines
+
+**Verification:**
+```bash
+# Check pip configuration
+python -m pip config list
+
+# Test installation from Salesforce Nexus
+pip install requests
+```
+
+**Manual certificate update:**
+If the certificate expires or needs updating:
+```bash
+curl -o ~/.config/pip/cert.pem https://redacted.example.invalid/pages/python-at-sfdc/python-guide/pip-conf/cert.pem
+```
+
 ## GPG Signing for Salesforce Repositories
 
 ### Automatic Configuration
