@@ -1,0 +1,15 @@
+{{- if or (regexMatch "^dltaylo-ltm" .chezmoi.hostname) (regexMatch "^dltaylo-wsm" .chezmoi.hostname) }}
+# Salesforce-specific pip configuration
+[global]
+index-url = https://nexus-proxy.repo.local.sfdc.net/nexus/repository/pypi-all/simple
+trusted-host = nexus-proxy.repo.local.sfdc.net
+cert = ~/.config/pip/cert.pem
+timeout = 120
+
+[install]
+trusted-host = nexus-proxy.repo.local.sfdc.net
+{{- else }}
+# Personal/default pip configuration
+[global]
+timeout = 60
+{{- end }}

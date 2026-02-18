@@ -1,0 +1,30 @@
+#!/bin/bash
+{{- if or (regexMatch "^dltaylo-ltm" .chezmoi.hostname) (regexMatch "^dltaylo-wsm" .chezmoi.hostname) }}
+
+# Download Salesforce pip certificate
+# This script runs once when chezmoi is applied on Salesforce machines
+
+echo "==> Installing Salesforce pip certificate"
+
+# Ensure the pip config directory exists
+mkdir -p ~/.config/pip
+
+# Download the certificate
+if curl -fsSL -o ~/.config/pip/cert.pem https://git.soma.salesforce.com/pages/python-at-sfdc/python-guide/pip-conf/cert.pem; then
+  echo "  Salesforce pip certificate downloaded successfully"
+  chmod 644 ~/.config/pip/cert.pem
+  echo "  Certificate saved to ~/.config/pip/cert.pem"
+else
+  echo "  Warning: Failed to download Salesforce pip certificate"
+  echo "  This is expected if not connected to Salesforce network"
+  echo "  Download manually when connected:"
+  echo "  curl -o ~/.config/pip/cert.pem https://git.soma.salesforce.com/pages/python-at-sfdc/python-guide/pip-conf/cert.pem"
+fi
+
+echo ""
+echo "Salesforce pip configuration complete"
+
+{{- else }}
+# Not a Salesforce machine - skip certificate download
+exit 0
+{{- end }}
