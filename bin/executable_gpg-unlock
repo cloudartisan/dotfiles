@@ -1,10 +1,21 @@
 #!/bin/bash
 # Unlock GPG key and cache credentials for the session
-# Run this before starting work with Claude Code on Salesforce repos
+# Usage: gpg-unlock [KEY_ID]
+#
+# If KEY_ID is not provided, uses git config user.signingkey from current repo,
+# or falls back to default key: 449F9A0AFAC505592FEFB7EA8F53FA22DC77696C
 
 set -e
 
-KEY_ID="449F9A0AFAC505592FEFB7EA8F53FA22DC77696C"
+# Determine which key to unlock
+if [ -n "$1" ]; then
+  KEY_ID="$1"
+elif KEY_ID=$(git config user.signingkey 2>/dev/null); then
+  : # Use key from git config
+else
+  # Default fallback key
+  KEY_ID="449F9A0AFAC505592FEFB7EA8F53FA22DC77696C"
+fi
 
 echo "Unlocking GPG key ${KEY_ID}..."
 echo "test" | gpg --sign --local-user "${KEY_ID}" --armor > /dev/null 2>&1
@@ -12,8 +23,6 @@ echo "test" | gpg --sign --local-user "${KEY_ID}" --armor > /dev/null 2>&1
 if [ $? -eq 0 ]; then
   echo "✓ GPG key unlocked and cached"
   echo "Credentials cached for 8 hours (28800 seconds)"
-  echo ""
-  echo "You can now use Claude Code for Salesforce repos"
 else
   echo "✗ Failed to unlock GPG key"
   exit 1
