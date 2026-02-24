@@ -1,0 +1,10 @@
+{{- if or (regexMatch "^dltaylo-ltm" .chezmoi.hostname) (regexMatch "^dltaylo-wsm" .chezmoi.hostname) }}
+# Salesforce-specific configuration
+
+# AI Suite environment (sets NODE_EXTRA_CA_CERTS and PATH)
+if [[ -f ~/.aisuite/env.sh ]]; then
+  source ~/.aisuite/env.sh
+fi
+{{- else }}
+# Not a Salesforce machine - skip Salesforce-specific configuration
+{{- end }}
