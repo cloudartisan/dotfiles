@@ -3,8 +3,3 @@
 if [[ -f ~/.bash_profile ]]; then
   source ~/.bash_profile
 fi
-
-# Claude Code CA certificates (Salesforce-specific)
-if [[ -f ~/.claude/certs/salesforce-ca-bundle.pem ]]; then
-  export NODE_EXTRA_CA_CERTS="$HOME/.claude/certs/salesforce-ca-bundle.pem"
-fi

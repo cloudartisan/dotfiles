@@ -31,6 +31,9 @@ export LSCOLORS=gxfxbEaEBxxEhEhBaDaCaD
 . ${HOME}/.bash_linode
 . ${HOME}/.bash_terraform
 
+# Salesforce-specific configuration (only on work machines)
+[[ -f ${HOME}/.bash_salesforce ]] && . ${HOME}/.bash_salesforce
+
 # Load API keys and secrets from ~/.keys
 . ${HOME}/.bash_keys
 
