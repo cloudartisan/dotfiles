@@ -53,4 +53,3 @@ migrate-to-chezmoi.md
 .CFUserTextEncoding
 *.swp
 *~
-.bash_profile.d/

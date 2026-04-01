@@ -51,10 +51,3 @@ export BASH_SILENCE_DEPRECATION_WARNING=1
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
-
-# Source tool-managed configuration (not checked into dotfiles)
-if [ -d "$HOME/.bash_profile.d" ]; then
-  for file in "$HOME/.bash_profile.d"/*.sh; do
-    [ -f "$file" ] && . "$file"
-  done
-fi
