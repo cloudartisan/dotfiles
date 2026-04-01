@@ -1,0 +1,26 @@
+#!/bin/bash
+# Extract tool-managed sections from .bash_profile to .bash_profile.d/
+# This runs after chezmoi applies .bash_profile changes
+
+target_file="$HOME/.bash_profile"
+tool_dir="$HOME/.bash_profile.d"
+
+# Create tool directory if it doesn't exist
+mkdir -p "$tool_dir"
+
+# Check if there are tool-managed sections in .bash_profile
+if grep -q "# >>> aisuite >>>" "$target_file"; then
+  # Extract aisuite section to separate file
+  sed -n '/# >>> aisuite >>>/,/# <<< aisuite <<</p' "$target_file" > "$tool_dir/aisuite.sh"
+  # Remove from .bash_profile
+  sed -i '' '/# >>> aisuite >>>/,/# <<< aisuite <<</d' "$target_file"
+  echo "Extracted aisuite configuration to ~/.bash_profile.d/aisuite.sh"
+fi
+
+if grep -q "# devbar-managed-start" "$target_file"; then
+  # Extract devbar section to separate file
+  sed -n '/# devbar-managed-start/,/# devbar-managed-end/p' "$target_file" > "$tool_dir/devbar.sh"
+  # Remove from .bash_profile
+  sed -i '' '/# devbar-managed-start/,/# devbar-managed-end/d' "$target_file"
+  echo "Extracted devbar configuration to ~/.bash_profile.d/devbar.sh"
+fi
