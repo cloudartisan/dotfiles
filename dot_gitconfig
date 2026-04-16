@@ -20,6 +20,8 @@
   ir = @git rebase -i origin/master
   context = log -U0 -S
   amend = commit --amend --no-edit
+  br = branch
+  ci = commit
 [core]
   excludesfile = ~/.gitignore
   quotepath = false
@@ -45,7 +47,7 @@
 [user]
   name = David Taylor
   # Set for each project to deal with multiple github accounts
-  email =
+  email = david@cloudartisan.com
 [credential]
 	helper = osxkeychain
 [gpg]
@@ -54,3 +56,5 @@
 # Include Salesforce-specific config for repos under ~/git/salesforce/
 [includeIf "gitdir:~/git/salesforce/"]
   path = ~/.gitconfig-salesforce
+[pull]
+  rebase = true
