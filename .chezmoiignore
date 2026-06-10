@@ -54,5 +54,5 @@ migrate-to-chezmoi.md
 *.swp
 *~
 
-# Tool-managed configuration
-.bash_profile.d/
+# zsh runtime files
+.zcompdump*
