@@ -1,9 +1,0 @@
-function cd_tfswitch() {
-  builtin cd "$@"
-  cdir=$PWD
-  if [ -f "$cdir/.tfswitchrc" ]; then
-    tfswitch
-  fi
-}
-
-alias cd='cd_tfswitch'
