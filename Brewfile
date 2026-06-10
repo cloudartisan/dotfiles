@@ -2,11 +2,6 @@
 # Managed by brew bundle
 
 # -----------------------------------------------------------------------------
-# Taps
-# -----------------------------------------------------------------------------
-tap "heroku/brew"
-
-# -----------------------------------------------------------------------------
 # Programming Languages & Development Environments
 # -----------------------------------------------------------------------------
 brew "node", desc: "Platform built on V8 to build network applications"
@@ -16,14 +11,11 @@ brew "python-setuptools", desc: "Easily download, build, install, upgrade, and u
 # -----------------------------------------------------------------------------
 # Shell Enhancements & Environment Management
 # -----------------------------------------------------------------------------
-brew "autoenv", desc: "Per-project, per-directory shell environments"
 brew "direnv", desc: "Load/unload environment variables based on $PWD"
-brew "bash-completion@2", desc: "Programmable completion for Bash 4.2+"
-brew "brew-cask-completion", desc: "Fish completion for brew-cask"
-brew "docker-completion", desc: "Bash, Zsh and Fish completion for Docker"
+brew "starship", desc: "Cross-shell prompt for astronauts"
+brew "zsh-autosuggestions", desc: "Fish-like autosuggestions for zsh"
+brew "zsh-syntax-highlighting", desc: "Fish-like syntax highlighting for zsh"
 brew "hugo", desc: "Configurable static site generator"
-brew "maven-completion", desc: "Bash completion for Maven"
-brew "pip-completion", desc: "Bash completion for Pip"
 
 # -----------------------------------------------------------------------------
 # Development Tools & Utilities
@@ -34,25 +26,14 @@ brew "ctags", desc: "Reimplementation of ctags(1)"
 brew "gnupg", desc: "GNU Pretty Good Privacy (PGP) package"
 brew "pinentry-mac", desc: "Pinentry for GPG on macOS"
 brew "gh", desc: "GitHub command-line tool"
-brew "googleworkspace-cli", desc: "Google Workspace CLI"
 brew "gist", desc: "Command-line utility for uploading Gists"
 brew "git-filter-repo", desc: "Quickly rewrite git repository history"
-brew "hub", desc: "Add GitHub support to git on the command-line"
 brew "jq", desc: "Lightweight and flexible command-line JSON processor"
 brew "pre-commit", desc: "Framework for managing multi-language pre-commit hooks"
 brew "ripgrep", desc: "Search tool like grep and The Silver Searcher"
 brew "uv", desc: "Extremely fast Python package installer and resolver"
 brew "vim", desc: "Vi 'workalike' with many additional features"
 brew "tmux", desc: "Terminal multiplexer"
-
-# -----------------------------------------------------------------------------
-# Cloud & Infrastructure Tools
-# -----------------------------------------------------------------------------
-brew "awscli", desc: "Official Amazon AWS command-line interface"
-brew "heroku", desc: "Everything you need to get started with Heroku"
-brew "kubectl", desc: "Kubernetes command-line interface"
-brew "tfenv", desc: "Terraform version manager"
-brew "colima", desc: "Container runtimes on MacOS with minimal setup"
 
 # -----------------------------------------------------------------------------
 # Networking Tools
@@ -97,23 +78,14 @@ cask "whatsapp", desc: "Desktop client for WhatsApp"
 # -----------------------------------------------------------------------------
 # Development Applications
 # -----------------------------------------------------------------------------
-cask "cmake", desc: "Cross-platform make"
 cask "docker", desc: "App to build and share containerized applications"
 cask "iterm2", desc: "Terminal emulator as alternative to Apple's Terminal app"
-cask "ngrok", desc: "Reverse proxy, secure tunnels to localhost"
-cask "wezterm", desc: "GPU-accelerated cross-platform terminal emulator and multiplexer"
-cask "postman", desc: "API development environment"
-
-# -----------------------------------------------------------------------------
-# Cloud Services & Storage
-# -----------------------------------------------------------------------------
-cask "google-cloud-sdk", desc: "Tools for the Google Cloud Platform"
-cask "google-drive", desc: "Client for the Google Drive storage service"
 
 # -----------------------------------------------------------------------------
 # Utilities & Applications
 # -----------------------------------------------------------------------------
 cask "1password", desc: "Password manager"
 cask "google-chrome", desc: "Web browser"
+cask "google-drive", desc: "Client for the Google Drive storage service"
 cask "minecraft", desc: "Sandbox game of building blocks and adventure"
 cask "obsidian", desc: "Knowledge base that works on local Markdown files"
