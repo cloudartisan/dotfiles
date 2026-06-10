@@ -11,10 +11,10 @@ function woman {
 
 # Pretty man pages
 function pman() {
-	man $1 -t | open -f -a Preview
+  man $1 -t | open -f -a Preview
 }
 
 # Pretty JSON
 function pj() {
-	python -mjson.tool
+  python -mjson.tool
 }
