@@ -21,6 +21,7 @@ brew "hugo", desc: "Configurable static site generator"
 # Development Tools & Utilities
 # -----------------------------------------------------------------------------
 brew "automake", desc: "Tool for generating GNU Standards-compliant Makefiles"
+brew "cmake", desc: "Cross-platform make (required to build YouCompleteMe's ycmd)"
 cask "claude", desc: "Claude AI desktop assistant"
 brew "ctags", desc: "Reimplementation of ctags(1)"
 brew "gnupg", desc: "GNU Pretty Good Privacy (PGP) package"
