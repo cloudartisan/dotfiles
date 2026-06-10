@@ -13,8 +13,20 @@ To set up a new machine (one command does everything):
 curl -fsLS https://raw.githubusercontent.com/cloudartisan/dotfiles/master/bootstrap-chezmoi.sh | bash -s -- --apply
 ```
 
-This will:
-- Install chezmoi (and Homebrew on macOS)
+If the repository is already checked out (e.g. `~/Projects/dotfiles`), run
+the script from the checkout instead — it configures the checkout as the
+chezmoi source directory, so there is only one copy to edit and commit:
+
+```bash
+cd ~/Projects/dotfiles
+./bootstrap-chezmoi.sh           # preview mode; configures source, installs nothing else
+chezmoi diff                     # review what would change
+./bootstrap-chezmoi.sh --apply   # or: chezmoi apply
+```
+
+Either way, the bootstrap will:
+- Install chezmoi (and Homebrew on macOS, adding it to the PATH for the
+  duration of the script)
 - Clone and apply the dotfiles
 - Install all Brewfile packages
 - Set zsh as the login shell with a starship prompt
