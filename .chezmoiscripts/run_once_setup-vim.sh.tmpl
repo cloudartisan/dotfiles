@@ -41,8 +41,10 @@ else
   git init
 fi
 
-# Install plugins
+# Install plugins non-interactively (silent ex mode avoids hanging on
+# hit-enter prompts). First run may report errors for plugins that are
+# not installed yet, such as colorschemes, so do not fail the script.
 echo "Installing Vim plugins..."
-vim "+PlugInstall" "+qall"
+vim -es -u "${HOME}/.vimrc" -i NONE -c "PlugInstall --sync" -c "qa" || true
 
 echo "✓ Vim configuration complete"
