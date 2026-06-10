@@ -2,6 +2,9 @@
 
 Personal dotfiles and configuration files managed with [chezmoi](https://www.chezmoi.io/).
 
+This repository targets a personal macOS setup with a zsh shell. Linux is
+supported for a subset of the configuration.
+
 ## Quick Start
 
 To set up a new machine (one command does everything):
@@ -11,33 +14,34 @@ curl -fsLS https://raw.githubusercontent.com/cloudartisan/dotfiles/master/bootst
 ```
 
 This will:
-- Install chezmoi
-- Clone and apply your dotfiles
-- Install Homebrew and all packages
-- Set up Vim, Git, shell configuration
-- Install Cursor Agent CLI
-- Configure everything automatically
+- Install chezmoi (and Homebrew on macOS)
+- Clone and apply the dotfiles
+- Install all Brewfile packages
+- Set zsh as the login shell with a starship prompt
+- Set up Vim, Git, tmux, GPG, and macOS preferences
+- Install AI CLI tools (Claude Code, Codex, Gemini) and Cursor Agent
 
 ## Features
 
-- Shell configuration (bash & zsh support)
-- Git configuration
-- Vim setup with plugins
-- Tmux configuration
-- Homebrew package management
-- Cursor Agent CLI integration
-- Supports both macOS and Linux
+- Modular zsh configuration (`.zshrc` sourcing fragments from `~/.zsh/`)
+- starship prompt, zsh autosuggestions, and syntax highlighting
+- Git configuration with personal identity
+- Vim setup with plugins (from the dotvim repository)
+- Tmux configuration with window auto-renaming for ssh
+- Homebrew package management via Brewfile
+- GPG with pinentry-mac
 
 ## Daily Usage
 
-After initial setup, use these commands:
-
 ```bash
-# Update all machines with latest changes
+# Update this machine with the latest changes
 chezmoi update
 
 # Edit a dotfile
-chezmoi edit ~/.bash_profile
+chezmoi edit ~/.zshrc
+
+# Preview changes before applying
+chezmoi diff
 
 # Apply changes locally
 chezmoi apply
@@ -46,199 +50,101 @@ chezmoi apply
 chezmoi cd -- git add . && git commit -m "Update config" && git push
 ```
 
+Handy aliases (defined in `~/.zsh/aliases.zsh`): `cz`, `cza` (apply),
+`czd` (diff), `cze` (edit), `czu` (update).
+
 ## Repository Structure
 
 - `.chezmoiscripts/` - Automated setup scripts (run_once_*.sh.tmpl)
 - `bin/` - Utility scripts for manual use
-- `.bash_*` - Shell configuration files
+- `dot_zshrc`, `dot_zsh/` - Shell configuration
 - `Brewfile` - Homebrew package definitions
 - `bootstrap-chezmoi.sh` - Primary installation script
 - Various dotfiles (`.gitconfig`, `.tmux.conf`, etc.)
 
 ### chezmoi File Types
+
 - `run_once_*.sh.tmpl` - Scripts that run once during setup
-- `*.tmpl` - Template files with variables/conditionals  
-- Regular files - Deployed as-is to home directory
+- `*.tmpl` - Template files with variables/conditionals
+- `private_*` - Files deployed with restricted permissions
+- Regular files - Deployed as-is to the home directory
+
+## Automated Setup Scripts
+
+- **run_once_install-packages.sh.tmpl** - Installs Homebrew, all Brewfile packages, and Cursor Agent CLI
+- **run_once_install-ai-cli-tools.sh.tmpl** - Installs Codex and Gemini CLIs via npm
+- **run_once_install-claude-code.sh.tmpl** - Installs Claude Code CLI via the official installer
+- **run_once_setup-vim.sh.tmpl** - Configures Vim with plugins from the dotvim repository
+- **run_once_configure-shell.sh.tmpl** - Sets zsh as the login shell and installs iTerm2 shell integration
+- **run_once_configure-gpg.sh.tmpl** - Sets .gnupg permissions and restarts gpg-agent
+- **run_once_configure-macos.sh.tmpl** - Configures macOS preferences (only on macOS)
+- **run_onchange_install-linux-packages.sh.tmpl** - Installs Linux packages (only on Linux)
+
+Scripts run automatically during `chezmoi init --apply` or `chezmoi apply`.
+The `run_once_` prefix ensures they only run once per machine.
 
 ## Available Commands
 
-After installation, you'll have access to these utility scripts:
+Utility scripts deployed to `~/bin`:
 
 ### Manual Installation & Setup
-- `install_brew` - Install Homebrew and packages from Brewfile  
+- `install_brew` - Install Homebrew and packages from Brewfile
 - `install_vim` - Set up Vim with plugins and configuration
-- `install_cursor_agent` - Install Cursor AI agent CLI tool (utility)
 - `install_tmux` - Install and configure tmux
 
 ### Maintenance
 - `upgrade_brew` - Update Homebrew and all packages
 - `update_vim` - Update Vim plugins
-- `setup_hugo_completion` - Set up Hugo bash completion
+- `setup_hugo_completion` - Set up Hugo completion
 
 ### Git Utilities
 - `git-ignore` - Add files to .gitignore
 - `git-author-rewrite.sh` - Rewrite commit author history
-- `git-repull-ship.bash` - Git workflow helper
+- `git-repull-ship.bash` - Git workflow helpers (repull/ship)
 
 ### System Utilities
 - `ps-rss`, `ps-priv-dirty-rss` - Memory usage tools
-- `gettarz`, `subvertarz` - Archive utilities
+- `gittarz` - Archive utilities
 - `vidslurp` - Video processing tool
-
-## Automated Setup Scripts
-
-The bootstrap process runs automated setup scripts located in `.chezmoiscripts/`:
-
-### What the Scripts Do
-
-- **run_once_install-packages.sh.tmpl**: Installs Homebrew, all Brewfile packages, and Cursor Agent CLI
-- **run_once_setup-vim.sh.tmpl**: Configures Vim with plugins from the dotvim repository  
-- **run_once_configure-shell.sh.tmpl**: Sets up bash shell with helpful aliases and PATH
-- **run_once_configure-git.sh.tmpl**: Configures Git with user information and useful aliases
-- **run_once_configure-macos.sh.tmpl**: Configures macOS preferences (only on macOS)
-
-### How the Scripts Work
-
-- Scripts are located in the `.chezmoiscripts/` directory
-- They run automatically during `chezmoi init --apply` or `chezmoi apply`
-- The `run_once_` prefix ensures they only run once per machine (tracked by chezmoi)
-- The `.tmpl` extension allows for templating with variables and conditionals
-- Scripts handle the complete system setup automatically
-
-### Using Templates for Different Machines
-
-Some scripts use templating to provide different settings for work vs. personal machines:
-
-```bash
-# The script will prompt you when setting up a new machine
-{{- if (eq .chezmoi.hostname "work-laptop") }}
-# Work-specific settings
-{{- else }}
-# Personal settings
-{{- end }}
-```
-
-## Migration from Traditional Dotfiles
-
-This repository was migrated from a traditional dotfiles setup to chezmoi. For migration details, see [migrate-to-chezmoi.md](migrate-to-chezmoi.md).
 
 ## How This Repository Works
 
-### The Source of Truth
+**The GitHub repository is the authoritative source of truth.**
 
-**The GitHub repository is the authoritative source of truth for your dotfiles.**
+- **GitHub repository** - The master copy of the dotfiles
+- **~/.local/share/chezmoi** - Local clone of the repository
+- **Home directory (~)** - Where the deployed dotfiles live
 
-All your dotfiles are version-controlled in this repository. When you make changes through chezmoi, they are:
-1. Saved in your GitHub repository
-2. Applied to your local system
-3. Available to sync to other machines
-
-### Simple Workflow
+### Editing Existing Dotfiles
 
 ```bash
-# 1. Edit a dotfile
-chezmoi edit ~/.bash_profile
-
-# 2. Apply the changes to your home directory
-chezmoi apply
-
-# 3. Commit and push to GitHub
-chezmoi cd -- git commit -m "Update bash profile" && git push
-```
-
-That's it! Your changes are now tracked and synchronized.
-
-### Where Everything Lives
-
-- **GitHub repository**: The master copy of your dotfiles
-- **~/.local/share/chezmoi**: Local copy of the repository 
-- **Your home directory (~)**: Where the actual dotfiles are used by your system
-
-### Step-by-Step Guide
-
-#### Editing Existing Dotfiles
-
-Method 1 (Recommended):
-```bash
-# Edit through chezmoi (this is the best way)
-chezmoi edit ~/.bashrc
+# Edit through chezmoi (recommended)
+chezmoi edit ~/.zshrc
 
 # Apply changes to your home directory
 chezmoi apply
 
 # Commit and push
-chezmoi cd -- git commit -m "Update bashrc" && git push
+chezmoi cd -- git add . && git commit -m "Update zshrc" && git push
 ```
 
-Method 2:
-```bash
-# Edit directly
-vim ~/.bashrc
-
-# Add changes to chezmoi
-chezmoi add ~/.bashrc
-
-# Apply changes
-chezmoi apply
-
-# Commit and push
-chezmoi cd -- git commit -m "Update bashrc" && git push
-```
-
-#### Adding New Dotfiles
+### Adding New Dotfiles
 
 ```bash
 # Add a new config file
 chezmoi add ~/.my_new_config
 
 # Commit and push
-chezmoi cd -- git commit -m "Add new config" && git push
+chezmoi cd -- git add . && git commit -m "Add new config" && git push
 ```
 
-#### Setting Up a New Machine
+### Machine-Local Configuration
 
-```bash
-# One command to install chezmoi and apply your dotfiles
-curl -fsLS https://raw.githubusercontent.com/cloudartisan/dotfiles/master/bootstrap-chezmoi.sh | bash -s -- --apply
-```
-
-This will:
-1. Install chezmoi
-2. Clone your dotfiles repository  
-3. Run all automated setup scripts from `.chezmoiscripts/`
-4. Install Homebrew and all packages from Brewfile
-5. Install and configure Cursor Agent CLI
-6. Configure shell, Vim, Git, and other tools
-7. Set up everything automatically
-
-#### Keeping Multiple Machines in Sync
-
-After you've pushed changes from one machine:
-
-```bash
-# On your other machines:
-chezmoi update
-```
-
-This pulls the latest changes from GitHub and applies them.
-
-### Essential Commands
-
-- `chezmoi edit ~/.file` - Edit a dotfile
-- `chezmoi add ~/.file` - Track a new file
-- `chezmoi diff` - Preview changes before applying
-- `chezmoi apply` - Apply changes to your home directory
-- `chezmoi update` - Pull and apply latest changes from GitHub
-- `chezmoi cd -- git command` - Run git commands in the repository
-
-### Best Practices
-
-- Always use `chezmoi edit` instead of editing files directly
-- Review changes with `chezmoi diff` before applying
-- Commit and push regularly
-- Use .chezmoiignore to exclude sensitive files (like .bash_history)
-- Use templates for machine-specific configurations
+Anything machine-specific that should stay out of the repository can go in
+`~/.zsh_local`, which is sourced at the end of `.zshrc` if present. API keys
+live in `~/.keys/*.sh` files (never committed) and are loaded by
+`~/.zsh/keys.zsh`.
 
 ## License
 
-MIT
+See [LICENSE](LICENSE).
