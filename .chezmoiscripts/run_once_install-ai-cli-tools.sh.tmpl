@@ -7,15 +7,28 @@ set -e
 
 echo "==> Installing AI CLI tools"
 
-# Check npm availability
-if ! command -v npm >/dev/null 2>&1; then
+# Use Homebrew's npm explicitly so installs land in the Homebrew prefix.
+# Relying on `npm` from PATH risks picking up another runtime's npm
+# (e.g. a shim in ~/.local/bin) whose global prefix is not on the PATH.
+if [ -x /opt/homebrew/bin/npm ]; then
+  npm_bin=/opt/homebrew/bin/npm
+  npm_prefix=/opt/homebrew
+elif [ -x /usr/local/bin/npm ]; then
+  npm_bin=/usr/local/bin/npm
+  npm_prefix=/usr/local
+elif command -v npm >/dev/null 2>&1; then
+  npm_bin=$(command -v npm)
+  npm_prefix=$("$npm_bin" prefix -g)
+  echo "Warning: Homebrew npm not found; using $npm_bin"
+  echo "         Global installs will go to $npm_prefix/bin"
+else
   echo "Error: npm not found. Please install Node.js first."
   exit 1
 fi
 
 # Install/update OpenAI Codex CLI
 echo "Installing OpenAI Codex CLI..."
-if npm install -g @openai/codex; then
+if "$npm_bin" install -g @openai/codex; then
   echo "  Codex CLI installed successfully"
 else
   echo "  Warning: Failed to install Codex CLI"
@@ -23,29 +36,25 @@ fi
 
 # Install/update Google Gemini CLI
 echo "Installing Google Gemini CLI..."
-if npm install -g @google/gemini-cli; then
+if "$npm_bin" install -g @google/gemini-cli; then
   echo "  Gemini CLI installed successfully"
 else
   echo "  Warning: Failed to install Gemini CLI"
 fi
 
-# Verify installations
+# Verify installations at the npm prefix rather than relying on the
+# caller's PATH, which may not include it yet
 echo ""
 echo "Verifying installations..."
 
-if command -v codex >/dev/null 2>&1; then
-  CODEX_VERSION=$(codex --version 2>/dev/null || echo "unknown")
-  echo "  Codex CLI: installed ($CODEX_VERSION)"
-else
-  echo "  Codex CLI: not found in PATH"
-fi
-
-if command -v gemini >/dev/null 2>&1; then
-  GEMINI_VERSION=$(gemini --version 2>/dev/null || echo "unknown")
-  echo "  Gemini CLI: installed ($GEMINI_VERSION)"
-else
-  echo "  Gemini CLI: not found in PATH"
-fi
+for tool in codex gemini; do
+  if [ -x "$npm_prefix/bin/$tool" ]; then
+    version=$("$npm_prefix/bin/$tool" --version 2>/dev/null || echo "unknown")
+    echo "  $tool: installed ($version) at $npm_prefix/bin/$tool"
+  else
+    echo "  $tool: not found at $npm_prefix/bin/$tool"
+  fi
+done
 
 echo ""
 echo "AI CLI tools installation complete"
