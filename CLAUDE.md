@@ -1,5 +1,11 @@
 # CLAUDE.md - Development Guide
 
+## Scope
+
+This repository manages a PERSONAL-ONLY setup (macOS, zsh). All work/
+Salesforce configuration was removed in June 2026 and is recoverable from
+git history if ever needed.
+
 ## Commands
 
 ### Primary Installation Method
@@ -7,14 +13,13 @@
 
 ### Manual Installation & Setup (Utilities)
 - `./bin/install_vim` - Install vim configuration
-- `./bin/install_tmux` - Install tmux configuration  
+- `./bin/install_tmux` - Install tmux configuration
 - `./bin/install_brew` - Install Homebrew packages
-- `./bin/install_cursor_agent` - Install Cursor AI agent CLI tool
 
 ### Maintenance
 - `./bin/update_vim` - Update vim plugins
 - `./bin/upgrade_brew` - Upgrade Homebrew packages
-- `./bin/setup_hugo_completion` - Setup Hugo bash completion
+- `./bin/setup_hugo_completion` - Setup Hugo completion
 
 ### chezmoi Workflow (Recommended)
 - `chezmoi init --apply https://github.com/cloudartisan/dotfiles.git` - Initial setup
@@ -29,7 +34,7 @@
 - **Shell Scripts**: Use POSIX-compatible syntax when possible
 - **Comments**: Include descriptive comments for non-obvious operations
 - **Variables**: Use lowercase with underscores (snake_case)
-- **File Extensions**: .sh for shell scripts, .bash for Bash-specific scripts
+- **File Extensions**: .sh for shell scripts, .zsh for zsh-specific files
 - **Error Handling**: Check exit codes and fail early
 - **Indentation**: 2 spaces
 - **Line Length**: Keep under 80 characters when possible
@@ -42,28 +47,28 @@
 #### Method 1: chezmoi (Recommended)
 ```bash
 # Edit a file through chezmoi
-chezmoi edit ~/.bash_profile
+chezmoi edit ~/.zshrc
 
 # Apply changes locally
 chezmoi apply
 
 # Commit and push changes
-chezmoi cd -- git add . && git commit -m "Update bash profile" && git push
+chezmoi cd -- git add . && git commit -m "Update zshrc" && git push
 ```
 
 #### Method 2: Direct editing
 ```bash
 # Edit file directly
-vim ~/.bash_profile
+vim ~/.zshrc
 
 # Add to chezmoi management
-chezmoi add ~/.bash_profile
+chezmoi add ~/.zshrc
 
 # Apply changes
 chezmoi apply
 
 # Commit and push
-chezmoi cd -- git add . && git commit -m "Update bash profile" && git push
+chezmoi cd -- git add . && git commit -m "Update zshrc" && git push
 ```
 
 ### Adding New Files
@@ -125,15 +130,28 @@ chezmoi update
 - **Templates**: `.tmpl` files support variables and conditionals for machine-specific configs
 - **Updates**: `chezmoi update` pulls latest changes and applies them
 
+### Shell Configuration (zsh)
+
+- **dot_zshrc** - Main shell config: PATH, history, completion, fragment sourcing
+- **dot_zsh/** - Modular fragments deployed to `~/.zsh/`:
+  - `homebrew.zsh` - Homebrew PATH and fpath (sourced first, before compinit)
+  - `aliases.zsh`, `functions.zsh` - General aliases and functions
+  - `direnv.zsh`, `tmux.zsh`, `git.zsh`, `gh.zsh`, `vim.zsh`, `ssh.zsh`,
+    `gpg.zsh`, `go.zsh`, `python.zsh` - Tool-specific config
+  - `keys.zsh` - Loads API keys from `~/.keys/*.sh` (never committed)
+- **dot_zlogout** - Deactivates virtualenvs on exit
+- **~/.zsh_local** - Machine-local config, sourced if present, never committed
+- Prompt: starship; autosuggestions and syntax highlighting via Homebrew
+
 ### Key Files
 - **bootstrap-chezmoi.sh** - Sets up new machine with chezmoi (primary method)
-- **.chezmoiscripts/run_once_install-packages.sh.tmpl** - Automated package and cursor-agent installation
-- **.chezmoiscripts/run_once_install-ai-cli-tools.sh.tmpl** - Automated AI CLI tools installation
-- **.chezmoiscripts/run_once_install-claude-code.sh.tmpl** - Automated Claude Code CLI installation
-- **.chezmoiscripts/run_once_setup-vim.sh.tmpl** - Automated Vim setup
-- **.chezmoiscripts/run_once_configure-git.sh.tmpl** - Automated Git configuration
-- **.chezmoiscripts/run_once_configure-macos.sh.tmpl** - Automated macOS settings
-- **.chezmoiscripts/run_once_configure-shell.sh.tmpl** - Automated shell configuration
+- **.chezmoiscripts/run_once_install-packages.sh.tmpl** - Homebrew packages and cursor-agent installation
+- **.chezmoiscripts/run_once_install-ai-cli-tools.sh.tmpl** - Codex and Gemini CLI installation
+- **.chezmoiscripts/run_once_install-claude-code.sh.tmpl** - Claude Code CLI installation
+- **.chezmoiscripts/run_once_setup-vim.sh.tmpl** - Vim setup
+- **.chezmoiscripts/run_once_configure-shell.sh.tmpl** - zsh as login shell, iTerm2 integration
+- **.chezmoiscripts/run_once_configure-gpg.sh.tmpl** - GPG agent configuration
+- **.chezmoiscripts/run_once_configure-macos.sh.tmpl** - macOS settings
 - **Brewfile** - Homebrew packages definition
 - **bin/** - Individual utility scripts for manual use
 
@@ -144,78 +162,15 @@ The following AI CLI tools are automatically installed during system setup:
 **Claude Code CLI** (`claude`)
 - Installed via: curl-based installer (official method)
 - Script: `.chezmoiscripts/run_once_install-claude-code.sh.tmpl`
-- Command: `claude` - Interactive AI assistant for coding tasks
 
 **OpenAI Codex CLI** (`codex`)
 - Installed via: npm global (`@openai/codex`)
 - Script: `.chezmoiscripts/run_once_install-ai-cli-tools.sh.tmpl`
-- Command: `codex` - OpenAI's Codex assistant
 
 **Google Gemini CLI** (`gemini`)
 - Installed via: npm global (`@google/gemini-cli`)
 - Script: `.chezmoiscripts/run_once_install-ai-cli-tools.sh.tmpl`
-- Command: `gemini` - Google's Gemini assistant
 
-All tools are automatically installed during initial setup via `chezmoi init --apply` and are available in new machine deployments.
-
-## Salesforce-Specific Configuration
-
-### Pip Package Management
-
-On Salesforce work machines (hostnames starting with `dltaylo-ltm*` or `dltaylo-wsm*`), pip is automatically configured to use Salesforce's internal Nexus repository as a PyPI mirror.
-
-**Configuration:**
-- Location: `~/.config/pip/pip.conf`
-- Index: `https://nexus-proxy.repo.local.sfdc.net/nexus/repository/pypi-all/simple`
-- Certificate: `~/.config/pip/cert.pem` (auto-downloaded)
-
-**How it works:**
-- `dot_config/pip/pip.conf.tmpl` - Templated config file (deploys different content per machine)
-- `.chezmoiscripts/run_once_install-salesforce-pip-cert.sh.tmpl` - Downloads CA certificate on Salesforce machines
-
-**Verification:**
-```bash
-# Check pip configuration
-python -m pip config list
-
-# Test installation from Salesforce Nexus
-pip install requests
-```
-
-**Manual certificate update:**
-If the certificate expires or needs updating:
-```bash
-curl -o ~/.config/pip/cert.pem https://git.soma.salesforce.com/pages/python-at-sfdc/python-guide/pip-conf/cert.pem
-```
-
-## GPG Signing for Salesforce Repositories
-
-### Automatic Configuration
-Repositories under `~/git/salesforce/` are automatically configured for GPG signing via git conditional includes. No manual configuration is needed - when you `cd` into a Salesforce repo, git automatically uses the correct identity and enables commit signing.
-
-### Workflow for Claude Code
-Before using Claude Code on Salesforce repositories that require GPG signing:
-
-1. Run the GPG unlock helper in a terminal:
-   ```bash
-   gpg-unlock
-   ```
-
-2. Enter your GPG passphrase when prompted
-
-3. Credentials are cached for 8 hours
-
-4. Claude Code can now make signed commits and perform rebases
-
-### Technical Details
-- **Signing key**: 449F9A0AFAC505592FEFB7EA8F53FA22DC77696C
-- **Cache duration**: Default 8 hours (28800s), maximum 24 hours (86400s)
-- **Configuration**: Git conditional includes (`.gitconfig-salesforce`)
-- **Non-TTY limitation**: GPG signing requires passphrase entry, which cannot happen in non-TTY environments. The pre-unlock workflow solves this by caching credentials.
-
-### Manual Configuration (Legacy)
-The following bash aliases are maintained for backward compatibility:
-- `gitsfdc` - Manually configure current repo for Salesforce
-- `gitsoma` - Same as gitsfdc
-
-These are no longer needed for repos under `~/git/salesforce/` due to automatic git conditional includes.
+**Cursor Agent CLI** (`cursor-agent`)
+- Installed via: curl-based installer
+- Script: `.chezmoiscripts/run_once_install-packages.sh.tmpl`
