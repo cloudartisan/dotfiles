@@ -1,0 +1,31 @@
+#!/bin/bash
+
+# Install TPM and all tmux plugins listed in ~/.tmux.conf
+# This script runs once when chezmoi is applied, after dotfiles are
+# deployed, so a fresh machine gets a fully-themed tmux immediately
+
+set -e
+
+echo "==> Setting up tmux plugins"
+
+if ! command -v tmux >/dev/null 2>&1; then
+  echo "  tmux not installed yet; run chezmoi apply again after brew bundle"
+  exit 0
+fi
+
+if [ ! -f "$HOME/.tmux.conf" ]; then
+  echo "  ~/.tmux.conf not deployed yet; run chezmoi apply again"
+  exit 0
+fi
+
+# Clone TPM if missing
+if [ ! -d "$HOME/.tmux/plugins/tpm" ]; then
+  echo "  Cloning TPM..."
+  git clone --quiet https://github.com/tmux-plugins/tpm "$HOME/.tmux/plugins/tpm"
+fi
+
+# Install all plugins declared in ~/.tmux.conf (works outside a session)
+echo "  Installing tmux plugins..."
+"$HOME/.tmux/plugins/tpm/bin/install_plugins"
+
+echo "✓ tmux plugins installed"
