@@ -1,0 +1,29 @@
+{{- if eq .chezmoi.os "darwin" }}
+#!/bin/bash
+
+# Point iTerm2 at the shared preferences folder in iCloud Drive
+# This script runs once when chezmoi is applied
+
+echo "==> Configuring iTerm2 preferences"
+
+prefs_dir="$HOME/Library/Mobile Documents/com~apple~CloudDocs/iTerm2"
+
+if [ ! -d "$prefs_dir" ]; then
+  echo "  Warning: $prefs_dir not found"
+  echo "  Sign in to iCloud Drive and let it sync, then re-run:"
+  echo "    defaults write com.googlecode.iterm2 PrefsCustomFolder -string \"$prefs_dir\""
+  echo "    defaults write com.googlecode.iterm2 LoadPrefsFromCustomFolder -bool true"
+  exit 0
+fi
+
+# Load preferences from the shared iCloud folder
+defaults write com.googlecode.iterm2 PrefsCustomFolder -string "$prefs_dir"
+defaults write com.googlecode.iterm2 LoadPrefsFromCustomFolder -bool true
+
+# Save changes back to the folder automatically on quit, without prompting
+defaults write com.googlecode.iterm2 NoSyncNeverRemindPrefsChangesLostForFile -bool true
+defaults write com.googlecode.iterm2 NoSyncNeverRemindPrefsChangesLostForFile_selection -int 2
+
+echo "✓ iTerm2 will load preferences from $prefs_dir"
+echo "  Restart iTerm2 for this to take effect"
+{{- end }}
