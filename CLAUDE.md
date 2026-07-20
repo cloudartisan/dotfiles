@@ -137,7 +137,8 @@ chezmoi update
   - `homebrew.zsh` - Homebrew PATH and fpath (sourced first, before compinit)
   - `aliases.zsh`, `functions.zsh` - General aliases and functions
   - `direnv.zsh`, `tmux.zsh`, `git.zsh`, `gh.zsh`, `vim.zsh`, `ssh.zsh`,
-    `gpg.zsh`, `go.zsh`, `python.zsh` - Tool-specific config
+    `gpg.zsh`, `go.zsh`, `node.zsh`, `python.zsh` - Tool-specific config
+    (`node.zsh` puts Volta's shims ahead of Homebrew for per-project Node)
   - `keys.zsh` - Loads API keys from `~/.keys/*.sh` (never committed)
 - **dot_zlogout** - Deactivates virtualenvs on exit
 - **~/.zsh_local** - Machine-local config, sourced if present, never committed
@@ -152,6 +153,7 @@ chezmoi update
 - **.chezmoiscripts/run_once_configure-shell.sh.tmpl** - zsh as login shell, iTerm2 integration
 - **.chezmoiscripts/run_once_configure-gpg.sh.tmpl** - GPG agent configuration
 - **.chezmoiscripts/run_once_configure-macos.sh.tmpl** - macOS settings
+- **.chezmoiscripts/run_once_setup-volta.sh.tmpl** - Volta setup and default node@lts
 - **Brewfile** - Homebrew packages definition
 - **bin/** - Individual utility scripts for manual use
 
