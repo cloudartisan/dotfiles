@@ -1,0 +1,41 @@
+#!/bin/bash
+
+# Set up Volta for per-project Node version management.
+# Runs after the Brewfile install (brew "volta") provides the binary; the
+# filename sorts after run_once_install-packages so `volta` is on PATH here.
+# This script runs once when chezmoi is applied.
+
+set -e
+
+# Guard: nothing to do until the Brewfile has installed Volta
+if ! command -v volta >/dev/null 2>&1; then
+  echo "volta not found on PATH; skipping (Brewfile installs it first)"
+  exit 0
+fi
+
+echo "==> Setting up Volta"
+
+# Install Volta's shims. This also appends VOLTA_HOME/PATH exports to the
+# shell profile; node.zsh already owns those, so we strip them again below to
+# avoid duplicate PATH entries and untracked drift in ~/.zshenv / ~/.profile.
+volta setup
+
+# Provide a default Node so `node` works outside pinned projects. Projects
+# that pin their own version auto-override this.
+volta install node@lts
+
+# Remove the VOLTA_HOME/PATH lines volta setup writes to unmanaged profile
+# files (node.zsh is the single source of truth). Delete a file if stripping
+# volta's lines leaves it empty; otherwise keep the remaining content.
+for profile in "${HOME}/.zshenv" "${HOME}/.zprofile" "${HOME}/.profile" \
+               "${HOME}/.bashrc" "${HOME}/.bash_profile"; do
+  [ -f "${profile}" ] || continue
+  grep -v -e 'VOLTA_HOME' -e '\$VOLTA_HOME/bin' "${profile}" > "${profile}.tmp" || true
+  if grep -q '[^[:space:]]' "${profile}.tmp"; then
+    mv "${profile}.tmp" "${profile}"
+  else
+    rm -f "${profile}.tmp" "${profile}"
+  fi
+done
+
+echo "✓ Volta configured ($(volta --version)); default Node installed"

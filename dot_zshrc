@@ -33,6 +33,7 @@ source ${HOME}/.zsh/vim.zsh
 source ${HOME}/.zsh/ssh.zsh
 source ${HOME}/.zsh/gpg.zsh
 source ${HOME}/.zsh/go.zsh
+source ${HOME}/.zsh/node.zsh
 source ${HOME}/.zsh/python.zsh
 
 # Load API keys and secrets from ~/.keys

@@ -31,6 +31,7 @@ Either way, the bootstrap will:
 - Install all Brewfile packages
 - Set zsh as the login shell with a starship prompt
 - Set up Vim, Git, tmux, GPG, and macOS preferences
+- Configure Volta for per-project Node version management (default node@lts)
 - Install AI CLI tools (Claude Code, Codex, Gemini) and Cursor Agent
 
 ## Features

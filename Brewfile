@@ -5,6 +5,7 @@
 # Programming Languages & Development Environments
 # -----------------------------------------------------------------------------
 brew "node", desc: "Platform built on V8 to build network applications"
+brew "volta", desc: "JavaScript tool manager for per-project Node/npm/yarn versions"
 brew "go", desc: "Open source programming language to build simple/reliable/efficient software"
 brew "mono", desc: "Cross platform, open source .NET development framework"
 brew "openjdk", desc: "Development kit for the Java programming language"
