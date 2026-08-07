@@ -1,0 +1,19 @@
+{{/*
+   chezmoi config template. Evaluated at `chezmoi init` time to generate
+   ~/.config/chezmoi/chezmoi.toml.
+
+   It asks once whether this is a personal machine. The answer drives the
+   `personal` flag used across the repo (see .chezmoidata/personal.yaml for
+   the fallback default and CLAUDE.md / Brewfile.personal for what it gates).
+
+   Personal machines: accept the default (yes) — installs personal casks and
+   applies the machine rename / boot-chime tweaks.
+   Work machines: answer no, or pass it non-interactively at init:
+     chezmoi init --apply \
+       --promptBool 'Is this a personal machine?=false' \
+       https://github.com/cloudartisan/dotfiles.git
+   The --promptBool key must match the prompt text below exactly.
+*/ -}}
+{{- $personal := promptBoolOnce . "personal" "Is this a personal machine?" true -}}
+[data]
+    personal = {{ $personal }}

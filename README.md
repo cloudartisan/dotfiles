@@ -13,6 +13,17 @@ To set up a new machine (one command does everything):
 curl -fsLS https://raw.githubusercontent.com/cloudartisan/dotfiles/master/bootstrap-chezmoi.sh | bash -s -- --apply
 ```
 
+On first run, chezmoi asks **"Is this a personal machine?"** (default yes).
+Answer yes on your own machines. Answer no on a work/managed machine to skip
+personal-only apps (chat/games) and the machine rename / boot-chime tweaks —
+or set it non-interactively:
+
+```bash
+chezmoi init --apply \
+  --promptBool 'Is this a personal machine?=false' \
+  https://github.com/cloudartisan/dotfiles.git
+```
+
 If the repository is already checked out (e.g. `~/Projects/dotfiles`), run
 the script from the checkout instead — it configures the checkout as the
 chezmoi source directory, so there is only one copy to edit and commit:
