@@ -18,6 +18,10 @@ while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 # General UI/UX                                                               #
 ###############################################################################
 
+{{ if .personal -}}
+# Personal machines only: rename the machine and silence the boot chime.
+# Work machines are named/managed centrally, so leave these alone.
+
 # Set computer name (as done via System Preferences → Sharing)
 sudo scutil --set ComputerName "{{ .chezmoi.hostname }}"
 sudo scutil --set HostName "{{ .chezmoi.hostname }}"
@@ -26,6 +30,7 @@ sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.smb.serve
 
 # Disable the sound effects on boot
 sudo nvram SystemAudioVolume=" "
+{{- end }}
 
 # Expand save panel by default
 defaults write NSGlobalDomain NSNavPanelExpandedStateForSaveMode -bool true

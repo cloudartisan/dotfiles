@@ -6,8 +6,14 @@ brew update
 # Upgrade any already-installed formulae
 brew upgrade
 
-# Update all Brewfile packages
+# Update all common Brewfile packages
 brew bundle --file="$HOME/Brewfile"
+
+# Update personal-only packages if present (personal machines only;
+# Brewfile.personal is not deployed on work machines)
+if [ -f "$HOME/Brewfile.personal" ]; then
+  brew bundle --file="$HOME/Brewfile.personal"
+fi
 
 # Remove cached downloads and outdated versions
 brew cleanup

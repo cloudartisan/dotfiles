@@ -11,8 +11,17 @@ if ! command -v brew &> /dev/null; then
   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 fi
 
-# Install packages from Brewfile
+# Install common packages from Brewfile
 brew bundle --file="{{ .chezmoi.sourceDir }}/Brewfile"
+
+{{ if .personal -}}
+# Install personal-only packages (chat/games) on personal machines
+echo "==> Installing personal packages"
+brew bundle --file="{{ .chezmoi.sourceDir }}/Brewfile.personal"
+{{- else -}}
+# Work machine (personal = false): skipping personal-only packages
+echo "==> Skipping personal packages (personal = false)"
+{{- end }}
 
 echo "==> Installing Cursor Agent CLI"
 
@@ -22,7 +31,7 @@ if command -v cursor-agent >/dev/null 2>&1; then
 else
   # Install cursor-agent using the official installer
   curl https://cursor.com/install -fsS | bash
-  
+
   # Verify installation
   if [ -x "$HOME/.local/bin/cursor-agent" ]; then
     echo "✓ cursor-agent installed successfully"

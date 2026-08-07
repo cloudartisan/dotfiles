@@ -75,11 +75,7 @@ cask "font-inconsolata-dz-for-powerline", desc: "Inconsolata-dz font patched for
 # -----------------------------------------------------------------------------
 # Communication & Collaboration
 # -----------------------------------------------------------------------------
-cask "discord", desc: "Voice and text chat software"
 cask "slack", desc: "Team communication and collaboration tool"
-cask "signal", desc: "Instant messaging application focusing on security"
-cask "telegram", desc: "Messaging app focusing on speed and security"
-cask "whatsapp", desc: "Desktop client for WhatsApp"
 
 # -----------------------------------------------------------------------------
 # Development Applications
@@ -93,5 +89,4 @@ cask "iterm2", desc: "Terminal emulator as alternative to Apple's Terminal app"
 cask "1password", desc: "Password manager"
 cask "google-chrome", desc: "Web browser"
 cask "google-drive", desc: "Client for the Google Drive storage service"
-cask "minecraft", desc: "Sandbox game of building blocks and adventure"
 cask "obsidian", desc: "Knowledge base that works on local Markdown files"

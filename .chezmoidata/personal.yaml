@@ -1,0 +1,9 @@
+# Whether this is a personal machine. Controls installation of personal-only
+# packages (Brewfile.personal: chat/games) and personal-only system tweaks
+# (machine rename, boot chime, Dock). Defaults to true so personal machines
+# need no configuration. Work machines override this to false in
+# ~/.config/chezmoi/chezmoi.toml:
+#
+#   [data]
+#     personal = false
+personal: true

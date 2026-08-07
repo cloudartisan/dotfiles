@@ -8,6 +8,12 @@ bootstrap-chezmoi.sh
 migrate-to-chezmoi.md
 .git/
 
+# Personal-only package list: deploy to ~ on personal machines only, so the
+# install_brew/upgrade_brew helpers can detect it. Work machines skip it.
+{{ if not .personal }}
+Brewfile.personal
+{{ end }}
+
 # Shell history files
 .bash_history
 .zsh_history

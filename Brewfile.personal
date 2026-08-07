@@ -1,0 +1,17 @@
+# Brewfile.personal for cloudartisan dotfiles
+# Personal-machine-only packages. Bundled in addition to the common Brewfile
+# only when the `personal` chezmoi flag is true (the default). Work machines
+# set `personal = false` in ~/.config/chezmoi/chezmoi.toml and skip these.
+
+# -----------------------------------------------------------------------------
+# Communication & Collaboration
+# -----------------------------------------------------------------------------
+cask "discord", desc: "Voice and text chat software"
+cask "signal", desc: "Instant messaging application focusing on security"
+cask "telegram", desc: "Messaging app focusing on speed and security"
+cask "whatsapp", desc: "Desktop client for WhatsApp"
+
+# -----------------------------------------------------------------------------
+# Games
+# -----------------------------------------------------------------------------
+cask "minecraft", desc: "Sandbox game of building blocks and adventure"
