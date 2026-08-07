@@ -55,3 +55,8 @@
 
 [pull]
   rebase = true
+
+# Optional machine-local include (kept last so it can override the above).
+# Absent on personal machines; git silently ignores a missing include.
+[include]
+  path = ~/.config/git/local.gitconfig
