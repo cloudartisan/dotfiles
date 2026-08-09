@@ -3,8 +3,9 @@
 ## Scope
 
 This repository manages a PERSONAL-ONLY setup (macOS, zsh). All work/
-Salesforce configuration was removed in June 2026 and is recoverable from
-git history if ever needed.
+Salesforce configuration was removed in June 2026, and the history was
+later rewritten to purge those files entirely. They are NOT recoverable
+from git history - do not go looking for them there.
 
 ## Commands
 
@@ -117,7 +118,6 @@ chezmoi update
 - Pull before pushing changes to avoid conflicts
 - Do not include emojis in commit messages
 - Do not mention Claude in commit messages
-- Do not add/commit CLAUDE.md
 
 ## Architecture
 
