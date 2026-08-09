@@ -3,7 +3,7 @@
 # Repository files
 LICENSE
 README.md
-CLAUDE.md
+/CLAUDE.md
 bootstrap-chezmoi.sh
 migrate-to-chezmoi.md
 .git/
@@ -31,7 +31,13 @@ Brewfile.personal
 
 # Application directories
 .cache/
-.claude/
+# Claude Code: everything under ~/.claude is session state, history, caches
+# and machine-local settings, so ignore it all by default. The one exception
+# is CLAUDE.md, the global instructions file, which is worth managing.
+# Note: this ignores the contents rather than the directory itself - chezmoi
+# cannot re-include a file whose parent directory is ignored.
+.claude/*
+!.claude/CLAUDE.md
 .claude.json
 .lemminx/
 .npm/
