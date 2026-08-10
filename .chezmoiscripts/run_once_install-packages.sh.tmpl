@@ -11,13 +11,15 @@ if ! command -v brew &> /dev/null; then
   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 fi
 
-# Install common packages from Brewfile
-brew bundle --file="{{ .chezmoi.sourceDir }}/Brewfile"
+# Install common packages from Brewfile. --no-upgrade installs anything
+# missing but leaves already-installed packages at their current version, so
+# re-running this (or a full apply) does not silently upgrade everything.
+brew bundle --no-upgrade --file="{{ .chezmoi.sourceDir }}/Brewfile"
 
 {{ if .personal -}}
 # Install personal-only packages (chat/games) on personal machines
 echo "==> Installing personal packages"
-brew bundle --file="{{ .chezmoi.sourceDir }}/Brewfile.personal"
+brew bundle --no-upgrade --file="{{ .chezmoi.sourceDir }}/Brewfile.personal"
 {{- else -}}
 # Work machine (personal = false): skipping personal-only packages
 echo "==> Skipping personal packages (personal = false)"

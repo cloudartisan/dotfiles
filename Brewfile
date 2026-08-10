@@ -80,7 +80,7 @@ cask "slack", desc: "Team communication and collaboration tool"
 # -----------------------------------------------------------------------------
 # Development Applications
 # -----------------------------------------------------------------------------
-cask "docker", desc: "App to build and share containerized applications"
+cask "docker-desktop", desc: "App to build and share containerized applications"
 cask "iterm2", desc: "Terminal emulator as alternative to Apple's Terminal app"
 
 # -----------------------------------------------------------------------------

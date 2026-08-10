@@ -15,26 +15,26 @@ fi
 
 echo "==> Setting up Volta"
 
-# Install Volta's shims. This also appends VOLTA_HOME/PATH exports to the
-# shell profile; node.zsh already owns those, so we strip them again below to
-# avoid duplicate PATH entries and untracked drift in ~/.zshenv / ~/.profile.
+# Install Volta's shims into $VOLTA_HOME/bin. This also appends VOLTA_HOME/PATH
+# exports to a zsh startup file; node.zsh is the single source of truth for
+# those, so the export lines are stripped again below.
 volta setup
 
 # Provide a default Node so `node` works outside pinned projects. Projects
 # that pin their own version auto-override this.
 volta install node@lts
 
-# Remove the VOLTA_HOME/PATH lines volta setup writes to unmanaged profile
-# files (node.zsh is the single source of truth). Delete a file if stripping
-# volta's lines leaves it empty; otherwise keep the remaining content.
-for profile in "${HOME}/.zshenv" "${HOME}/.zprofile" "${HOME}/.profile" \
-               "${HOME}/.bashrc" "${HOME}/.bash_profile"; do
+# Strip the VOLTA_HOME/PATH lines volta setup appends, so node.zsh stays the
+# only place that sets them (avoids duplicate PATH entries, and drift in the
+# chezmoi-managed ~/.zshrc which would otherwise show as a modified target).
+# volta setup writes to ~/.zshrc and ~/.profile; only those are touched, and
+# files are only rewritten in place, never deleted.
+for profile in "${HOME}/.zshrc" "${HOME}/.profile"; do
   [ -f "${profile}" ] || continue
-  grep -v -e 'VOLTA_HOME' -e '\$VOLTA_HOME/bin' "${profile}" > "${profile}.tmp" || true
-  if grep -q '[^[:space:]]' "${profile}.tmp"; then
-    mv "${profile}.tmp" "${profile}"
-  else
-    rm -f "${profile}.tmp" "${profile}"
+  if grep -q 'VOLTA_HOME' "${profile}"; then
+    grep -v -e 'VOLTA_HOME' -e '\$VOLTA_HOME/bin' "${profile}" > "${profile}.tmp" \
+      && mv "${profile}.tmp" "${profile}"
+    rm -f "${profile}.tmp"
   fi
 done
 
