@@ -1,0 +1,18 @@
+{{- /* Resolve pinentry-mac per-machine: PATH first (works on Intel /usr/local
+       and Apple Silicon /opt/homebrew), then explicit Homebrew-prefix fallbacks
+       in case it is not on chezmoi's apply-time PATH. Omit the line entirely if
+       none is found, so gpg-agent falls back to its compiled-in default rather
+       than pointing at a path that does not exist. */ -}}
+{{- $pinentry := lookPath "pinentry-mac" -}}
+{{- if not $pinentry -}}
+{{-   if stat "/opt/homebrew/bin/pinentry-mac" -}}
+{{-     $pinentry = "/opt/homebrew/bin/pinentry-mac" -}}
+{{-   else if stat "/usr/local/bin/pinentry-mac" -}}
+{{-     $pinentry = "/usr/local/bin/pinentry-mac" -}}
+{{-   end -}}
+{{- end -}}
+{{ if $pinentry -}}
+pinentry-program {{ $pinentry }}
+{{ end -}}
+default-cache-ttl 28800
+max-cache-ttl 86400
