@@ -15,5 +15,13 @@
    The --promptBool key must match the prompt text below exactly.
 */ -}}
 {{- $personal := promptBoolOnce . "personal" "Is this a personal machine?" true -}}
+{{/*
+   Pin the source directory to wherever it already is. `chezmoi init`
+   overwrites this file wholesale, so anything omitted here is lost: without
+   this line a machine with the repo checked out somewhere other than the
+   default (~/.local/share/chezmoi) silently loses that setting on the next
+   init. Machines cloned by the bootstrap script just get the default back.
+*/ -}}
+sourceDir = {{ .chezmoi.sourceDir | quote }}
 [data]
     personal = {{ $personal }}
