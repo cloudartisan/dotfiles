@@ -82,6 +82,7 @@ cask "slack", desc: "Team communication and collaboration tool"
 # -----------------------------------------------------------------------------
 cask "docker-desktop", desc: "App to build and share containerized applications"
 cask "iterm2", desc: "Terminal emulator as alternative to Apple's Terminal app"
+cask "itermbrowserplugin", desc: "Enables the integrated web browser in iTerm2"
 
 # -----------------------------------------------------------------------------
 # Utilities & Applications
