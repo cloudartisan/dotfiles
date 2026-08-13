@@ -1,0 +1,18 @@
+# ~/.zshenv - read by EVERY zsh invocation, including scripts and
+# non-interactive rcp/scp-style sessions.
+#
+# Keep this file silent and fast. Stray output on stdout or stderr breaks
+# scp/sftp, which parse the stream directly. Do not add prompts, command
+# substitution that touches the network, or anything slow.
+#
+# Interactive shells load the full key set later via ~/.zshrc ->
+# ~/.zsh/keys.zsh. This file is a deliberate allow-list of the few secrets
+# that must also exist non-interactively. Re-sourcing them is idempotent.
+
+for _keyfile in \
+  "${HOME}"/.keys/supabase_access_token.sh \
+  "${HOME}"/.keys/supabase_access_token_expires.sh
+do
+  [[ -r ${_keyfile} ]] && source ${_keyfile} 2>/dev/null
+done
+unset _keyfile
