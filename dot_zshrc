@@ -11,6 +11,7 @@ export HISTSIZE=50000
 export SAVEHIST=50000
 setopt SHARE_HISTORY        # share history across sessions
 setopt HIST_IGNORE_ALL_DUPS # do not record duplicates
+setopt HIST_IGNORE_SPACE    # a leading space keeps a command out of history
 setopt HIST_REDUCE_BLANKS   # strip superfluous blanks
 setopt HIST_VERIFY          # confirm history expansion before running
 
