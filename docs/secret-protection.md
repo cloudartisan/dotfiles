@@ -15,6 +15,18 @@ repositories. Repo-only documentation - excluded from deployment via
 Server-side scanning is free for **public** repositories on all plans.
 Private repositories require paid GitHub Secret Protection.
 
+### What this repo already automates
+
+The sections below describe the manual steps, because the point of this
+document is rolling the setup out elsewhere. On a machine set up from these
+dotfiles, three of them are already done:
+
+| Step | Automated by |
+|---|---|
+| `pre-commit install` in this checkout | `.chezmoiscripts/run_once_setup-pre-commit.sh.tmpl` |
+| Seeding `~/.git-template` for future clones | the same script, plus `init.templateDir` in `dot_gitconfig` |
+| The weekly server-side sweep | `bin/sweep-secret-scanning` + `Library/LaunchAgents/com.cloudartisan.secret-scanning-sweep.plist` (personal machines only) |
+
 ## Prompt: set up pre-commit secret scanning in any repo
 
 Paste into Claude Code from the root of the target repository.
@@ -100,6 +112,12 @@ pre-commit init-templatedir ~/.git-template
 git config --global init.templateDir ~/.git-template
 ```
 
+Both halves are already handled here - `run_once_setup-pre-commit.sh.tmpl`
+seeds the directory and `dot_gitconfig` sets `init.templateDir` - so do **not**
+run the `git config --global` line on a machine using these dotfiles. It writes
+into the chezmoi-managed `~/.gitconfig` and shows up as drift on the next
+`chezmoi diff`. Change `dot_gitconfig` instead.
+
 The generated hook is a no-op in repositories with no
 `.pre-commit-config.yaml`, so it is safe to have everywhere. It applies to
 `git clone` and `git init` only - existing checkouts still need
@@ -118,7 +136,16 @@ done
 There is no account-level default for a personal GitHub account: bulk
 enablement via security configurations is an organization-owner feature, and
 the REST API exposes no equivalent user-level setting. New repositories will
-therefore not inherit these settings, so the sweep needs repeating:
+therefore not inherit these settings, so the sweep needs repeating.
+
+On a machine set up from these dotfiles this is already automated:
+`bin/sweep-secret-scanning` does all three steps below - enable, verify,
+report open alerts - and a launch agent runs it weekly. Run it by hand any
+time, and use `--dry-run` to see what it would change without changing
+anything. It refuses to act unless the authenticated `gh` account matches
+`github_login` in `.chezmoidata/personal.yaml`.
+
+The raw commands, for a machine without the script:
 
 ```bash
 gh api "user/repos?per_page=100&affiliation=owner" --paginate \

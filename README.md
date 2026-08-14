@@ -41,9 +41,13 @@ Either way, the bootstrap will:
 - Clone and apply the dotfiles
 - Install all Brewfile packages
 - Set zsh as the login shell with a starship prompt
-- Set up Vim, Git, tmux, GPG, and macOS preferences
+- Set up Vim, Git, tmux (with TPM plugins), GPG, and macOS preferences
+- Point iTerm2 at the shared preferences folder in iCloud Drive
 - Configure Volta for per-project Node version management (default node@lts)
 - Install AI CLI tools (Claude Code, Codex, Gemini) and Cursor Agent
+- Install the pre-commit secret-scanning hooks and seed `~/.git-template`,
+  so every repository cloned from then on gets them (see
+  [Secret Protection](#secret-protection))
 
 ## Features
 
@@ -54,6 +58,9 @@ Either way, the bootstrap will:
 - Tmux configuration with window auto-renaming for ssh
 - Homebrew package management via Brewfile
 - GPG with pinentry-mac
+- Volta for per-project Node/npm/yarn versions
+- AI CLI tools (Claude Code, Codex, Gemini, Cursor Agent)
+- Layered protection against committing secrets
 
 ## Daily Usage
 
@@ -70,28 +77,42 @@ chezmoi diff
 # Apply changes locally
 chezmoi apply
 
-# Commit and push changes
-chezmoi cd -- git add . && git commit -m "Update config" && git push
+# Commit and push changes (chezmoi git runs git in the source directory)
+chezmoi git add .
+chezmoi git -- commit -m "Update config"
+chezmoi git push
 ```
+
+`chezmoi git` needs `--` before any git flags, otherwise chezmoi tries to
+parse them itself. For a longer session, `chezmoi cd` opens a shell in the
+source directory and plain git works from there.
 
 Handy aliases (defined in `~/.zsh/aliases.zsh`): `cz`, `cza` (apply),
 `czd` (diff), `cze` (edit), `czu` (update).
 
 ## Repository Structure
 
-- `.chezmoiscripts/` - Automated setup scripts (run_once_*.sh.tmpl)
-- `bin/` - Utility scripts for manual use
-- `dot_zshrc`, `dot_zsh/` - Shell configuration
+- `.chezmoiscripts/` - Automated setup scripts (`run_once_*` / `run_onchange_*`)
+- `.chezmoidata/` - Template data (the `personal` flag, Linux package lists)
+- `.chezmoi.toml.tmpl` - Config template; asks the personal-machine question
+- `bin/` - Utility scripts for manual use, deployed to `~/bin`
+- `dot_zshrc`, `dot_zshenv`, `dot_zsh/` - Shell configuration
 - `Brewfile` - Homebrew package definitions
+- `Brewfile.personal` - Extra packages for personal machines only
+- `Library/LaunchAgents/` - launchd agents (personal machines only)
+- `.pre-commit-config.yaml` - Secret-scanning hooks for this repository
 - `bootstrap-chezmoi.sh` - Primary installation script
+- `docs/` - Repository documentation (not deployed)
 - Various dotfiles (`.gitconfig`, `.tmux.conf`, etc.)
 
 ### chezmoi File Types
 
-- `run_once_*.sh.tmpl` - Scripts that run once during setup
+- `dot_*` - Deployed with the leading `dot` replaced by `.` (`dot_zshrc` → `~/.zshrc`)
+- `run_once_*.sh.tmpl` - Scripts that run once per machine
+- `run_onchange_*.sh.tmpl` - Scripts that re-run whenever their contents change
 - `*.tmpl` - Template files with variables/conditionals
 - `private_*` - Files deployed with restricted permissions
-- Regular files - Deployed as-is to the home directory
+- `executable_*` - Files deployed with the executable bit set
 
 ## Automated Setup Scripts
 
@@ -99,13 +120,21 @@ Handy aliases (defined in `~/.zsh/aliases.zsh`): `cz`, `cza` (apply),
 - **run_once_install-ai-cli-tools.sh.tmpl** - Installs Codex and Gemini CLIs via npm
 - **run_once_install-claude-code.sh.tmpl** - Installs Claude Code CLI via the official installer
 - **run_once_setup-vim.sh.tmpl** - Configures Vim with plugins from the dotvim repository
+- **run_once_setup-tmux-plugins.sh.tmpl** - Installs TPM and the plugins listed in `.tmux.conf`
+- **run_once_setup-volta.sh.tmpl** - Sets up Volta and installs node@lts as the default
+- **run_once_setup-pre-commit.sh.tmpl** - Installs this repo's pre-commit hooks and seeds `~/.git-template`
 - **run_once_configure-shell.sh.tmpl** - Sets zsh as the login shell and installs iTerm2 shell integration
+- **run_once_configure-iterm2.sh.tmpl** - Loads iTerm2 preferences from iCloud Drive (only on macOS)
 - **run_once_configure-gpg.sh.tmpl** - Sets .gnupg permissions and restarts gpg-agent
 - **run_once_configure-macos.sh.tmpl** - Configures macOS preferences (only on macOS)
+- **run_onchange_load-secret-scanning-sweep.sh.tmpl** - Loads the weekly sweep launch agent (personal machines only)
 - **run_onchange_install-linux-packages.sh.tmpl** - Installs Linux packages (only on Linux)
 
 Scripts run automatically during `chezmoi init --apply` or `chezmoi apply`.
-The `run_once_` prefix ensures they only run once per machine.
+The `run_once_` prefix ensures they only run once per machine; `run_onchange_`
+scripts re-run whenever their contents change. Several scripts depend on the
+Brewfile having run first (Volta, pre-commit, tmux) and are named so they sort
+after it; each also skips harmlessly if its tool is not yet on the PATH.
 
 ## Available Commands
 
@@ -122,14 +151,52 @@ Utility scripts deployed to `~/bin`:
 - `setup_hugo_completion` - Set up Hugo completion
 
 ### Git Utilities
-- `git-ignore` - Add files to .gitignore
+- `git-ignore` - Append patterns to .gitignore
 - `git-author-rewrite.sh` - Rewrite commit author history
-- `git-repull-ship.bash` - Git workflow helpers (repull/ship)
+- `git-repull-ship.bash` - Not run directly: sourced by `~/.zsh/git.zsh`, which
+  defines `repull` (rebase the current branch on a freshly pulled master) and
+  `ship` (merge the current branch to master, push, delete the branch)
 
 ### System Utilities
 - `ps-rss`, `ps-priv-dirty-rss` - Memory usage tools
-- `gittarz` - Archive utilities
-- `vidslurp` - Video processing tool
+- `gittarz` - Tar and gzip a directory, excluding `.git`
+- `vidslurp` - Recursively download video files from a URL to ~/Downloads
+
+### Security
+- `sweep-secret-scanning` - Re-enable GitHub secret scanning and push
+  protection across your public repos, and report open alerts. Personal
+  machines only; supports `--dry-run`. See
+  [Secret Protection](#secret-protection).
+
+## Secret Protection
+
+This repository is public and the chezmoi workflow routinely copies files out
+of `$HOME`, so several layers guard against committing a secret:
+
+| Layer | Scope | Bypassable |
+|---|---|---|
+| GitHub secret scanning + push protection | per repo, server-side | no |
+| pre-commit hooks (gitleaks, private keys, large files) | per checkout, local | yes (`--no-verify`) |
+| `.gitignore` / `.chezmoiignore` | per repo, paths only | n/a - ignores paths, not content |
+
+`.chezmoiignore` only excludes known sensitive *paths* (`.keys/`, `.aws/`,
+shell history, and so on); the hooks are what inspect file *contents*. Never
+bypass them with `--no-verify` to land a secret.
+
+The hooks live in `.git/hooks`, which is per-checkout and never deployed to
+`$HOME`, so `run_once_setup-pre-commit.sh.tmpl` installs them here and seeds
+`~/.git-template` (wired up by `init.templateDir` in `.gitconfig`) so every
+repository cloned or created from then on gets them too. Checkouts that
+already existed still need `pre-commit install` once each.
+
+A personal GitHub account cannot default server-side scanning on for new
+repositories, so `bin/sweep-secret-scanning` re-enables it weekly via a
+launch agent. Both are deployed on personal machines only, and the script
+refuses to act unless the authenticated `gh` account matches `github_login`
+in `.chezmoidata/personal.yaml`, so work repositories are never touched.
+
+`docs/secret-protection.md` covers rolling this out to other repositories,
+including the husky workaround.
 
 ## How This Repository Works
 
@@ -149,7 +216,9 @@ chezmoi edit ~/.zshrc
 chezmoi apply
 
 # Commit and push
-chezmoi cd -- git add . && git commit -m "Update zshrc" && git push
+chezmoi git add .
+chezmoi git -- commit -m "Update zshrc"
+chezmoi git push
 ```
 
 ### Adding New Dotfiles
@@ -159,15 +228,26 @@ chezmoi cd -- git add . && git commit -m "Update zshrc" && git push
 chezmoi add ~/.my_new_config
 
 # Commit and push
-chezmoi cd -- git add . && git commit -m "Add new config" && git push
+chezmoi git add .
+chezmoi git -- commit -m "Add new config"
+chezmoi git push
 ```
 
 ### Machine-Local Configuration
 
-Anything machine-specific that should stay out of the repository can go in
-`~/.zsh_local`, which is sourced at the end of `.zshrc` if present. API keys
-live in `~/.keys/*.sh` files (never committed) and are loaded by
-`~/.zsh/keys.zsh`.
+Anything machine-specific that should stay out of the repository can go in:
+
+- `~/.zsh_local` - sourced at the end of `.zshrc` if present
+- `~/.config/git/local.gitconfig` - included last by `.gitconfig`, so it can
+  override anything above it; git silently ignores it when absent
+- `~/.keys/*.sh` - API keys (never committed), loaded by `~/.zsh/keys.zsh`.
+  Use `keys_add NAME` to write one without echoing the value or recording it
+  in shell history
+
+`~/.zshenv` is read by *every* zsh invocation, including non-interactive ones
+such as scp/sftp, so it stays silent and sources only a small allow-list of
+keys that must exist outside interactive shells. Everything else belongs in
+`~/.zshrc`.
 
 ## License
 
