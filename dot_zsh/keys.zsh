@@ -36,8 +36,9 @@ keys_add() {
   fi
 
   # Prompt when no value is given. Passing the value on the command line
-  # records it verbatim in ~/.zsh_history (HIST_IGNORE_SPACE is not set), so
-  # the prompt is the safer path.
+  # records it verbatim in ~/.zsh_history unless the whole command was typed
+  # with a leading space (HIST_IGNORE_SPACE, set in .zshrc). The prompt is the
+  # safer path because it does not depend on remembering that space.
   if [[ -z "${key_value}" ]]; then
     read -rs "key_value?Value for ${key_name}: "
     echo
