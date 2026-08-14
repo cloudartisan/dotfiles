@@ -134,6 +134,16 @@ of `$HOME`, so two layers guard against committing secrets:
 `.chezmoiignore` only excludes known sensitive *paths*; the hooks are what
 inspect file *contents*. Never bypass them with `--no-verify` to land a secret.
 
+A personal GitHub account cannot default scanning on for new repositories, so
+`bin/sweep-secret-scanning` re-enables it weekly via a launch agent. Both the
+agent and the script are personal-machine only, and the script additionally
+refuses to act unless the authenticated `gh` account matches `github_login`
+in `.chezmoidata/personal.yaml` - work repositories are never touched.
+
+**Repos using husky:** husky sets `core.hooksPath`, so git ignores
+`.git/hooks` entirely and `pre-commit install` has no effect. Bridge it by
+calling `pre-commit run` from `.husky/pre-commit` instead. See `docs/`.
+
 ## Architecture
 
 ### File Management Architecture
@@ -170,7 +180,10 @@ inspect file *contents*. Never bypass them with `--no-verify` to land a secret.
 - **.chezmoiscripts/run_once_configure-macos.sh.tmpl** - macOS settings
 - **.chezmoiscripts/run_once_setup-volta.sh.tmpl** - Volta setup and default node@lts
 - **.chezmoiscripts/run_once_setup-pre-commit.sh.tmpl** - Installs the pre-commit hooks into the source checkout
+- **.chezmoiscripts/run_onchange_load-secret-scanning-sweep.sh.tmpl** - Loads the weekly sweep launch agent (personal machines only)
 - **.pre-commit-config.yaml** - Secret-scanning hooks (gitleaks, private keys, large files)
+- **bin/sweep-secret-scanning** - Re-enables GitHub secret scanning on public repos; guards on the authenticated account
+- **Library/LaunchAgents/** - launchd agents (personal machines only, see .chezmoiignore)
 - **Brewfile** - Homebrew packages definition
 - **bin/** - Individual utility scripts for manual use
 

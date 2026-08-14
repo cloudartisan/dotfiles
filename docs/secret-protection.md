@@ -62,6 +62,33 @@ Do not commit anything until I have reviewed it. Never print a secret value,
 even one you believe is already public.
 ---
 
+## Repositories using husky
+
+husky sets `core.hooksPath` (usually to `.husky/_`), which makes git ignore
+`.git/hooks` **entirely**. In such a repository `pre-commit install` appears to
+succeed but the hook never runs, and the git template directory does not help
+either. Detect them with:
+
+```bash
+find ~/Projects -maxdepth 2 -type d -name .git | while read -r g; do
+  r="${g%/.git}"
+  hp=$(git -C "$r" config --get core.hooksPath 2>/dev/null)
+  [ -n "$hp" ] && echo "$(basename "$r"): hooksPath=$hp"
+done
+```
+
+The fix is to let husky call pre-commit, rather than fighting over the hook
+path. Add to `.husky/pre-commit`:
+
+```sh
+if command -v pre-commit >/dev/null 2>&1; then
+  pre-commit run
+fi
+```
+
+Guarding on `command -v` keeps the repository working for anyone who does not
+have pre-commit installed.
+
 ## Covering future clones automatically
 
 `pre-commit install` writes to `.git/hooks`, which is per-checkout, so it must

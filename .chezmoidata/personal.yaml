@@ -7,3 +7,8 @@
 #   [data]
 #     personal = false
 personal: true
+
+# GitHub account whose public repositories the secret-scanning sweep manages.
+# The sweep refuses to act if the authenticated gh account does not match, so
+# even if it somehow runs on a work machine it cannot touch work repositories.
+github_login: cloudartisan

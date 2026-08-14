@@ -15,6 +15,17 @@ migrate-to-chezmoi.md
 Brewfile.personal
 {{ end }}
 
+# Personal-only automation: the weekly sweep that re-enables GitHub secret
+# scanning on public repositories. Work machines are signed in to a work
+# GitHub account whose repositories are managed centrally, so neither the
+# launch agent nor the script belongs there. The script carries its own
+# account guard as well, so this is defence in depth rather than the only
+# thing standing between the sweep and a work account.
+{{ if not .personal }}
+Library/LaunchAgents/com.cloudartisan.secret-scanning-sweep.plist
+bin/sweep-secret-scanning
+{{ end }}
+
 # Shell history files
 .bash_history
 .zsh_history
