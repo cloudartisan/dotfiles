@@ -1,0 +1,29 @@
+# Local guard against committing secrets to this public repository.
+#
+# GitHub secret scanning and push protection are the primary net - they run
+# server-side and cannot be bypassed with --no-verify. These hooks are the
+# earlier, local catch, so a mistake never leaves the machine.
+#
+# Installed per checkout by .chezmoiscripts/run_once_setup-pre-commit.sh.tmpl,
+# because hooks live in .git/hooks and are not deployed to $HOME by chezmoi.
+repos:
+  - repo: https://github.com/gitleaks/gitleaks
+    rev: v8.30.1
+    hooks:
+      # gitleaks-system uses the brew-installed binary (see Brewfile) rather
+      # than compiling gitleaks from source on every machine. The hook runs
+      # with --redact, so a detected secret is never printed to the terminal.
+      #
+      # pass_filenames is overridden because upstream sets it on the gitleaks
+      # and gitleaks-docker hooks but omits it on gitleaks-system. Without it
+      # pre-commit appends the staged paths to a command that takes at most
+      # one argument, and the hook dies with "accepts at most 1 arg(s)".
+      # gitleaks finds the staged content itself via --staged.
+      - id: gitleaks-system
+        pass_filenames: false
+
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v6.0.0
+    hooks:
+      - id: detect-private-key
+      - id: check-added-large-files
