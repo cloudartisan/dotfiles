@@ -6,8 +6,12 @@ README.md
 /CLAUDE.md
 docs/
 bootstrap-chezmoi.sh
-migrate-to-chezmoi.md
 .git/
+
+# ctags index generated in the source checkout. Gitignored, so it never
+# reaches a fresh clone, but chezmoi reads the working tree rather than the
+# index and would otherwise deploy it to ~/tags.
+tags
 
 # Personal-only package list: deploy to ~ on personal machines only, so the
 # install_brew/upgrade_brew helpers can detect it. Work machines skip it.
