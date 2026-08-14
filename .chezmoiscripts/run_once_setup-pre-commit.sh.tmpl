@@ -1,0 +1,44 @@
+#!/bin/bash
+
+# Install this repository's pre-commit hooks into the chezmoi source checkout.
+#
+# Hooks live in .git/hooks, which is per-clone and never deployed to $HOME, so
+# without this step the hooks would only exist on whichever machine happened to
+# run `pre-commit install` by hand.
+#
+# The filename sorts after run_once_install-packages, so the Brewfile has
+# already provided pre-commit and gitleaks by the time this runs (the same
+# ordering trick documented in run_once_setup-volta.sh.tmpl).
+# This script runs once when chezmoi is applied.
+
+set -e
+
+src="{{ .chezmoi.sourceDir }}"
+
+# Guard: nothing to do until the Brewfile has installed pre-commit
+if ! command -v pre-commit >/dev/null 2>&1; then
+  echo "pre-commit not found on PATH; skipping (Brewfile installs it first)"
+  exit 0
+fi
+
+# Works for both layouts: a local checkout (~/Projects/dotfiles) and a
+# bootstrap clone (~/.local/share/chezmoi). Neither is guaranteed, so check.
+if [ ! -d "${src}/.git" ]; then
+  echo "chezmoi source is not a git checkout; skipping hook install"
+  exit 0
+fi
+
+if [ ! -f "${src}/.pre-commit-config.yaml" ]; then
+  echo "no .pre-commit-config.yaml in the source directory; skipping"
+  exit 0
+fi
+
+echo "==> Installing pre-commit hooks"
+
+# Subshell so the cd cannot leak into anything else chezmoi runs afterwards
+(
+  cd "${src}"
+  pre-commit install
+)
+
+echo "✓ pre-commit hooks installed in ${src}"

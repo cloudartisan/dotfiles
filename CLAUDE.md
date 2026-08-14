@@ -119,6 +119,21 @@ chezmoi update
 - Do not include emojis in commit messages
 - Do not mention Claude in commit messages
 
+### Secret Protection
+
+This repository is PUBLIC and the chezmoi workflow routinely copies files out
+of `$HOME`, so two layers guard against committing secrets:
+
+- **GitHub secret scanning and push protection** (server-side) reject a push
+  containing a recognised credential. They cannot be bypassed locally.
+- **pre-commit hooks** (`.pre-commit-config.yaml`) run gitleaks plus private-key
+  and large-file checks against staged content. Installed per checkout by
+  `.chezmoiscripts/run_once_setup-pre-commit.sh.tmpl`; run `pre-commit install`
+  by hand if a checkout is missing them.
+
+`.chezmoiignore` only excludes known sensitive *paths*; the hooks are what
+inspect file *contents*. Never bypass them with `--no-verify` to land a secret.
+
 ## Architecture
 
 ### File Management Architecture
@@ -154,6 +169,8 @@ chezmoi update
 - **.chezmoiscripts/run_once_configure-gpg.sh.tmpl** - GPG agent configuration
 - **.chezmoiscripts/run_once_configure-macos.sh.tmpl** - macOS settings
 - **.chezmoiscripts/run_once_setup-volta.sh.tmpl** - Volta setup and default node@lts
+- **.chezmoiscripts/run_once_setup-pre-commit.sh.tmpl** - Installs the pre-commit hooks into the source checkout
+- **.pre-commit-config.yaml** - Secret-scanning hooks (gitleaks, private keys, large files)
 - **Brewfile** - Homebrew packages definition
 - **bin/** - Individual utility scripts for manual use
 
