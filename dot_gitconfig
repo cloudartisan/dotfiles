@@ -56,6 +56,15 @@
 [pull]
   rebase = true
 
+[init]
+  # Seed every newly cloned or created repository with the pre-commit hook, so
+  # secret scanning is not something to remember per checkout. The generated
+  # hook passes --skip-on-missing-config, so it does nothing in repositories
+  # without a .pre-commit-config.yaml. Populated by
+  # .chezmoiscripts/run_once_setup-pre-commit.sh.tmpl; applies to clone/init
+  # only, so existing checkouts still need `pre-commit install` once.
+  templateDir = ~/.git-template
+
 # Optional machine-local include (kept last so it can override the above).
 # Absent on personal machines; git silently ignores a missing include.
 [include]

@@ -4,6 +4,7 @@
 LICENSE
 README.md
 /CLAUDE.md
+docs/
 bootstrap-chezmoi.sh
 migrate-to-chezmoi.md
 .git/

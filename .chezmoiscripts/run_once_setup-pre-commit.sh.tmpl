@@ -28,8 +28,16 @@ if [ ! -d "${src}/.git" ]; then
   exit 0
 fi
 
+# Seed the git template directory so every repository cloned or created from
+# now on gets the hook automatically. dot_gitconfig points init.templateDir
+# here. The generated hook uses --skip-on-missing-config, so it is inert in
+# repositories that have no .pre-commit-config.yaml.
+echo "==> Seeding git template directory with the pre-commit hook"
+pre-commit init-templatedir "${HOME}/.git-template" >/dev/null
+echo "✓ ${HOME}/.git-template seeded"
+
 if [ ! -f "${src}/.pre-commit-config.yaml" ]; then
-  echo "no .pre-commit-config.yaml in the source directory; skipping"
+  echo "no .pre-commit-config.yaml in the source directory; skipping hook install"
   exit 0
 fi
 
