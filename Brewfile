@@ -2,6 +2,13 @@
 # Managed by brew bundle
 
 # -----------------------------------------------------------------------------
+# Taps
+# -----------------------------------------------------------------------------
+# brew bundle processes entries in order, so taps must precede anything that
+# needs them.
+tap "gammons/tap"  # slk, the Slack TUI
+
+# -----------------------------------------------------------------------------
 # Programming Languages & Development Environments
 # -----------------------------------------------------------------------------
 brew "node", desc: "Platform built on V8 to build network applications"
@@ -77,6 +84,11 @@ cask "font-inconsolata-dz-for-powerline", desc: "Inconsolata-dz font patched for
 # Communication & Collaboration
 # -----------------------------------------------------------------------------
 cask "slack", desc: "Team communication and collaboration tool"
+# slk reads Slack's session straight out of the desktop app's profile. Keep
+# Slack on the Homebrew build: the Mac App Store build is sandboxed into
+# ~/Library/Containers, which macOS TCC makes unreadable from a terminal, and
+# slk misreports that as "never signed in".
+cask "slk", desc: "Keyboard-driven Slack TUI"
 
 # -----------------------------------------------------------------------------
 # Development Applications
