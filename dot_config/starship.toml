@@ -1,0 +1,30 @@
+# Personal starship prompt configuration.
+#
+# The shell enables starship with no config, which leaves every module on and
+# reprobes slow language runtimes on every prompt (python ~1s, java ~250ms),
+# while cloud/infra modules light up from stray env vars in directories where
+# they mean nothing. This trims the modules that add no value in a personal
+# shell and caps probe time so the slow /usr/bin/java lookup never emits a
+# "command timed out" warning.
+
+command_timeout = 1000
+
+# ~1s stall on every prompt; not worth the version readout here.
+[python]
+disabled = true
+
+# Old system ruby; cosmetic noise.
+[ruby]
+disabled = true
+
+# Fires from ambient AWS env vars even in unrelated directories.
+[aws]
+disabled = true
+
+# Shares the same cloud glyph as aws, producing a confusing second "on cloud".
+[gcloud]
+disabled = true
+
+# Shows the terraform workspace ("default") wherever tf state is detected.
+[terraform]
+disabled = true
