@@ -56,7 +56,6 @@ brew "tmux", desc: "Terminal multiplexer"
 # -----------------------------------------------------------------------------
 brew "autossh", desc: "Automatically restart SSH sessions and tunnels"
 brew "rsync", desc: "Utility that provides fast incremental file transfer"
-brew "speedtest-cli", desc: "Command-line interface for testing internet bandwidth"
 brew "wget", desc: "Internet file retriever"
 
 # -----------------------------------------------------------------------------
