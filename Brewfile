@@ -14,7 +14,6 @@ tap "gammons/tap"  # slk, the Slack TUI
 brew "node", desc: "Platform built on V8 to build network applications"
 brew "volta", desc: "JavaScript tool manager for per-project Node/npm/yarn versions"
 brew "go", desc: "Open source programming language to build simple/reliable/efficient software"
-brew "mono", desc: "Cross platform, open source .NET development framework"
 brew "openjdk", desc: "Development kit for the Java programming language"
 brew "rust", desc: "Safe, concurrent, practical language"
 brew "python3", desc: "Interpreted, interactive, object-oriented programming language"
@@ -33,6 +32,9 @@ brew "hugo", desc: "Configurable static site generator"
 # Development Tools & Utilities
 # -----------------------------------------------------------------------------
 brew "automake", desc: "Tool for generating GNU Standards-compliant Makefiles"
+# Installed by bootstrap-chezmoi.sh before this file is ever read; declared
+# here so brew bundle owns its upgrades too.
+brew "chezmoi", desc: "Manage your dotfiles across multiple machines"
 brew "cmake", desc: "Cross-platform make (required to build YouCompleteMe's ycmd)"
 cask "claude", desc: "Claude AI desktop assistant"
 brew "ctags", desc: "Reimplementation of ctags(1)"
