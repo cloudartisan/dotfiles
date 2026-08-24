@@ -11,6 +11,13 @@ if ! command -v brew &> /dev/null; then
   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 fi
 
+# slk (a Brewfile cask) lives in the third-party gammons/tap, and Homebrew
+# refuses to load casks from an untrusted tap. Tap and trust the cask up front
+# so the bundle below installs it non-interactively. Both are idempotent, and
+# trust is recorded per-machine in ~/.homebrew/trust.json.
+brew tap gammons/tap
+brew trust --cask gammons/tap/slk
+
 # Install common packages from Brewfile. --no-upgrade installs anything
 # missing but leaves already-installed packages at their current version, so
 # re-running this (or a full apply) does not silently upgrade everything.
