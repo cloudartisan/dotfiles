@@ -191,7 +191,7 @@ calling `pre-commit run` from `.husky/pre-commit` instead. See `docs/`.
 - **dot_zsh/** - Modular fragments deployed to `~/.zsh/`:
   - `homebrew.zsh` - Homebrew PATH and fpath (sourced first, before compinit)
   - `aliases.zsh`, `functions.zsh` - General aliases and functions
-  - `direnv.zsh`, `tmux.zsh`, `git.zsh`, `gh.zsh`, `vim.zsh`, `ssh.zsh`,
+  - `direnv.zsh`, `tmux.zsh`, `git.zsh`, `vim.zsh`, `ssh.zsh`,
     `gpg.zsh`, `go.zsh`, `node.zsh`, `python.zsh` - Tool-specific config
     (`node.zsh` puts Volta's shims ahead of Homebrew for per-project Node)
   - `keys.zsh` - Loads API keys from `~/.keys/*.sh` (never committed), and

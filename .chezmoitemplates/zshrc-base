@@ -29,7 +29,6 @@ source ${HOME}/.zsh/functions.zsh
 source ${HOME}/.zsh/direnv.zsh
 source ${HOME}/.zsh/tmux.zsh
 source ${HOME}/.zsh/git.zsh
-source ${HOME}/.zsh/gh.zsh
 source ${HOME}/.zsh/vim.zsh
 source ${HOME}/.zsh/ssh.zsh
 source ${HOME}/.zsh/gpg.zsh

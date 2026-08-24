@@ -1,0 +1,26 @@
+#!/bin/sh
+# chezmoi modify_ script for ~/.zshrc.
+#
+# chezmoi passes the CURRENT contents of ~/.zshrc on stdin and replaces the
+# file with whatever this script writes to stdout. We emit our canonical
+# config (the shared zshrc-base template) and then re-append, verbatim, any
+# marker-delimited blocks that external tools inject at the end of the file.
+#
+# This lets tools like devbar and aisuite keep managing their own blocks
+# (corporate NODE_EXTRA_CA_CERTS, PATH, etc.) while chezmoi stays authoritative
+# over everything else. On a machine without those tools there is nothing after
+# the base and the appended section is empty, so the output is a clean no-op.
+
+# Canonical body. Quoted heredoc delimiter => the shell does no expansion, so
+# $(...) and ${...} in the config survive literally.
+cat <<'CHEZMOI_ZSHRC_BASE_EOF'
+{{ includeTemplate "zshrc-base" -}}
+CHEZMOI_ZSHRC_BASE_EOF
+
+# Preserve tool-managed blocks. They are always appended at the end, so capture
+# from the first recognised start marker through end-of-file, byte for byte.
+# stdin is still the original file here (the heredoc above did not consume it).
+awk '
+  /^# devbar-managed-start$/ || /^# >>> aisuite >>>$/ { keep = 1 }
+  keep { print }
+'
