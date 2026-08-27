@@ -38,6 +38,7 @@
   autocorrect = 0
 [push]
   default = simple
+  autoSetupRemote = true
 [rerere]
   # Activate recording of resolved conflicts, so that identical conflict hunks can be resolved automatically
   enabled = 1
