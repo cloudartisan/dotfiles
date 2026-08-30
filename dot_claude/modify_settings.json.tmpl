@@ -1,0 +1,55 @@
+#!/bin/sh
+# chezmoi modify_ script for ~/.claude/settings.json.
+#
+# chezmoi passes the CURRENT contents of the file on stdin and replaces it
+# with whatever this script writes to stdout. Rather than shipping the whole
+# file, we set a named subset of keys and pass everything else through, the
+# way `git config` sets one key without rewriting .gitconfig.
+#
+# That split is deliberate: this repository is PUBLIC, and settings.json also
+# holds autoMode.environment, a security profile of a private project (cloud
+# project refs, CI secret names, which tables hold personal data). Those keys
+# must never reach git, so they are never named here. Anything Claude Code
+# writes for itself is passed through for the same reason.
+#
+# permissions.allow is merged as a union, never a replacement, so a permission
+# approved in a session survives the next apply, and a work machine keeps its
+# own machine-specific entries. The list therefore only grows: removing an
+# entry from .chezmoidata/claude.json does NOT remove it from a machine that
+# already has it. Prune those by hand.
+
+# Managed subset, rendered from .chezmoidata/claude.json. The quoted heredoc
+# delimiter stops the shell touching the JSON, which contains quotes and shell
+# metacharacters from the allow list.
+managed=$(cat <<'CHEZMOI_CLAUDE_MANAGED_EOF'
+{{ .claude.settings | toJson }}
+CHEZMOI_CLAUDE_MANAGED_EOF
+)
+
+# stdin is the file as it exists now, or empty on a machine that has none.
+current=$(cat)
+[ -n "$current" ] || current='{}'
+
+# jq comes from the Brewfile, which may not have run yet on a new machine.
+# Without it, leave the file exactly as found rather than mangling it.
+if ! command -v jq >/dev/null 2>&1; then
+  printf '%s\n' "$current"
+  exit 0
+fi
+
+# `*` merges recursively with the right side winning, so the managed scalars,
+# env and permissions.defaultMode are set while autoMode and every unnamed key
+# survive untouched. allow is deleted from the managed side first so the merge
+# cannot replace the local list, then set explicitly to the deduplicated union.
+merged=$(printf '%s' "$current" | jq --indent 2 --argjson m "$managed" '
+  (.permissions.allow // []) as $local
+  | . * ($m | del(.permissions.allow))
+  | .permissions.allow = ($local + $m.permissions.allow | unique)
+' 2>/dev/null)
+
+# Any jq failure (malformed file, schema surprise) leaves the file untouched.
+if [ -n "$merged" ]; then
+  printf '%s\n' "$merged"
+else
+  printf '%s\n' "$current"
+fi

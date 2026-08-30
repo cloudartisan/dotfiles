@@ -164,6 +164,16 @@ already existed still need `pre-commit install` once each.
 `.chezmoiignore` only excludes known sensitive *paths*; the hooks are what
 inspect file *contents*. Never bypass them with `--no-verify` to land a secret.
 
+`~/.claude/settings.json` is the reason `dot_claude/modify_settings.json.tmpl`
+sets keys instead of shipping the file. That file mixes portable preferences
+with `autoMode.environment`, a security profile Claude Code writes for the
+project in hand: cloud project refs, CI secret names, which files hold
+credentials, which tables hold personal data. No secret values, but not for a
+public repo. The modify_ script names only the keys that are safe to publish,
+so the rest never reaches git even as the tool keeps rewriting the file.
+`permissions.allow` merges as a union, so an entry approved on one machine is
+never deleted by an apply on another; that also means pruning is manual.
+
 A personal GitHub account cannot default scanning on for new repositories, so
 `bin/sweep-secret-scanning` re-enables it weekly via a launch agent. Both the
 agent and the script are personal-machine only, and the script additionally
@@ -233,6 +243,13 @@ calling `pre-commit run` from `.husky/pre-commit` instead. See `docs/`.
 - **dot_claude/CLAUDE.md** - The global Claude Code instructions file, deployed
   to `~/.claude/CLAUDE.md`. Not this file: `/CLAUDE.md` is repo-only and is
   excluded in `.chezmoiignore`, which otherwise ignores all of `~/.claude`.
+- **dot_claude/output-styles/Plain.md** - Output style setting the house voice
+  (lead with the answer, no filler, keep real uncertainty). Selecting it is
+  per-machine: `outputStyle` lives in settings.json, see below.
+- **dot_claude/modify_settings.json.tmpl** - Merges a named subset of keys into
+  `~/.claude/settings.json` and passes every other key through untouched
+- **.chezmoidata/claude.json** - That subset: the portable preferences and the
+  shared `permissions.allow` entries
 - **docs/** - Repository documentation, excluded from deployment
 - **bin/** - Individual utility scripts for manual use
 

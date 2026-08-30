@@ -57,6 +57,7 @@ bin/sweep-secret-scanning
 .claude/*
 !.claude/CLAUDE.md
 !.claude/output-styles
+!.claude/settings.json
 .claude.json
 .lemminx/
 .npm/
