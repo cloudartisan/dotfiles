@@ -211,6 +211,8 @@ calling `pre-commit run` from `.husky/pre-commit` instead. See `docs/`.
   and pins `sourceDir` so a non-default checkout survives re-running `init`
 - **.chezmoidata/personal.yaml** - Default for `.personal`, plus `github_login`
 - **.chezmoidata/packages.yaml** - Linux package lists per package manager
+- **.chezmoiremove** - Targets to delete from $HOME; chezmoi does not remove
+  a file just because it left the source directory
 - **.chezmoiscripts/run_once_install-packages.sh.tmpl** - Homebrew packages and cursor-agent installation
 - **.chezmoiscripts/run_once_install-ai-cli-tools.sh.tmpl** - Codex and Gemini CLI installation
 - **.chezmoiscripts/run_once_install-claude-code.sh.tmpl** - Claude Code CLI installation

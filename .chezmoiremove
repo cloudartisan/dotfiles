@@ -1,0 +1,10 @@
+# Targets to delete from the destination directory.
+#
+# chezmoi never removes a file just because it disappeared from the source
+# directory, so a deployed copy lingers on every machine that applied an
+# earlier revision. List such leftovers here to have them cleaned up on the
+# next apply. An entry can be dropped once every machine has applied a
+# revision containing it.
+
+# Deployed by the GitHub Copilot CLI wrappers removed in 3e86c10.
+.zsh/gh.zsh
