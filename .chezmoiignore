@@ -48,12 +48,15 @@ bin/sweep-secret-scanning
 # Application directories
 .cache/
 # Claude Code: everything under ~/.claude is session state, history, caches
-# and machine-local settings, so ignore it all by default. The one exception
-# is CLAUDE.md, the global instructions file, which is worth managing.
+# and machine-local settings, so ignore it all by default. Two things there
+# are worth managing: CLAUDE.md, the global instructions file, and
+# output-styles, which sets how Claude writes.
 # Note: this ignores the contents rather than the directory itself - chezmoi
-# cannot re-include a file whose parent directory is ignored.
+# cannot re-include a file whose parent directory is ignored, so
+# output-styles is re-included as a directory and the files inside it follow.
 .claude/*
 !.claude/CLAUDE.md
+!.claude/output-styles
 .claude.json
 .lemminx/
 .npm/

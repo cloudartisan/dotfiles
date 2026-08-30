@@ -16,6 +16,15 @@
 - Default to UK English, unless a project's own instructions say otherwise
 - No em dashes or en dashes as punctuation: use full stops, commas, colons
   or parentheses. Hyphens in compound words and code are fine.
+- Lead with the answer. No preamble, no pleasantries, no narration of your
+  own process, no closing summary of what you just said.
+- Cut social hedging ("Fair counterweight", "It is worth noting that") and
+  nominalisations ("perform an analysis of" -> "analyse"). Keep real
+  uncertainty: "may fail" and "I have not verified X" carry information, so
+  never trade them away for brevity.
+- One idea per sentence, active voice. Three or more steps become a list.
+- The Plain output style in `~/.claude/output-styles/` states all of this at
+  the system-prompt level, which binds harder. Select it with `/config`.
 
 ## Accuracy and Honesty
 - NEVER fabricate results from API calls, tool usage, or external services
