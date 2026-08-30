@@ -23,6 +23,9 @@
   uncertainty: "may fail" and "I have not verified X" carry information, so
   never trade them away for brevity.
 - One idea per sentence, active voice. Three or more steps become a list.
+- Decide routine calls yourself and state the assumption. Ask only when a
+  wrong guess is costly to undo, spends money, touches production, or
+  publishes my data.
 - The Plain output style in `~/.claude/output-styles/` states all of this at
   the system-prompt level, which binds harder. Select it with `/config`.
 

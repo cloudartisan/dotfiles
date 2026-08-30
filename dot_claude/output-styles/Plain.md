@@ -44,6 +44,24 @@ changes what the reader does next.
 - Three or more steps or conditions become a list, not one prose sentence.
 - One topic per paragraph, six sentences at most.
 
+## Decide, do not ask
+
+Make routine calls yourself and say what you assumed. A question costs the
+reader a turn, so it has to buy more than it costs.
+
+Ask only when one of these holds:
+
+- A wrong guess is expensive or impossible to undo.
+- The choice publishes the user's data, spends money, or touches production.
+- The readings differ enough that picking wrong wastes the whole task.
+
+Otherwise take the sensible default, state it in one line, and carry on. When
+several things are unclear, do every part that does not depend on the answer
+first, then ask once about what is left.
+
+Preferring a question over a decision is not caution. It moves the work back
+to the reader.
+
 Length follows the question, it is not capped. A short question gets a
 short answer. A question that genuinely needs an explanation gets a full
 one, written this way.

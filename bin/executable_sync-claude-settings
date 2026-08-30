@@ -1,0 +1,82 @@
+#!/bin/sh
+# Promote the portable parts of ~/.claude/settings.json into this repository,
+# where dot_claude/modify_settings.json.tmpl merges them back on every machine.
+#
+# Permissions approved during a session land in the local settings.json and
+# stop there, because the modify_ script only ever adds to that file and never
+# reads from it. Run this after approving something worth sharing.
+#
+# Only the keys listed below are published. Everything else stays local, which
+# is the point: settings.json also holds autoMode.environment, a security
+# profile of whatever project Claude Code last worked in (cloud project refs,
+# CI secret names, which tables hold personal data), and this repository is
+# public.
+#
+# Allow entries are filtered again on the way out, so a credential pasted into
+# a command, or a path under another machine's username, cannot reach git even
+# if it is sitting in the local file.
+
+set -e
+
+settings="${HOME}/.claude/settings.json"
+
+if [ ! -f "$settings" ]; then
+  echo "no ${settings} to sync" >&2
+  exit 1
+fi
+
+if ! command -v jq >/dev/null 2>&1; then
+  echo "jq is required (brew install jq)" >&2
+  exit 1
+fi
+
+# Write into the chezmoi source directory, wherever this machine keeps it.
+source_dir=$(chezmoi source-path)
+target="${source_dir}/.chezmoidata/claude.json"
+
+# An allow entry is portable unless it carries a credential or names a home
+# directory that is not this machine's.
+filtered=$(jq --arg me "$(id -un)" '
+  def portable:
+    (test("eyJ[A-Za-z0-9_-]{10,}") | not)                 # a JWT
+    and (test("apikey|Bearer |[?&]token=";"i") | not)     # a header or query token
+    and ((test("/Users/") and (test("/Users/" + $me + "/") | not)) | not);
+  {
+    claude: {
+      settings: {
+        env: .env,
+        permissions: {
+          defaultMode: .permissions.defaultMode,
+          allow: [.permissions.allow[] | select(portable)] | unique
+        },
+        alwaysThinkingEnabled: .alwaysThinkingEnabled,
+        effortLevel: .effortLevel,
+        tui: .tui,
+        outputStyle: .outputStyle,
+        autoMemoryEnabled: .autoMemoryEnabled,
+        autoDreamEnabled: .autoDreamEnabled,
+        remoteControlAtStartup: .remoteControlAtStartup,
+        inputNeededNotifEnabled: .inputNeededNotifEnabled,
+        agentPushNotifEnabled: .agentPushNotifEnabled
+      }
+    }
+  }' "$settings")
+
+# Report what was held back, so a dropped entry is never a silent surprise.
+dropped=$(printf '%s' "$filtered" | jq -r --slurpfile all "$settings" '
+  ($all[0].permissions.allow - .claude.settings.permissions.allow)[]' 2>/dev/null || true)
+
+printf '%s\n' "$filtered" > "$target"
+
+before=$(jq '.permissions.allow | length' "$settings")
+after=$(printf '%s' "$filtered" | jq '.claude.settings.permissions.allow | length')
+echo "wrote ${target}"
+echo "  allow entries: ${after} published, ${before} local"
+
+if [ -n "$dropped" ]; then
+  echo "  held back as non-portable:"
+  printf '%s\n' "$dropped" | sed 's/^/    /' | cut -c1-100
+fi
+
+echo
+echo "Review the diff, then commit. 'chezmoi apply' merges it back."

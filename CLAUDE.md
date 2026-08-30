@@ -250,6 +250,10 @@ calling `pre-commit run` from `.husky/pre-commit` instead. See `docs/`.
   `~/.claude/settings.json` and passes every other key through untouched
 - **.chezmoidata/claude.json** - That subset: the portable preferences and the
   shared `permissions.allow` entries
+- **bin/sync-claude-settings** - Regenerates `.chezmoidata/claude.json` from
+  the local `~/.claude/settings.json`, dropping credentials and other machines'
+  home paths. Run it after approving a permission worth sharing; `chezmoi
+  apply` carries it the other way.
 - **docs/** - Repository documentation, excluded from deployment
 - **bin/** - Individual utility scripts for manual use
 
