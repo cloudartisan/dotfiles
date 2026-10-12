@@ -49,6 +49,7 @@ filtered=$(jq --arg me "$(id -un)" '
           defaultMode: .permissions.defaultMode,
           allow: [.permissions.allow[] | select(portable)] | unique
         },
+        attribution: .attribution,
         alwaysThinkingEnabled: .alwaysThinkingEnabled,
         effortLevel: .effortLevel,
         tui: .tui,
