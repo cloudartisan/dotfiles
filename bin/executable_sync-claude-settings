@@ -58,7 +58,8 @@ filtered=$(jq --arg me "$(id -un)" '
         autoDreamEnabled: .autoDreamEnabled,
         remoteControlAtStartup: .remoteControlAtStartup,
         inputNeededNotifEnabled: .inputNeededNotifEnabled,
-        agentPushNotifEnabled: .agentPushNotifEnabled
+        agentPushNotifEnabled: .agentPushNotifEnabled,
+        syncClaudeAiPlugins: .syncClaudeAiPlugins
       }
     }
   }' "$settings")
