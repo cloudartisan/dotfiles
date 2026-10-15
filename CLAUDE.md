@@ -240,9 +240,13 @@ calling `pre-commit run` from `.husky/pre-commit` instead. See `docs/`.
 - **Library/LaunchAgents/** - launchd agents (personal machines only, see .chezmoiignore)
 - **Brewfile** - Homebrew packages definition
 - **Brewfile.personal** - Personal-only packages, gated on `.personal`
-- **dot_claude/CLAUDE.md** - The global Claude Code instructions file, deployed
-  to `~/.claude/CLAUDE.md`. Not this file: `/CLAUDE.md` is repo-only and is
-  excluded in `.chezmoiignore`, which otherwise ignores all of `~/.claude`.
+- **.chezmoitemplates/agents.md** - The global instructions shared by every
+  coding agent. Edit this, not the thin templates that render it:
+  `dot_claude/CLAUDE.md.tmpl` (to `~/.claude/CLAUDE.md`),
+  `dot_codex/AGENTS.md.tmpl` and `dot_gemini/GEMINI.md.tmpl`. Codex and
+  Gemini also get a Voice section, since only Claude has the Plain output
+  style. Not this file: `/CLAUDE.md` is repo-only and is excluded in
+  `.chezmoiignore`, which otherwise ignores all of `~/.claude`.
 - **dot_claude/output-styles/Plain.md** - Output style setting the house voice
   (lead with the answer, no filler, keep real uncertainty). Selecting it is
   per-machine: `outputStyle` lives in settings.json, see below.
