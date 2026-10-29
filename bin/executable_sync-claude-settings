@@ -59,7 +59,8 @@ filtered=$(jq --arg me "$(id -un)" '
         remoteControlAtStartup: .remoteControlAtStartup,
         inputNeededNotifEnabled: .inputNeededNotifEnabled,
         agentPushNotifEnabled: .agentPushNotifEnabled,
-        syncClaudeAiPlugins: .syncClaudeAiPlugins
+        syncClaudeAiPlugins: .syncClaudeAiPlugins,
+        skillOverrides: .skillOverrides
       }
     }
   }' "$settings")
