@@ -41,8 +41,14 @@ fi
 # env and permissions.defaultMode are set while autoMode and every unnamed key
 # survive untouched. allow is deleted from the managed side first so the merge
 # cannot replace the local list, then set explicitly to the deduplicated union.
+#
+# The merge can only set keys, so a key this repository used to manage would
+# outlive its removal from claude.json. The first line deletes those. Blank
+# attribution.commit and attribution.pr hid Claude Code's default co-author
+# trailer and PR footer; deleting them brings the defaults back.
 merged=$(printf '%s' "$current" | jq --indent 2 --argjson m "$managed" '
-  (.permissions.allow // []) as $local
+  del(.attribution.commit, .attribution.pr)
+  | (.permissions.allow // []) as $local
   | . * ($m | del(.permissions.allow))
   | .permissions.allow = ($local + $m.permissions.allow | unique)
 ' 2>/dev/null)

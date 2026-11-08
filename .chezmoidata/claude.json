@@ -102,8 +102,6 @@
         ]
       },
       "attribution": {
-        "commit": "",
-        "pr": "",
         "sessionUrl": false
       },
       "alwaysThinkingEnabled": true,
