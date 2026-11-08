@@ -1,0 +1,66 @@
+#!/bin/bash
+
+# Install AI CLI tools so that each one's built-in updater works.
+# This script runs once when chezmoi is applied. The after_ prefix runs it
+# after the other scripts, because Gemini needs Volta from the Brewfile.
+
+set -e
+
+echo "==> Installing AI CLI tools"
+
+# ~/.local/bin must be on the PATH or the Codex installer edits ~/.zprofile.
+# ~/.zshrc adds that directory for interactive shells.
+export PATH="$HOME/.local/bin:/opt/homebrew/bin:/usr/local/bin:$PATH"
+
+# Older versions of this script used Homebrew's npm. Those copies shadow the
+# current installs, and their updaters write somewhere else.
+remove_npm_copy() {
+  for prefix in /opt/homebrew /usr/local; do
+    [ -d "$prefix/lib/node_modules/$1" ] || continue
+    [ -x "$prefix/bin/npm" ] || continue
+    "$prefix/bin/npm" uninstall -g "$1" \
+      || echo "  Warning: Failed to remove $1 from $prefix"
+  done
+}
+
+# Codex: standalone installer. Under Volta its updater runs `npm install -g`,
+# which misses the copy on the PATH.
+echo "Installing OpenAI Codex CLI..."
+remove_npm_copy @openai/codex
+if codex_installer=$(curl -fsSL https://chatgpt.com/codex/install.sh) \
+  && printf '%s' "$codex_installer" | CODEX_NON_INTERACTIVE=1 sh; then
+  echo "  Codex CLI installed successfully"
+else
+  echo "  Warning: Failed to install Codex CLI"
+fi
+
+# Gemini: Volta. It has no standalone installer, its Homebrew formula is
+# deprecated, and its updater runs `volta install` when installed this way.
+echo "Installing Google Gemini CLI..."
+if command -v volta >/dev/null 2>&1; then
+  remove_npm_copy @google/gemini-cli
+  if volta install @google/gemini-cli; then
+    echo "  Gemini CLI installed successfully"
+  else
+    echo "  Warning: Failed to install Gemini CLI"
+  fi
+else
+  echo "  Warning: volta not found; skipping Gemini CLI"
+fi
+
+# Verify at the install locations, as the caller's PATH may not include them
+echo ""
+echo "Verifying installations..."
+
+for tool_path in "$HOME/.local/bin/codex" "$HOME/.volta/bin/gemini"; do
+  tool=$(basename "$tool_path")
+  if [ -x "$tool_path" ]; then
+    version=$("$tool_path" --version 2>/dev/null || echo "unknown")
+    echo "  $tool: installed ($version) at $tool_path"
+  else
+    echo "  $tool: not found at $tool_path"
+  fi
+done
+
+echo ""
+echo "AI CLI tools installation complete"

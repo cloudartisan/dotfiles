@@ -117,7 +117,7 @@ Handy aliases (defined in `~/.zsh/aliases.zsh`): `cz`, `cza` (apply),
 ## Automated Setup Scripts
 
 - **run_once_install-packages.sh.tmpl** - Installs Homebrew, all Brewfile packages, and Cursor Agent CLI
-- **run_once_install-ai-cli-tools.sh.tmpl** - Installs Codex and Gemini CLIs via npm
+- **run_once_after_install-ai-cli-tools.sh.tmpl** - Installs Codex with its standalone installer and the Gemini CLI with Volta, so their built-in updaters work
 - **run_once_install-claude-code.sh.tmpl** - Installs Claude Code CLI via the official installer
 - **run_once_setup-vim.sh.tmpl** - Configures Vim with plugins from the dotvim repository
 - **run_once_setup-tmux-plugins.sh.tmpl** - Installs TPM and the plugins listed in `.tmux.conf`
