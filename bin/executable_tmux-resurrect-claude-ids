@@ -1,0 +1,44 @@
+#!/usr/bin/env bash
+# tmux-resurrect post-save-layout hook.
+#
+# Rewrites the saved command of each pane running Claude Code to
+# "claude --resume <session-id>", so a restore reopens the same conversation
+# instead of starting an empty one.
+#
+# Claude Code records each running session in ~/.claude/sessions/<pid>.json,
+# including its sessionId and the tmux pane it runs in ("tmux":"0:@0.%0").
+#
+# Wired up in ~/.tmux.conf with:
+#   set -g @resurrect-hook-post-save-layout "$HOME/bin/tmux-resurrect-claude-ids"
+set -u
+
+save_file="${1:?usage: $0 <resurrect-save-file>}"
+sessions_dir="${HOME}/.claude/sessions"
+[ -f "$save_file" ] && [ -d "$sessions_dir" ] || exit 0
+
+map="$(mktemp)"
+trap 'rm -f "$map" "$map.new"' EXIT
+
+# Build "session<TAB>window<TAB>pane<TAB>claude-session-id" lines.
+for f in "$sessions_dir"/*.json; do
+  [ -e "$f" ] || continue
+  pid="$(plutil -extract pid raw -o - "$f" 2>/dev/null)" || continue
+  kill -0 "$pid" 2>/dev/null || continue
+  session_id="$(plutil -extract sessionId raw -o - "$f" 2>/dev/null)" || continue
+  pane_ref="$(plutil -extract tmux raw -o - "$f" 2>/dev/null)" || continue
+  pane_id="%${pane_ref##*%}"
+  location="$(tmux display-message -p -t "$pane_id" \
+    '#{session_name}	#{window_index}	#{pane_index}' 2>/dev/null)" || continue
+  printf '%s\t%s\n' "$location" "$session_id" >> "$map"
+done
+
+[ -s "$map" ] || exit 0
+
+# Save file pane lines: $2 session, $3 window index, $6 pane index,
+# $11 full command prefixed with ":".
+awk 'BEGIN { FS = OFS = "\t" }
+  NR == FNR { ids[$1 FS $2 FS $3] = $4; next }
+  $1 == "pane" && ($2 FS $3 FS $6) in ids && $11 ~ /^:claude( |$)/ {
+    $11 = ":claude --resume " ids[$2 FS $3 FS $6]
+  }
+  { print }' "$map" "$save_file" > "$map.new" && cat "$map.new" > "$save_file"
